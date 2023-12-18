@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="本文搬运自本人知乎，原文链接为:  https:&#x2F;&#x2F;zhuanlan.zhihu.com&#x2F;p&#x2F;627529870  常数项级数从正项级数的收敛判定到任意项级数的收敛判定正项级数的收敛判定（8种方法）如下： 1.定义法；2.柯西收敛；3.前n项部分和有上界；4.比较判别法；5.比较判别法（极限版本）（+p级数&#x3D;阶估法）；6.比值（达朗贝尔）判别法；7.积分判别法；8.柯西根值. 任意项级">
+<meta property="og:type" content="article">
+<meta property="og:title" content="calculus">
+<meta property="og:url" content="https://passer1202.github.io/2023/12/19/calculus/index.html">
+<meta property="og:site_name" content="Passer&#39;s Homepage">
+<meta property="og:description" content="本文搬运自本人知乎，原文链接为:  https:&#x2F;&#x2F;zhuanlan.zhihu.com&#x2F;p&#x2F;627529870  常数项级数从正项级数的收敛判定到任意项级数的收敛判定正项级数的收敛判定（8种方法）如下： 1.定义法；2.柯西收敛；3.前n项部分和有上界；4.比较判别法；5.比较判别法（极限版本）（+p级数&#x3D;阶估法）；6.比值（达朗贝尔）判别法；7.积分判别法；8.柯西根值. 任意项级">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2023-12-18T16:16:00.000Z">
+<meta property="article:modified_time" content="2023-12-18T16:44:20.951Z">
+<meta property="article:author" content="Passer">
+<meta property="article:tag" content="notes">
+<meta name="twitter:card" content="summary">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>calculus</title>
+    <!-- async scripts -->
+    <!-- Google Analytics -->
+
+
+    <!-- Umami Analytics -->
+
+
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
+		<script type="text/x-mathjax-config">
+		  MathJax.Hub.Config({
+			tex2jax: {
+			  skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+			  inlineMath: [['$','$']]
+			}
+		  });
+		</script>
+		<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML' async></script>
+	
+<meta name="generator" content="Hexo 7.0.0"></head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="目录"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="目录"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="顶部" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa-solid fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">首页</a></li><!--
+     --><!--
+       --><li><a href="/about/">关于</a></li><!--
+     --><!--
+       --><li><a href="/archives/">归档</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="https://github.com/Passer1202">项目</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        
+        <li><a class="icon" aria-label="下一篇" href="/2023/12/04/hello-world/"><i class="fa-solid fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="返回顶部" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="分享文章" href="#"><i class="fa-solid fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">上一篇</span>
+      <span id="i-next" class="info" style="display:none;">下一篇</span>
+      <span id="i-top" class="info" style="display:none;">返回顶部</span>
+      <span id="i-share" class="info" style="display:none;">分享文章</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://passer1202.github.io/2023/12/19/calculus/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://passer1202.github.io/2023/12/19/calculus/&text=calculus"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://passer1202.github.io/2023/12/19/calculus/&title=calculus"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://passer1202.github.io/2023/12/19/calculus/&is_video=false&description=calculus"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=calculus&body=Check out this article: https://passer1202.github.io/2023/12/19/calculus/"><i class="fa-solid fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://passer1202.github.io/2023/12/19/calculus/&title=calculus"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://passer1202.github.io/2023/12/19/calculus/&title=calculus"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://passer1202.github.io/2023/12/19/calculus/&title=calculus"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://passer1202.github.io/2023/12/19/calculus/&title=calculus"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://passer1202.github.io/2023/12/19/calculus/&name=calculus&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://passer1202.github.io/2023/12/19/calculus/&t=calculus"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    
+    
+      <div id="toc">
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%B8%B8%E6%95%B0%E9%A1%B9%E7%BA%A7%E6%95%B0"><span class="toc-number">1.</span> <span class="toc-text">常数项级数</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%8E%E6%AD%A3%E9%A1%B9%E7%BA%A7%E6%95%B0%E7%9A%84%E6%94%B6%E6%95%9B%E5%88%A4%E5%AE%9A%E5%88%B0%E4%BB%BB%E6%84%8F%E9%A1%B9%E7%BA%A7%E6%95%B0%E7%9A%84%E6%94%B6%E6%95%9B%E5%88%A4%E5%AE%9A"><span class="toc-number">1.1.</span> <span class="toc-text">从正项级数的收敛判定到任意项级数的收敛判定</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%AD%A3%E9%A1%B9%E7%BA%A7%E6%95%B0%E7%9A%84%E6%94%B6%E6%95%9B%E5%88%A4%E5%AE%9A%EF%BC%888%E7%A7%8D%E6%96%B9%E6%B3%95%EF%BC%89"><span class="toc-number">1.1.1.</span> <span class="toc-text">正项级数的收敛判定（8种方法）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%BB%E6%84%8F%E9%A1%B9%E7%BA%A7%E6%95%B0%E7%9A%84%E6%94%B6%E6%95%9B%E5%88%A4%E5%AE%9A%EF%BC%886%E7%A7%8D%E6%96%B9%E6%B3%95%EF%BC%89"><span class="toc-number">1.1.2.</span> <span class="toc-text">任意项级数的收敛判定（6种方法）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%AD%A3%E9%83%A8%E7%BA%A7%E6%95%B0-%E8%B4%9F%E9%83%A8%E7%BA%A7%E6%95%B0"><span class="toc-number">1.1.3.</span> <span class="toc-text">正部级数&amp;负部级数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BB%9D%E5%AF%B9%E6%94%B6%E6%95%9B%E4%B8%8E%E6%9D%A1%E4%BB%B6%E6%94%B6%E6%95%9B"><span class="toc-number">1.1.4.</span> <span class="toc-text">绝对收敛与条件收敛</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%98%BF%E8%B4%9D%E5%B0%94%E5%8F%98%E6%8D%A2%EF%BC%88%E5%87%A0%E4%BD%95%E7%9B%B4%E8%A7%82%EF%BC%89"><span class="toc-number">1.1.5.</span> <span class="toc-text">阿贝尔变换（几何直观）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BF%AA%E5%88%A9%E5%85%8B%E9%9B%B7%E5%88%A4%E5%88%AB%E6%B3%95%E5%92%8C%E9%98%BF%E8%B4%9D%E5%B0%94%E5%88%A4%E5%88%AB%E6%B3%95"><span class="toc-number">1.1.6.</span> <span class="toc-text">迪利克雷判别法和阿贝尔判别法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BA%A4%E9%94%99%E7%BA%A7%E6%95%B0"><span class="toc-number">1.1.7.</span> <span class="toc-text">交错级数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BA%A4%E9%94%99%E7%BA%A7%E6%95%B0%E7%9A%84%E8%8E%B1%E5%B8%83%E5%B0%BC%E8%8C%A8%E5%88%A4%E5%88%AB%E6%B3%95"><span class="toc-number">1.1.8.</span> <span class="toc-text">交错级数的莱布尼茨判别法</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%87%A0%E9%81%93%E4%BE%8B%E9%A2%98"><span class="toc-number">1.2.</span> <span class="toc-text">几道例题:</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%B9%BF%E4%B9%89%E7%A7%AF%E5%88%86"><span class="toc-number">2.</span> <span class="toc-text">广义积分</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%9B%E6%95%A3%E6%80%A7%E7%9A%84%E5%88%A4%E5%AE%9A"><span class="toc-number">2.1.</span> <span class="toc-text">敛散性的判定</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BF%AA%E5%88%A9%E5%85%8B%E9%9B%B7%E5%88%A4%E5%88%AB%E6%B3%95"><span class="toc-number">2.2.</span> <span class="toc-text">迪利克雷判别法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#TIPS"><span class="toc-number">2.3.</span> <span class="toc-text">TIPS</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%87%A0%E9%81%93%E4%BE%8B%E9%A2%98-1"><span class="toc-number">2.4.</span> <span class="toc-text">几道例题</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%87%BD%E6%95%B0%E9%A1%B9%E7%BA%A7%E6%95%B0"><span class="toc-number">3.</span> <span class="toc-text">函数项级数</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E4%BA%9B%E6%A6%82%E5%BF%B5"><span class="toc-number">3.1.</span> <span class="toc-text">一些概念</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E5%8F%A5%E8%AF%9D"><span class="toc-number">3.2.</span> <span class="toc-text">一句话</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B9%82%E7%BA%A7%E6%95%B0"><span class="toc-number">3.3.</span> <span class="toc-text">幂级数</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%98%BF%E8%B4%9D%E5%B0%94%E7%AC%AC%E4%B8%80%E5%AE%9A%E7%90%86%EF%BC%88%E4%BB%8E%E6%94%B6%E6%95%9B%E5%88%B0%E7%BB%9D%E5%AF%B9%E6%94%B6%E6%95%9B%EF%BC%89"><span class="toc-number">3.3.1.</span> <span class="toc-text">阿贝尔第一定理（从收敛到绝对收敛）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%94%B6%E6%95%9B%E5%8D%8A%E5%BE%84%E7%9A%84%E5%AD%98%E5%9C%A8%E6%80%A7"><span class="toc-number">3.3.2.</span> <span class="toc-text">收敛半径的存在性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B1%82%E6%94%B6%E6%95%9B%E5%8D%8A%E5%BE%84"><span class="toc-number">3.3.3.</span> <span class="toc-text">求收敛半径</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#TIPS-1"><span class="toc-number">3.3.4.</span> <span class="toc-text">TIPS</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%80%E9%81%93%E4%BE%8B%E9%A2%98"><span class="toc-number">3.3.5.</span> <span class="toc-text">一道例题</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E8%87%B4%E6%94%B6%E6%95%9B%E5%87%BD%E6%95%B0%E9%A1%B9%E7%BA%A7%E6%95%B0%E7%9A%84%E5%88%86%E6%9E%90%E6%80%A7%E8%B4%A8"><span class="toc-number">3.4.</span> <span class="toc-text">一致收敛函数项级数的分析性质</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%80%E8%87%B4%E6%94%B6%E6%95%9B"><span class="toc-number">3.4.1.</span> <span class="toc-text">一致收敛</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%9B%B4%E8%A7%82"><span class="toc-number">3.4.1.1.</span> <span class="toc-text">直观</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%9A%E4%B9%89"><span class="toc-number">3.4.1.2.</span> <span class="toc-text">定义</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%A4%E5%AE%9A"><span class="toc-number">3.4.1.3.</span> <span class="toc-text">判定</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%B3%E4%BA%8E%E8%BF%9E%E7%BB%AD%E6%80%A7"><span class="toc-number">3.4.2.</span> <span class="toc-text">关于连续性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%80%90%E9%A1%B9%E6%B1%82%E7%A7%AF%E5%88%86"><span class="toc-number">3.4.3.</span> <span class="toc-text">逐项求积分</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%80%90%E9%A1%B9%E6%B1%82%E5%AF%BC"><span class="toc-number">3.4.4.</span> <span class="toc-text">逐项求导</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%86%85%E9%97%AD%E4%B8%80%E8%87%B4%E6%94%B6%E6%95%9B"><span class="toc-number">3.4.5.</span> <span class="toc-text">内闭一致收敛</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B9%82%E7%BA%A7%E6%95%B0%E7%9A%84%E5%88%86%E6%9E%90%E6%80%A7%E8%B4%A8"><span class="toc-number">3.5.</span> <span class="toc-text">幂级数的分析性质</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%98%BF%E8%B4%9D%E5%B0%94%E7%AC%AC%E4%BA%8C%E5%AE%9A%E7%90%86"><span class="toc-number">3.5.1.</span> <span class="toc-text">阿贝尔第二定理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B9%82%E7%BA%A7%E6%95%B0%E7%9A%84%E5%88%86%E6%9E%90%E6%80%A7%E8%B4%A8-1"><span class="toc-number">3.5.2.</span> <span class="toc-text">幂级数的分析性质</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%87%BD%E6%95%B0%E7%9A%84%E5%B9%82%E7%BA%A7%E6%95%B0%E5%B1%95%E5%BC%80"><span class="toc-number">3.6.</span> <span class="toc-text">函数的幂级数展开</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%87%BD%E6%95%B0%E5%B9%82%E7%BA%A7%E6%95%B0%E5%B1%95%E5%BC%80%E7%9A%84%E5%AD%98%E5%9C%A8%E5%94%AF%E4%B8%80%E6%80%A7"><span class="toc-number">3.6.1.</span> <span class="toc-text">函数幂级数展开的存在唯一性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9F%BA%E6%9C%AC%E5%B1%95%E5%BC%80%E5%BC%8F"><span class="toc-number">3.6.2.</span> <span class="toc-text">基本展开式</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%90%AB%E5%8F%82%E7%A7%AF%E5%88%86"><span class="toc-number">4.</span> <span class="toc-text">含参积分</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%90%AB%E5%8F%82%E5%B8%B8%E4%B9%89%E7%A7%AF%E5%88%86"><span class="toc-number">4.1.</span> <span class="toc-text">含参常义积分</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BF%9E%E7%BB%AD%E6%80%A7"><span class="toc-number">4.1.1.</span> <span class="toc-text">连续性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%A7%AF%E5%88%86%E5%8F%B7%E4%B8%8B%E6%B1%82%E5%AF%BC"><span class="toc-number">4.1.2.</span> <span class="toc-text">积分号下求导</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%A7%AF%E5%88%86%E6%8D%A2%E5%BA%8F"><span class="toc-number">4.1.3.</span> <span class="toc-text">积分换序</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%90%AB%E5%8F%82%E5%B9%BF%E4%B9%89%E7%A7%AF%E5%88%86"><span class="toc-number">4.2.</span> <span class="toc-text">含参广义积分</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%80%E8%87%B4%E6%94%B6%E6%95%9B-1"><span class="toc-number">4.2.1.</span> <span class="toc-text">一致收敛</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#M%E5%88%A4%E5%88%AB%E6%B3%95"><span class="toc-number">4.2.2.</span> <span class="toc-text">M判别法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%86%E6%9E%90%E6%80%A7%E8%B4%A8"><span class="toc-number">4.2.3.</span> <span class="toc-text">分析性质</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Gamma-%E5%87%BD%E6%95%B0%E5%92%8C-B%E5%87%BD%E6%95%B0"><span class="toc-number">4.3.</span> <span class="toc-text">$\Gamma$函数和 B函数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%82%85%E9%87%8C%E5%8F%B6%E7%BA%A7%E6%95%B0"><span class="toc-number">4.4.</span> <span class="toc-text">傅里叶级数</span></a></li></ol></li></ol>
+      </div>
+    
+  </span>
+</div>
+
+    
+    <div class="content index py4 ">
+        
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle p-name" itemprop="name headline">
+        calculus
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author p-author h-card" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span class="p-name" itemprop="name">Passer</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2023-12-18T16:16:00.000Z" class="dt-published" itemprop="datePublished">2023-12-19</time>
+        
+      
+    </div>
+
+
+      
+
+      
+    <div class="article-tag">
+        <i class="fa-solid fa-tag"></i>
+        <a class="p-category" href="/tags/notes/" rel="tag">notes</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content e-content" itemprop="articleBody">
+    <blockquote>
+<p>本文搬运自本人知乎，原文链接为:  <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/627529870">https://zhuanlan.zhihu.com/p/627529870</a></p>
+</blockquote>
+<h1 id="常数项级数"><a href="#常数项级数" class="headerlink" title="常数项级数"></a>常数项级数</h1><h2 id="从正项级数的收敛判定到任意项级数的收敛判定"><a href="#从正项级数的收敛判定到任意项级数的收敛判定" class="headerlink" title="从正项级数的收敛判定到任意项级数的收敛判定"></a>从正项级数的收敛判定到任意项级数的收敛判定</h2><h3 id="正项级数的收敛判定（8种方法）"><a href="#正项级数的收敛判定（8种方法）" class="headerlink" title="正项级数的收敛判定（8种方法）"></a>正项级数的收敛判定（8种方法）</h3><p>如下：</p>
+<p>1.定义法；2.柯西收敛；3.前n项部分和有上界；4.比较判别法；5.比较判别法（极限版本）（+p级数&#x3D;阶估法）；6.比值（达朗贝尔）判别法；7.积分判别法；8.柯西根值.</p>
+<h3 id="任意项级数的收敛判定（6种方法）"><a href="#任意项级数的收敛判定（6种方法）" class="headerlink" title="任意项级数的收敛判定（6种方法）"></a>任意项级数的收敛判定（6种方法）</h3><p>如下：1.定义法；2.柯西收敛；3.绝对收敛；4.使用柯西根值或达朗贝尔判别不绝对收敛时发散;5.迪利克雷判别法和阿贝尔判别法；6.交错级数的莱布尼茨判别法.</p>
+<blockquote>
+<p>先看必要条件是否满足（通项趋于0），再看是否绝对收敛（正项级数），若</p>
+</blockquote>
+<blockquote>
+<p>不绝对收敛，再看是否发散（迪阿莱）.</p>
+</blockquote>
+<h3 id="正部级数-负部级数"><a href="#正部级数-负部级数" class="headerlink" title="正部级数&amp;负部级数"></a>正部级数&amp;负部级数</h3><p>定义：</p>
+<p>$$ a_n &#x3D; a_n^+ - a_n^- ,|a_n|&#x3D;a_n^+ + a_n^-; $$</p>
+<p>$$<br>a_n^+ &#x3D; \frac{a_n+|a_n|}{2},a_n^-&#x3D; \frac{|a_n|-a_n}{2}.<br>$$</p>
+<h3 id="绝对收敛与条件收敛"><a href="#绝对收敛与条件收敛" class="headerlink" title="绝对收敛与条件收敛"></a>绝对收敛与条件收敛</h3><p>几个定理：</p>
+<p><strong>TH1.</strong> 级数绝对收敛必然收敛.</p>
+<p><strong>TH2.</strong> 级数$\Sigma _{n&#x3D;1} ^ \infty a_n$绝对收敛的充要条件即为正部级数和负部级数均收敛.</p>
+<p><strong>TH3.</strong> 绝对收敛级数可任意更序，和不变.</p>
+<p><strong>TH4.</strong>  （黎曼定理）对于条件收敛的级数，可更换其次序使其收敛于任意给定数或以任意形式发散.</p>
+<h3 id="阿贝尔变换（几何直观）"><a href="#阿贝尔变换（几何直观）" class="headerlink" title="阿贝尔变换（几何直观）"></a>阿贝尔变换（几何直观）</h3><p>$$ \Sigma_{i&#x3D;1}^n a_ib_i&#x3D;a_nB_n -\Sigma_{i&#x3D;1}^{n-1}(a_{i+1}-a_i)B_i $$</p>
+<h3 id="迪利克雷判别法和阿贝尔判别法"><a href="#迪利克雷判别法和阿贝尔判别法" class="headerlink" title="迪利克雷判别法和阿贝尔判别法"></a>迪利克雷判别法和阿贝尔判别法</h3><p>前提条件：</p>
+<p>$$<br>\Sigma u_n &#x3D;\Sigma a_nb_n<br>$$</p>
+<p>迪：</p>
+<p>$$ {a_n} 单调，且lim_{n\rightarrow\infty} a_n&#x3D;0  $$</p>
+<p>$$ {b_n} 的前n项部分和序列有界 $$</p>
+<p>阿：</p>
+<p>$$ {a_n} 单调有界 $$</p>
+<p>$$ {b_n} 收敛 $$</p>
+<h3 id="交错级数"><a href="#交错级数" class="headerlink" title="交错级数"></a>交错级数</h3><p>$$ \Sigma (-1)^{n+1} u_n , u_n&gt;0 $$</p>
+<h3 id="交错级数的莱布尼茨判别法"><a href="#交错级数的莱布尼茨判别法" class="headerlink" title="交错级数的莱布尼茨判别法"></a>交错级数的莱布尼茨判别法</h3><p>若$u_n\geq u_{n+1} , lim_{n\rightarrow \infty}u_n&#x3D;0$,则收敛，其和$S\leq u_1.$</p>
+<h2 id="几道例题"><a href="#几道例题" class="headerlink" title="几道例题:"></a>几道例题:</h2><blockquote>
+<p>$\Sigma\frac{(-1)^n}{\sqrt{n}-(-1)^n}$  (有理化，发散)</p>
+</blockquote>
+<blockquote>
+<p>$\Sigma sinnx$ (sin(x&#x2F;2))</p>
+</blockquote>
+<h1 id="广义积分"><a href="#广义积分" class="headerlink" title="广义积分"></a>广义积分</h1><h2 id="敛散性的判定"><a href="#敛散性的判定" class="headerlink" title="敛散性的判定"></a>敛散性的判定</h2><p>1.柯西收敛；2.比较判别法（非负）&amp;极限形式；3.阶估法（非负）（两个重要的广义积分）；4.绝对收敛定理；5.迪利克雷判别法.</p>
+<h2 id="迪利克雷判别法"><a href="#迪利克雷判别法" class="headerlink" title="迪利克雷判别法"></a>迪利克雷判别法</h2><p>$判定\int_a^{+\infty}f(x)g(x)收敛：$</p>
+<p>条件：</p>
+<p>$\int_a^xf(x)dx在[a，+\infty)上有界,g(x)在[a,+\infty)上单调且趋于零$</p>
+<p>证明：</p>
+<p>使用积分第二中值定理.</p>
+<h2 id="TIPS"><a href="#TIPS" class="headerlink" title="TIPS"></a>TIPS</h2><p>1.当$f(x)$非负且单调递减时，可以用使用积分判别法转化为判定相应级数的敛散性.</p>
+<p>2.广义积分收敛时，被积函数未必趋于零.</p>
+<p>(eg.$\int_1^{+\infty}sin(x^2)dx$).</p>
+<p>3.上下限之间只有一个奇点，多个奇点要将广义积分进行拆分.</p>
+<h2 id="几道例题-1"><a href="#几道例题-1" class="headerlink" title="几道例题"></a>几道例题</h2><blockquote>
+<p>$\int_1^{+\infty}sin(x^2)$(换元)</p>
+</blockquote>
+<blockquote>
+<p>$\int_0^{+\infty}|\frac{sinx}{x}|dx$($1.\geq\frac{sin^2x}{x};2.\int_{k\pi}^{(k+1)\pi}|\frac{sinx}{x}|dx$)</p>
+</blockquote>
+<h1 id="函数项级数"><a href="#函数项级数" class="headerlink" title="函数项级数"></a>函数项级数</h1><h2 id="一些概念"><a href="#一些概念" class="headerlink" title="一些概念"></a>一些概念</h2><p>一般项&#x2F;通项 部分和函数 收敛点 发散点 收敛域 发散域 和函数</p>
+<h2 id="一句话"><a href="#一句话" class="headerlink" title="一句话"></a>一句话</h2><p>要讨论函数项级数的收敛、发散、绝对收敛、绝对发散，只需要将$x$任意固定，再应用常数项级数的一切有关敛散性定理.</p>
+<h2 id="幂级数"><a href="#幂级数" class="headerlink" title="幂级数"></a>幂级数</h2><h3 id="阿贝尔第一定理（从收敛到绝对收敛）"><a href="#阿贝尔第一定理（从收敛到绝对收敛）" class="headerlink" title="阿贝尔第一定理（从收敛到绝对收敛）"></a>阿贝尔第一定理（从收敛到绝对收敛）</h3><p>1.如果幂级数$\Sigma a_nx^n$在点$x&#x3D;x_0(x_0\neq0)$收敛，则它在区间$|x|&lt;|x_0|$中绝对收敛；</p>
+<p>2.如果幂级数$\Sigma a_nx^n$在点$x&#x3D;x_1$发散，则在满足$|x|&gt;|x_1|$的点上都发散.</p>
+<h3 id="收敛半径的存在性"><a href="#收敛半径的存在性" class="headerlink" title="收敛半径的存在性"></a>收敛半径的存在性</h3><p>如果幂级数具有非零的收敛点与发散点，则必存在一个确定的非负数，使得当$|x|&lt;R$时，级数绝对收敛；而当$|x|&gt;R$时级数发散.</p>
+<h3 id="求收敛半径"><a href="#求收敛半径" class="headerlink" title="求收敛半径"></a>求收敛半径</h3><p>$$<br>lim_{n \rightarrow\infty}|\frac{a_n}{a_{n+1}}|<br>$$</p>
+<p>$$<br>\lim_{n \rightarrow\infty }\frac{1}{|a_n|^{\frac{1}{n}}}<br>$$</p>
+<h3 id="TIPS-1"><a href="#TIPS-1" class="headerlink" title="TIPS"></a>TIPS</h3><p>关于幂级数的很多结论都是针对标准形式的，因此会出现一些典型问题比如缺项，可换元解决，或直接依靠定义讨论.</p>
+<h3 id="一道例题"><a href="#一道例题" class="headerlink" title="一道例题"></a>一道例题</h3><blockquote>
+<p>证明：若$f$是$[a,+\infty)$上的单调函数，且$\int_a^{+\infty}f(x)dx$收敛，则$lim_{x\rightarrow +\infty }f(x)&#x3D;0$，且$f(x)&#x3D;o(1&#x2F;x),x\rightarrow +\infty.$</p>
+</blockquote>
+<blockquote>
+<p>思路：1.证有极限-&gt;证有界;2.证极限为0-&gt;反证;3.证高阶小量-&gt;积分中值定理&amp;夹逼.</p>
+</blockquote>
+<h2 id="一致收敛函数项级数的分析性质"><a href="#一致收敛函数项级数的分析性质" class="headerlink" title="一致收敛函数项级数的分析性质"></a>一致收敛函数项级数的分析性质</h2><h3 id="一致收敛"><a href="#一致收敛" class="headerlink" title="一致收敛"></a>一致收敛</h3><h4 id="直观"><a href="#直观" class="headerlink" title="直观"></a>直观</h4><p>收敛速度可以总体控制.</p>
+<h4 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h4><p>${f_n(x)}\rightrightarrows f(x) ,x\in I\iff\forall\epsilon&gt;0,\exists N&gt;0, n&gt;N,|f_n(x)-f(x)|&lt;\epsilon,x \in I .$</p>
+<p>${\Sigma u_n(x)}\rightrightarrows S(x) ,x\in I.$$ \iff \forall \epsilon&gt;0,\exists N&gt;0, n&gt;N,|u_1(x)+..+u_n(x)-S(x)|&lt;\epsilon,x\in I .$</p>
+<p>$\iff\forall\epsilon &gt;0, \exists N&gt;0,n&gt;N,\forall p\in N,|u_{n+1}(x)+…+u_{n+p}(x)|&lt;\epsilon ,x\in I$</p>
+<p>$\iff lim_{n\rightarrow\infty}\ sup_{x\in I}|S_n(x)-S(x)|&#x3D;0.$</p>
+<blockquote>
+<p>上确界和柯西准则在证明不一致收敛时比较好用.</p>
+</blockquote>
+<h4 id="判定"><a href="#判定" class="headerlink" title="判定"></a>判定</h4><p>M判别法:</p>
+<blockquote>
+<p>数项级数一致收敛.</p>
+</blockquote>
+<p>$$<br>对 \Sigma u_n(x),若：|u_n(x)|&lt;a_n,\forall x\in I  ; \Sigma a_n 收敛<br>$$</p>
+<p>$$<br>则 \Sigma u_n 收敛且一致收敛.<br>$$</p>
+<blockquote>
+<p>Pf.柯西收敛准则.</p>
+</blockquote>
+<p>迪利克雷判别法：</p>
+<p>若：</p>
+<p>$$ 1.对区间I上每一个固定的x,数列{a_n(x)}单调且一致趋于零; $$</p>
+<p>$$ 2.函数项级数\Sigma b_i(x)的部分和数列{B_n(x)}在I上一致有界. $$</p>
+<p>则：  </p>
+<p>$$ \Sigma a_ib_i在I上一致收敛. $$</p>
+<p>阿贝尔判别法:</p>
+<p>若:</p>
+<p>$$ 1.对区间I上每一个固定的x,数列{a_n(x)}单调且一致有界; $$</p>
+<p>$$ 2.函数项级数\Sigma b_i(x)在I上一致收敛. $$</p>
+<p>则:</p>
+<p>$$ \Sigma a_ib_i在I上一致收敛. $$</p>
+<h3 id="关于连续性"><a href="#关于连续性" class="headerlink" title="关于连续性"></a>关于连续性</h3><p>$$ 若u_n(x)(n&#x3D;1,2,…)在[a,b]上连续；\Sigma u_n(x)\rightrightarrows S(x),x\in [a,b]. $$</p>
+<p>$$ 则S(x)在[a,b]上连续. $$</p>
+<blockquote>
+<p>Pf.搭桥.$S(x)-S_n(x)$,$S_n(x)-S_n(x_0)$,$S_n(x_0)-S(x_0)$.</p>
+</blockquote>
+<blockquote>
+<p>实际上是两种极限次序的交换.</p>
+</blockquote>
+<h3 id="逐项求积分"><a href="#逐项求积分" class="headerlink" title="逐项求积分"></a>逐项求积分</h3><p>$$ 若u_n(x)(n&#x3D;1,2,…)在[a,b]上连续；\Sigma u_n(x)\rightrightarrows S(x),x\in [a,b]. $$</p>
+<p>$$ 则S(x)在[a,b]上可积，并且可逐项求积分,\int_a^b\Sigma u_n(x)dx&#x3D;\int_a^bS(x)dx&#x3D;\Sigma\int_a^b u_n(x)dx. $$</p>
+<blockquote>
+<p>Pf.$r_n(x)\rightrightarrows0$.</p>
+</blockquote>
+<h3 id="逐项求导"><a href="#逐项求导" class="headerlink" title="逐项求导"></a>逐项求导</h3><p>若：</p>
+<p>$$ 1.u_n(x)在[a,b]连续可导; $$</p>
+<p>$$ 2.\Sigma u_n(x)\rightarrow S(x),x\in [a,b]； $$</p>
+<p>$$ 3.\Sigma u_n^{‘}(x)\rightrightarrows U(x),x\in[a,b]. $$</p>
+<p>则:</p>
+<p>$$ S(x)在[a,b]上连续可导，并且可逐项求导，即S^{‘}(x)&#x3D;U(x). $$</p>
+<blockquote>
+<p>注意，以上关于连续性、逐项积分、逐项求导的讨论都是在闭区间.</p>
+</blockquote>
+<h3 id="内闭一致收敛"><a href="#内闭一致收敛" class="headerlink" title="内闭一致收敛"></a>内闭一致收敛</h3><p>若$\Sigma u_n(x)$在开区间的任意一个闭子区间都一致收敛，则成为其在区间$I$上内闭一致收敛.</p>
+<blockquote>
+<p>连续性和逐项求导可在内闭一致区间上进行推广.</p>
+</blockquote>
+<h2 id="幂级数的分析性质"><a href="#幂级数的分析性质" class="headerlink" title="幂级数的分析性质"></a>幂级数的分析性质</h2><h3 id="阿贝尔第二定理"><a href="#阿贝尔第二定理" class="headerlink" title="阿贝尔第二定理"></a>阿贝尔第二定理</h3><p>已知:</p>
+<p>$$ 幂级数\Sigma a_n x^n的收敛半径为R&gt;0  $$</p>
+<p>有:</p>
+<p>$$（1）幂级数在(-R,R)上内闭一致收敛 $$</p>
+<p>$$ （2）若在右端点R出收敛，则对\forall0&lt;\delta&lt;2R,幂级数在[-R+\delta,R]上一致收敛 $$</p>
+<p>$$ （3）左端点类似（2） $$</p>
+<blockquote>
+<p>Pf.（1）M判别法；（2）（3）阿贝尔.</p>
+</blockquote>
+<h3 id="幂级数的分析性质-1"><a href="#幂级数的分析性质-1" class="headerlink" title="幂级数的分析性质"></a>幂级数的分析性质</h3><p>和函数在收敛域内连续、可逐项积分、可逐项求导.逐项求导或求积分后收敛半径不变但端点的收敛性未必.</p>
+<p>推论：</p>
+<ul>
+<li>级数$\Sigma_{n&#x3D;1}^{\infty}na_nx^{n-1}$,$\Sigma_{n&#x3D;0}^{\infty}\frac{a_n}{n+1}x^{n+1}$,$\Sigma_0^{\infty}a_nx^n$有相同的收敛半径.</li>
+<li>幂级数$\Sigma_nx^n$的收敛半径为$R$，则在$(-R,R)$内该级数可逐项求导数任意次，逐项求积分任意次.</li>
+</ul>
+<h2 id="函数的幂级数展开"><a href="#函数的幂级数展开" class="headerlink" title="函数的幂级数展开"></a>函数的幂级数展开</h2><h3 id="函数幂级数展开的存在唯一性"><a href="#函数幂级数展开的存在唯一性" class="headerlink" title="函数幂级数展开的存在唯一性"></a>函数幂级数展开的存在唯一性</h3><p>设函数$f$在点a的邻域$U&#x3D;U(a,R)$上任意阶可导，则：</p>
+<ul>
+<li><p>$f$在$U$上可展成泰勒级数的充要条件是函数$f$所展成的泰勒公式中的余项$r_n(x)$在$U$上处处收敛于$0$.即：</p>
+<p>$$<br>f(x)&#x3D;\Sigma_{k&#x3D;0}^{\infty}\frac{f^{(k)}(a)}{k!}(x-a)^k\iff lim_{n\rightarrow\infty}r_n(x)&#x3D;0,\forall x\in U.<br>$$</p>
+</li>
+<li><p>若$f$可在$U$上展成幂级数，则这个幂级数唯一，就是$f$在点$a$的泰勒级数.</p>
+</li>
+</ul>
+<h3 id="基本展开式"><a href="#基本展开式" class="headerlink" title="基本展开式"></a>基本展开式</h3><ul>
+<li>$$ e^x&#x3D;1+x+\frac{x^2}{2!}+…+\frac{x^n}{n!}+…, (-\infty &lt;x&lt; +\infty) $$</li>
+<li>$$<br>sinx&#x3D;x-\frac{x^3}{3!}+…+(-1)^{m-1}\frac{x^{2m-1}}{(2m-1)!}+…,(-\infty &lt;x&lt; +\infty)<br>$$</li>
+<li>$$<br>cosx&#x3D;1-\frac{x}{2!}+…+(-1)^m\frac{x^{2m}}{(2m)!},(-\infty &lt;x&lt; +\infty)<br>$$</li>
+<li>$$<br>(1+x)^\mu&#x3D;1+\mu x+\frac{\mu(\mu-1)}{2!}+…+\frac{\mu(\mu-1)…(\mu-n+1)}{n!}x^n+…,(-1&lt;x&lt;1,\forall\mu)<br>$$</li>
+</ul>
+<blockquote>
+<p>1&#x2F;(1+x)和1&#x2F;(1-x)展开式很常用</p>
+</blockquote>
+<ul>
+<li>$$<br>ln(1+x)&#x3D;x-\frac{x^2}{2}+\frac{x^3}{3}+…+(-1)^{n-1}\frac{x^n}{n}+…,(-1&lt;x\leq1)<br>$$</li>
+</ul>
+<blockquote>
+<p>求一个函数的展开式的方法有二：一，利用定义直接求；二，利用求导求积分等运算和以上几个基本式子间接求出.</p>
+</blockquote>
+<h1 id="含参积分"><a href="#含参积分" class="headerlink" title="含参积分"></a>含参积分</h1><h2 id="含参常义积分"><a href="#含参常义积分" class="headerlink" title="含参常义积分"></a>含参常义积分</h2><h3 id="连续性"><a href="#连续性" class="headerlink" title="连续性"></a>连续性</h3><p>设函数$f$在$D&#x3D;{(x,y):a\leq x\leq b,y\in I}$上连续，则$\phi(y)&#x3D;\int_a^bf(x,y)dx$在$I$上连续，特别的，对$y_0\in I$，有$lim_{y\rightarrow y_0}\int_a^bf(x,y)dx&#x3D;\int_a^blim_{y\rightarrow y_0}f(x,y)dx$,即极限和积分的运算顺序可以交换.</p>
+<blockquote>
+<p>推论：设函数$f(x,y)$在$a(y)\leq b(y),y\in I$上连续，函数$a(y),b(y)$在$I$上连续，则含参变量$y$的积分</p>
+</blockquote>
+<blockquote>
+<p>\phi(y)&#x3D;\int_{a(y)}^{b(y)}f(x,y)dx</p>
+</blockquote>
+<blockquote>
+<p>在$I$上连续.</p>
+</blockquote>
+<h3 id="积分号下求导"><a href="#积分号下求导" class="headerlink" title="积分号下求导"></a>积分号下求导</h3><p>设$f$与$\frac{\partial f}{\partial y}$在$D&#x3D;{(x,y):a\leq x\leq b,y\in I}$上连续，则$\phi$在$I$上可导，且有（莱布尼茨公式）：</p>
+<p>$$<br>\phi^{‘}(y)&#x3D;\frac{d}{dy}\int_a^bf(x,y)dx&#x3D;\int_a^b\frac{\partial }{\partial y}f(x,y)dx,\forall y\in I.<br>$$</p>
+<p>设二元函数$f$与$\frac{\partial f}{\partial y}$在$D&#x3D;{(x,y):a\leq x\leq b,\alpha\leq y\leq\beta}$上连续,函数$a(y),b(y)$在$[\alpha,\beta]$上有连续导数，且$a\leq a(y)\leq b,a\leq b(y)\leq b$,则函数</p>
+<p>$$<br>\phi(y)&#x3D;\int_{a(y)}^{b(y)}f(x,y)dx<br>$$</p>
+<p>在</p>
+<p>$[\alpha,\beta]$上具有连续导数，且有</p>
+<p>$$<br>\phi^{‘}(y)&#x3D;\int_{a(y)}^{b(y)}f_y(x,y)dx+f(b(y),y)b^{‘}(y)-f(a(y),y)a^{‘}(y),y\in [\alpha,\beta]<br>$$</p>
+<h3 id="积分换序"><a href="#积分换序" class="headerlink" title="积分换序"></a>积分换序</h3><p>条件同连续性.</p>
+<h2 id="含参广义积分"><a href="#含参广义积分" class="headerlink" title="含参广义积分"></a>含参广义积分</h2><h3 id="一致收敛-1"><a href="#一致收敛-1" class="headerlink" title="一致收敛"></a>一致收敛</h3><p>$$<br>\forall\epsilon&gt;0,\exists A_0&#x3D;A_0(\epsilon)\geq a,s.t. 当A&gt;A_0,\forall y\in I,|\int_A^{+\infty}f(x,y)dx|&lt;\epsilon<br>$$</p>
+<p>$$<br>\iff lim_{A\rightarrow+\infty}sum_{y\in I}|\int^{+\infty}_Af(x,y)dx|&#x3D;0<br>$$</p>
+<p>$$<br>\iff\forall\epsilon&gt;0,\exists A_0&#x3D;A_0(\epsilon)\geq a,\forall A_2&gt;A_1&gt;A_0 有|\int^{A_2}_{A_1}f(x,y)dx|&lt;\epsilon,\forall y\in I<br>$$</p>
+<h3 id="M判别法"><a href="#M判别法" class="headerlink" title="M判别法"></a>M判别法</h3><p>条件：</p>
+<ul>
+<li>$$<br>\exists M(x),s.t. |f(x,y)|\leq M(x),\forall (x,y)\in D<br>$$</li>
+<li>$$<br>\int _a^b M(x)dx 收敛<br>$$</li>
+</ul>
+<p>结论：</p>
+<ul>
+<li>$$<br>\int_a^bf(x,y)dx 在I上一致收敛.<br>$$</li>
+</ul>
+<h3 id="分析性质"><a href="#分析性质" class="headerlink" title="分析性质"></a>分析性质</h3><p>针对连续性、积分号下求导、积分顺序交换的分析，此处略过.</p>
+<h2 id="Gamma-函数和-B函数"><a href="#Gamma-函数和-B函数" class="headerlink" title="$\Gamma$函数和 B函数"></a>$\Gamma$函数和 B函数</h2><p>了解定义域、递推关系、不同形式、两者之间的关系、余元公式.</p>
+<h2 id="傅里叶级数"><a href="#傅里叶级数" class="headerlink" title="傅里叶级数"></a>傅里叶级数</h2><p>求傅里叶级数</p>
+
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+        
+          <li><a href="/">首页</a></li>
+        
+          <li><a href="/about/">关于</a></li>
+        
+          <li><a href="/archives/">归档</a></li>
+        
+          <li><a target="_blank" rel="noopener" href="https://github.com/Passer1202">项目</a></li>
+        
+      </ul>
+    </div>
+
+    
+    
+      <div id="toc-footer" style="display: none">
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%B8%B8%E6%95%B0%E9%A1%B9%E7%BA%A7%E6%95%B0"><span class="toc-number">1.</span> <span class="toc-text">常数项级数</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%8E%E6%AD%A3%E9%A1%B9%E7%BA%A7%E6%95%B0%E7%9A%84%E6%94%B6%E6%95%9B%E5%88%A4%E5%AE%9A%E5%88%B0%E4%BB%BB%E6%84%8F%E9%A1%B9%E7%BA%A7%E6%95%B0%E7%9A%84%E6%94%B6%E6%95%9B%E5%88%A4%E5%AE%9A"><span class="toc-number">1.1.</span> <span class="toc-text">从正项级数的收敛判定到任意项级数的收敛判定</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%AD%A3%E9%A1%B9%E7%BA%A7%E6%95%B0%E7%9A%84%E6%94%B6%E6%95%9B%E5%88%A4%E5%AE%9A%EF%BC%888%E7%A7%8D%E6%96%B9%E6%B3%95%EF%BC%89"><span class="toc-number">1.1.1.</span> <span class="toc-text">正项级数的收敛判定（8种方法）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%BB%E6%84%8F%E9%A1%B9%E7%BA%A7%E6%95%B0%E7%9A%84%E6%94%B6%E6%95%9B%E5%88%A4%E5%AE%9A%EF%BC%886%E7%A7%8D%E6%96%B9%E6%B3%95%EF%BC%89"><span class="toc-number">1.1.2.</span> <span class="toc-text">任意项级数的收敛判定（6种方法）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%AD%A3%E9%83%A8%E7%BA%A7%E6%95%B0-%E8%B4%9F%E9%83%A8%E7%BA%A7%E6%95%B0"><span class="toc-number">1.1.3.</span> <span class="toc-text">正部级数&amp;负部级数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BB%9D%E5%AF%B9%E6%94%B6%E6%95%9B%E4%B8%8E%E6%9D%A1%E4%BB%B6%E6%94%B6%E6%95%9B"><span class="toc-number">1.1.4.</span> <span class="toc-text">绝对收敛与条件收敛</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%98%BF%E8%B4%9D%E5%B0%94%E5%8F%98%E6%8D%A2%EF%BC%88%E5%87%A0%E4%BD%95%E7%9B%B4%E8%A7%82%EF%BC%89"><span class="toc-number">1.1.5.</span> <span class="toc-text">阿贝尔变换（几何直观）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BF%AA%E5%88%A9%E5%85%8B%E9%9B%B7%E5%88%A4%E5%88%AB%E6%B3%95%E5%92%8C%E9%98%BF%E8%B4%9D%E5%B0%94%E5%88%A4%E5%88%AB%E6%B3%95"><span class="toc-number">1.1.6.</span> <span class="toc-text">迪利克雷判别法和阿贝尔判别法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BA%A4%E9%94%99%E7%BA%A7%E6%95%B0"><span class="toc-number">1.1.7.</span> <span class="toc-text">交错级数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BA%A4%E9%94%99%E7%BA%A7%E6%95%B0%E7%9A%84%E8%8E%B1%E5%B8%83%E5%B0%BC%E8%8C%A8%E5%88%A4%E5%88%AB%E6%B3%95"><span class="toc-number">1.1.8.</span> <span class="toc-text">交错级数的莱布尼茨判别法</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%87%A0%E9%81%93%E4%BE%8B%E9%A2%98"><span class="toc-number">1.2.</span> <span class="toc-text">几道例题:</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%B9%BF%E4%B9%89%E7%A7%AF%E5%88%86"><span class="toc-number">2.</span> <span class="toc-text">广义积分</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%9B%E6%95%A3%E6%80%A7%E7%9A%84%E5%88%A4%E5%AE%9A"><span class="toc-number">2.1.</span> <span class="toc-text">敛散性的判定</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BF%AA%E5%88%A9%E5%85%8B%E9%9B%B7%E5%88%A4%E5%88%AB%E6%B3%95"><span class="toc-number">2.2.</span> <span class="toc-text">迪利克雷判别法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#TIPS"><span class="toc-number">2.3.</span> <span class="toc-text">TIPS</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%87%A0%E9%81%93%E4%BE%8B%E9%A2%98-1"><span class="toc-number">2.4.</span> <span class="toc-text">几道例题</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%87%BD%E6%95%B0%E9%A1%B9%E7%BA%A7%E6%95%B0"><span class="toc-number">3.</span> <span class="toc-text">函数项级数</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E4%BA%9B%E6%A6%82%E5%BF%B5"><span class="toc-number">3.1.</span> <span class="toc-text">一些概念</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E5%8F%A5%E8%AF%9D"><span class="toc-number">3.2.</span> <span class="toc-text">一句话</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B9%82%E7%BA%A7%E6%95%B0"><span class="toc-number">3.3.</span> <span class="toc-text">幂级数</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%98%BF%E8%B4%9D%E5%B0%94%E7%AC%AC%E4%B8%80%E5%AE%9A%E7%90%86%EF%BC%88%E4%BB%8E%E6%94%B6%E6%95%9B%E5%88%B0%E7%BB%9D%E5%AF%B9%E6%94%B6%E6%95%9B%EF%BC%89"><span class="toc-number">3.3.1.</span> <span class="toc-text">阿贝尔第一定理（从收敛到绝对收敛）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%94%B6%E6%95%9B%E5%8D%8A%E5%BE%84%E7%9A%84%E5%AD%98%E5%9C%A8%E6%80%A7"><span class="toc-number">3.3.2.</span> <span class="toc-text">收敛半径的存在性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B1%82%E6%94%B6%E6%95%9B%E5%8D%8A%E5%BE%84"><span class="toc-number">3.3.3.</span> <span class="toc-text">求收敛半径</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#TIPS-1"><span class="toc-number">3.3.4.</span> <span class="toc-text">TIPS</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%80%E9%81%93%E4%BE%8B%E9%A2%98"><span class="toc-number">3.3.5.</span> <span class="toc-text">一道例题</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E8%87%B4%E6%94%B6%E6%95%9B%E5%87%BD%E6%95%B0%E9%A1%B9%E7%BA%A7%E6%95%B0%E7%9A%84%E5%88%86%E6%9E%90%E6%80%A7%E8%B4%A8"><span class="toc-number">3.4.</span> <span class="toc-text">一致收敛函数项级数的分析性质</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%80%E8%87%B4%E6%94%B6%E6%95%9B"><span class="toc-number">3.4.1.</span> <span class="toc-text">一致收敛</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%9B%B4%E8%A7%82"><span class="toc-number">3.4.1.1.</span> <span class="toc-text">直观</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%9A%E4%B9%89"><span class="toc-number">3.4.1.2.</span> <span class="toc-text">定义</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%A4%E5%AE%9A"><span class="toc-number">3.4.1.3.</span> <span class="toc-text">判定</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%B3%E4%BA%8E%E8%BF%9E%E7%BB%AD%E6%80%A7"><span class="toc-number">3.4.2.</span> <span class="toc-text">关于连续性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%80%90%E9%A1%B9%E6%B1%82%E7%A7%AF%E5%88%86"><span class="toc-number">3.4.3.</span> <span class="toc-text">逐项求积分</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%80%90%E9%A1%B9%E6%B1%82%E5%AF%BC"><span class="toc-number">3.4.4.</span> <span class="toc-text">逐项求导</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%86%85%E9%97%AD%E4%B8%80%E8%87%B4%E6%94%B6%E6%95%9B"><span class="toc-number">3.4.5.</span> <span class="toc-text">内闭一致收敛</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B9%82%E7%BA%A7%E6%95%B0%E7%9A%84%E5%88%86%E6%9E%90%E6%80%A7%E8%B4%A8"><span class="toc-number">3.5.</span> <span class="toc-text">幂级数的分析性质</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%98%BF%E8%B4%9D%E5%B0%94%E7%AC%AC%E4%BA%8C%E5%AE%9A%E7%90%86"><span class="toc-number">3.5.1.</span> <span class="toc-text">阿贝尔第二定理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B9%82%E7%BA%A7%E6%95%B0%E7%9A%84%E5%88%86%E6%9E%90%E6%80%A7%E8%B4%A8-1"><span class="toc-number">3.5.2.</span> <span class="toc-text">幂级数的分析性质</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%87%BD%E6%95%B0%E7%9A%84%E5%B9%82%E7%BA%A7%E6%95%B0%E5%B1%95%E5%BC%80"><span class="toc-number">3.6.</span> <span class="toc-text">函数的幂级数展开</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%87%BD%E6%95%B0%E5%B9%82%E7%BA%A7%E6%95%B0%E5%B1%95%E5%BC%80%E7%9A%84%E5%AD%98%E5%9C%A8%E5%94%AF%E4%B8%80%E6%80%A7"><span class="toc-number">3.6.1.</span> <span class="toc-text">函数幂级数展开的存在唯一性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9F%BA%E6%9C%AC%E5%B1%95%E5%BC%80%E5%BC%8F"><span class="toc-number">3.6.2.</span> <span class="toc-text">基本展开式</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%90%AB%E5%8F%82%E7%A7%AF%E5%88%86"><span class="toc-number">4.</span> <span class="toc-text">含参积分</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%90%AB%E5%8F%82%E5%B8%B8%E4%B9%89%E7%A7%AF%E5%88%86"><span class="toc-number">4.1.</span> <span class="toc-text">含参常义积分</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BF%9E%E7%BB%AD%E6%80%A7"><span class="toc-number">4.1.1.</span> <span class="toc-text">连续性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%A7%AF%E5%88%86%E5%8F%B7%E4%B8%8B%E6%B1%82%E5%AF%BC"><span class="toc-number">4.1.2.</span> <span class="toc-text">积分号下求导</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%A7%AF%E5%88%86%E6%8D%A2%E5%BA%8F"><span class="toc-number">4.1.3.</span> <span class="toc-text">积分换序</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%90%AB%E5%8F%82%E5%B9%BF%E4%B9%89%E7%A7%AF%E5%88%86"><span class="toc-number">4.2.</span> <span class="toc-text">含参广义积分</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%80%E8%87%B4%E6%94%B6%E6%95%9B-1"><span class="toc-number">4.2.1.</span> <span class="toc-text">一致收敛</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#M%E5%88%A4%E5%88%AB%E6%B3%95"><span class="toc-number">4.2.2.</span> <span class="toc-text">M判别法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%86%E6%9E%90%E6%80%A7%E8%B4%A8"><span class="toc-number">4.2.3.</span> <span class="toc-text">分析性质</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Gamma-%E5%87%BD%E6%95%B0%E5%92%8C-B%E5%87%BD%E6%95%B0"><span class="toc-number">4.3.</span> <span class="toc-text">$\Gamma$函数和 B函数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%82%85%E9%87%8C%E5%8F%B6%E7%BA%A7%E6%95%B0"><span class="toc-number">4.4.</span> <span class="toc-text">傅里叶级数</span></a></li></ol></li></ol>
+      </div>
+    
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://passer1202.github.io/2023/12/19/calculus/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://passer1202.github.io/2023/12/19/calculus/&text=calculus"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://passer1202.github.io/2023/12/19/calculus/&title=calculus"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://passer1202.github.io/2023/12/19/calculus/&is_video=false&description=calculus"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=calculus&body=Check out this article: https://passer1202.github.io/2023/12/19/calculus/"><i class="fa-solid fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://passer1202.github.io/2023/12/19/calculus/&title=calculus"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://passer1202.github.io/2023/12/19/calculus/&title=calculus"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://passer1202.github.io/2023/12/19/calculus/&title=calculus"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://passer1202.github.io/2023/12/19/calculus/&title=calculus"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://passer1202.github.io/2023/12/19/calculus/&name=calculus&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://passer1202.github.io/2023/12/19/calculus/&t=calculus"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fa-solid fa-bars fa-lg" aria-hidden="true"></i> 菜单</a>
+        
+          <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fa-solid fa-list fa-lg" aria-hidden="true"></i> 目录</a>
+        
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fa-solid fa-share-alt fa-lg" aria-hidden="true"></i> 分享</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up fa-lg" aria-hidden="true"></i> 返回顶部</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2023
+    Passer
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="/">首页</a></li><!--
+     --><!--
+       --><li><a href="/about/">关于</a></li><!--
+     --><!--
+       --><li><a href="/archives/">归档</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="https://github.com/Passer1202">项目</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script>
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script>
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"复制到粘贴板！\">";
+    btn += '<i class="fa-regular fa-clone"></i>';
+    btn += '</span>';
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "复制成功！");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Disqus Comments -->
+
+<!-- utterances Comments -->
+
+</body>
+</html>
