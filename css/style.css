@@ -419,7 +419,7 @@ body table {
   width: 100%;
   border-collapse: collapse;
   text-align: left;
-  font-size: 12px;
+  font-size: 15px;
   overflow: auto;
   display: block;
 }
@@ -428,7 +428,7 @@ body th {
   border-bottom: 1px dashed #908d8d;
   color: #eee;
   font-weight: bold;
-  font-size: 13px;
+  font-size: 16px;
 }
 body td {
   padding: 0 8px;
@@ -481,7 +481,7 @@ body {
   background-color: #1d1f21;
   color: #c9cacc;
   font-weight: 400;
-  font-size: 14px;
+  font-size: 17px;
   font-family: "Menlo", "Meslo LG", monospace;
   line-height: 1.725;
   text-rendering: geometricPrecision;
@@ -1415,7 +1415,7 @@ article .content .caption {
   color: #1d1f21;
   font-display: swap;
   font-weight: 400;
-  font-size: 11.200000000000001px;
+  font-size: 13.600000000000001px;
   font-family: "Menlo", "Meslo LG", monospace;
   line-height: 1.725;
   text-rendering: geometricPrecision;
@@ -1517,67 +1517,59 @@ article .content .caption {
   content: ")";
 }
 .highlight {
-  background: #474949;
-  color: #d1d9e1;
+  background: #000;
+  color: #f8f8f8;
 }
 .highlight .code .comment,
-.highlight .code .quote {
-  color: #969896;
-  font-style: italic;
+.highlight .code .quote,
+.highlight .code .meta {
+  color: #7c7c7c;
 }
 .highlight .code .keyword,
 .highlight .code .selector-tag,
-.highlight .code .literal,
-.highlight .code .type,
-.highlight .code .addition {
-  color: #c9c;
+.highlight .code .tag,
+.highlight .code .name {
+  color: #96cbfe;
 }
-.highlight .code .number,
-.highlight .code .selector-attr,
-.highlight .code .selector-pseudo {
-  color: #f99157;
+.highlight .code .attribute,
+.highlight .code .selector-id {
+  color: #ffffb6;
 }
 .highlight .code .string,
-.highlight .code .doctag,
-.highlight .code .regexp {
-  color: #8abeb7;
+.highlight .code .selector-attr,
+.highlight .code .selector-pseudo,
+.highlight .code .addition {
+  color: #a8ff60;
+}
+.highlight .code .subst {
+  color: #daefa3;
+}
+.highlight .code .regexp,
+.highlight .code .link {
+  color: #e9c062;
 }
 .highlight .code .title,
-.highlight .code .name,
 .highlight .code .section,
-.highlight .code .built_in {
-  color: #b5bd68;
-}
-.highlight .code .variable,
-.highlight .code .template-variable,
-.highlight .code .selector-id,
-.highlight .code .class .title {
-  color: #fc6;
-}
-.highlight .code .section,
-.highlight .code .name,
-.highlight .code .strong {
-  font-weight: bold;
+.highlight .code .type,
+.highlight .code .doctag {
+  color: #ffffb6;
 }
 .highlight .code .symbol,
 .highlight .code .bullet,
-.highlight .code .subst,
-.highlight .code .meta,
-.highlight .code .link {
-  color: #f99157;
+.highlight .code .variable,
+.highlight .code .template-variable,
+.highlight .code .literal {
+  color: #c6c5fe;
 }
+.highlight .code .number,
 .highlight .code .deletion {
-  color: #dc322f;
-}
-.highlight .code .formula {
-  background: #eee8d5;
-}
-.highlight .code .attr,
-.highlight .code .attribute {
-  color: #81a2be;
+  color: #ff73fd;
 }
 .highlight .code .emphasis {
   font-style: italic;
+}
+.highlight .code .strong {
+  font-weight: bold;
 }
 pre {
   overflow-x: auto;
