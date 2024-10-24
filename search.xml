@@ -4,11 +4,24 @@
   
     
     <entry>
+      <title>成长的短视</title>
+      <link href="/2024/10/24/%E6%88%90%E9%95%BF%E7%9A%84%E7%9F%AD%E8%A7%86/"/>
+      <url>/2024/10/24/%E6%88%90%E9%95%BF%E7%9A%84%E7%9F%AD%E8%A7%86/</url>
+      
+        <content type="html"><![CDATA[<blockquote><p>小百合系版”有像我一样不会写代码的cser么?”回复节选</p><ul><li>我们都是活生生的人, 从小就被不由自主地教导用最小的付出获得最大的得到, 经常会忘记我们究竟要的是什么. 我承认我完美主义, 但我想每个人心中都有那一份求知的渴望和对真理的向往, “大学”的灵魂也就在于超越世俗, 超越时代的纯真和理想 –我们不是要讨好企业的毕业生, 而是要寻找改变世界的力量. – jyy</li><li>教育除了知识的记忆之外, 更本质的是能力的训练, 即所谓的training. 而但凡training就必须克服一定的难度, 否则你就是在做重复劳动, 能力也不会有改变. 如果遇到难度就选择退缩, 或者让别人来替你克服本该由你自己克服的难度, 等于是自动放弃了获得training的机会, 而这其实是大学专业教育最宝贵的部分. – etone</li><li>这种”只要不影响我现在survive, 就不要紧”的想法其实非常的利己和短视: 你在专业上的技不如人, 迟早有一天会找上来, 会影响到你个人职业生涯的长远的发展; 更严重的是, 这些以得过且过的态度来对待自己专业的学生, 他们的survive其实是以透支南大教育的信誉为代价的 – 如果我们一定比例的毕业生都是这种情况, 那么过不了多久, 不但那些混到毕业的学生也没那么容易survive了, 而且那些真正自己刻苦努力的学生, 他们的前途也会受到影响. – etone</li></ul></blockquote><p>TBD</p>]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>deeplearning</title>
       <link href="/2024/08/10/deeplearning/"/>
       <url>/2024/08/10/deeplearning/</url>
       
-        <content type="html"><![CDATA[<h1 id="“机器学习”学习笔记"><a href="#“机器学习”学习笔记" class="headerlink" title="“机器学习”学习笔记"></a>“机器学习”学习笔记</h1><blockquote><p><a href="https://speech.ee.ntu.edu.tw/~hylee/ml/2023-spring.php">李宏毅机器学习</a>，<a href="https://www.deeplearningbook.org/">MIT Deeplearning</a>， <a href="https://www.coursera.org/">吴恩达</a></p></blockquote><h2 id="【生成式AI】机器学习基本原理"><a href="#【生成式AI】机器学习基本原理" class="headerlink" title="【生成式AI】机器学习基本原理"></a>【生成式AI】机器学习基本原理</h2><blockquote><p>机器学习-&gt;让机器自动找一个函式</p></blockquote><p>根据函式的输出来分类：</p><ul><li><code>回归(Regression)</code> ：函式的输出是一个数值</li><li><code>分类(Classification)</code> ：函式的输出是一个类别（选择题）</li><li><code>结构化学习(structured learning)</code>，生成影像、语句等有结构的物件，又叫 <code>生成式(generative)</code>学习</li></ul><blockquote><p>ChatGPT：将生成式学习分解成多个分类问题来做。</p></blockquote><p>找出函式的三步骤：</p><ul><li>设定范围：定出候选函式的集合（类神经结构）<ul><li>deeplearning</li></ul></li><li>设定标准：定出评量函式好坏的标准（loss function）</li><li>达成目标：找出最好的函式$f^*&#x3D;arg\ min_{f\in H} L(f)$<ul><li>gradient descent…</li></ul></li></ul><blockquote><p>前置步骤：决定要找什么样的函数</p></blockquote><h2 id="生成式学习的两种策略"><a href="#生成式学习的两种策略" class="headerlink" title="生成式学习的两种策略"></a>生成式学习的两种策略</h2><blockquote><p><code>各个击破</code> or <code>一次到位</code></p></blockquote><p>各个击破+一次到位</p><ul><li>语音合成：各个击破-&gt;中间产物（决定大方向）-&gt;一次到位</li><li>逐步产生越来越清晰的影像：一次到位-&gt;N次到位</li></ul>]]></content>
+        <content type="html"><![CDATA[<blockquote><p><a href="https://speech.ee.ntu.edu.tw/~hylee/ml/2023-spring.php">李宏毅机器学习</a>，<a href="https://www.deeplearningbook.org/">MIT Deeplearning</a>， <a href="https://www.coursera.org/">吴恩达</a></p></blockquote><h2 id="【生成式AI】机器学习基本原理"><a href="#【生成式AI】机器学习基本原理" class="headerlink" title="【生成式AI】机器学习基本原理"></a>【生成式AI】机器学习基本原理</h2><blockquote><p>机器学习-&gt;让机器自动找一个函式</p></blockquote><p>根据函式的输出来分类：</p><ul><li><code>回归(Regression)</code> ：函式的输出是一个数值</li><li><code>分类(Classification)</code> ：函式的输出是一个类别（选择题）</li><li><code>结构化学习(structured learning)</code>，生成影像、语句等有结构的物件，又叫 <code>生成式(generative)</code>学习</li></ul><blockquote><p>ChatGPT：将生成式学习分解成多个分类问题来做。</p></blockquote><p>找出函式的三步骤：</p><ul><li>设定范围：定出候选函式的集合（类神经结构）<ul><li>deeplearning</li></ul></li><li>设定标准：定出评量函式好坏的标准（loss function）</li><li>达成目标：找出最好的函式$f^*&#x3D;arg\ min_{f\in H} L(f)$<ul><li>gradient descent…</li></ul></li></ul><blockquote><p>前置步骤：决定要找什么样的函数</p></blockquote><h2 id="生成式学习的两种策略"><a href="#生成式学习的两种策略" class="headerlink" title="生成式学习的两种策略"></a>生成式学习的两种策略</h2><blockquote><p><code>各个击破</code> or <code>一次到位</code></p></blockquote><p>各个击破+一次到位</p><ul><li>语音合成：各个击破-&gt;中间产物（决定大方向）-&gt;一次到位</li><li>逐步产生越来越清晰的影像：一次到位-&gt;N次到位</li></ul><h2 id="WebGPT"><a href="#WebGPT" class="headerlink" title="WebGPT"></a>WebGPT</h2><p>仍然是文字接龙，接的是搜寻的 <code>关键词</code>.</p><blockquote><p>搜寻-&gt;点选-&gt;文字接龙-&gt;收藏-&gt;…-&gt;回答</p></blockquote><h2 id="Three-steps-of-deep-learning"><a href="#Three-steps-of-deep-learning" class="headerlink" title="Three steps of deep learning"></a>Three steps of deep learning</h2><ul><li>定义 <code>函式集</code>（neural network 是如何连接的）</li><li>函式的好坏</li><li>选择一个好的函式</li></ul>]]></content>
       
       
       <categories>
