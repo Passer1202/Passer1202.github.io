@@ -4,6 +4,31 @@
   
     
     <entry>
+      <title>密码学笔记</title>
+      <link href="/2024/11/06/%E5%AF%86%E7%A0%81%E5%AD%A6%E7%AC%94%E8%AE%B0/"/>
+      <url>/2024/11/06/%E5%AF%86%E7%A0%81%E5%AD%A6%E7%AC%94%E8%AE%B0/</url>
+      
+        <content type="html"><![CDATA[<h2 id="消息认证"><a href="#消息认证" class="headerlink" title="消息认证"></a>消息认证</h2><ul><li>消息认证的必要性</li><li>MAC<ul><li>定义</li><li>正确性与安全性要求</li><li>使用</li></ul></li><li>构造 secure MACs<ul><li>定长</li><li>CBC-MAC处理长消息</li></ul></li><li>AE <ul><li>定义</li><li>CCA安全</li><li>不可伪造加密</li><li>构造AE</li></ul></li></ul><h3 id="消息认证的必要性"><a href="#消息认证的必要性" class="headerlink" title="消息认证的必要性"></a>消息认证的必要性</h3><p>安全的对话要确定消息发送方的身份和以及消息未被串改，仅加密在很多时候并不能确保这些.</p><h3 id="MAC"><a href="#MAC" class="headerlink" title="MAC"></a>MAC</h3><p>给我们的消息打一个tag！</p><h4 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h4><p>消息认证码，即 MAC 是一个 PPT 算法组成的三元组 $\Pi&#x3D;(Gen,Mac,Vrfy)$:</p><ul><li>密钥生成算法: $k \leftarrow Gen(1^n) , |k| \geq n$.</li><li>标签生成算法：$t \leftarrow Mac_k(m)\ or\ t :&#x3D; Mac_k(m), m\in {0,1}^*$.</li><li>确定性的认证算法：$b :&#x3D; Vrfy_k(m,t) , b&#x3D;1 \ iff.\ m\ is\ valid$.</li></ul><h4 id="正确性与安全性要求"><a href="#正确性与安全性要求" class="headerlink" title="正确性与安全性要求"></a>正确性与安全性要求</h4><p><strong>正确性</strong>：正确生成的MAC要被认可，即<br>$$\forall n, k \leftarrow Gen(1^n), \forall m\in {0,1}^*, Vrfy_k(m,Mac_k(m))&#x3D;1$$</p><p>当 $Mac$ 是确定性算法时，一种典型的认证方法是重新计算tag并进行比对.</p><p><strong>安全性</strong>通过消息认证试验 $Mac-forge_{\mathcal{A},\Pi}(n)$ 来定义：</p><ol><li>$k \leftarrow Gen(1^n)$ 对敌手保密.</li><li>给 $\mathcal{A}(1^n)$ 调用 $Mac_k(\cdot)$ 的能力，$\mathcal{A}$ 查询若干次，最终输出 $(m,t)$. 记 $\mathcal{Q}$ 为 $\mathcal{A}$ 所查询消息的集合.</li><li>$\mathcal{A}$ 成功也即 $Mac-forge_{\mathcal{A},\Pi}(n)&#x3D;1$ 当且仅当 $Vrfy_k(m,t)&#x3D;1 \wedge m \notin \mathcal{Q}$.</li></ol><p>一个 MAC 是 secure 当且仅当 对于任何一个PPT的敌手 $\mathcal{A}$ , 都存在可忽略的函数 $negl$ ，使得 $$Pr[Mac-forge_{\mathcal{A},\Pi}(n)&#x3D;1]\leq negl(n).$$</p><p>secure 保证了一个敌手不可能为一个先前未认证的<strong>新消息</strong>生成一个合法的tag , 但是并未保证敌手不能为已经认证的消息生成一个<strong>新的合法 tag</strong>, 于是有了 strongly secure</p><p>消息认证试验 $Mac-sforge_{\mathcal{A},\Pi}(n)$ :</p><ol><li>$k \leftarrow Gen(1^n)$ 对敌手保密.</li><li>给 $\mathcal{A}(1^n)$ 调用 $Mac_k(\cdot)$ 的能力，$\mathcal{A}$ 查询若干次，最终输出 $(m,t)$. 记 $\mathcal{Q}$ 为 $\mathcal{A}$ 所查消息和对应tag对的集合.</li><li>$\mathcal{A}$ 成功也即 $Mac-sforge_{\mathcal{A},\Pi}(n)&#x3D;1$ 当且仅当 $Vrfy_k(m,t)&#x3D;1 \wedge (m,t) \notin \mathcal{Q}$.</li></ol><p>一个 MAC 是 strongly secure 当且仅当 对于任何一个PPT的敌手 $\mathcal{A}$ , 都存在可忽略的函数 $negl$ ，使得 $$Pr[Mac-sforge_{\mathcal{A},\Pi}(n)&#x3D;1]\leq negl(n).$$</p><p>显然典型的使用确定性的 secure 的 MAC 天然就是 strongly secure 的. </p><h4 id="如何使用-MAC"><a href="#如何使用-MAC" class="headerlink" title="如何使用 MAC"></a>如何使用 MAC</h4><p>What if Alice needs to send a message in Q, (i.e. was sent previously)?</p><ul><li>Directly applying the MAC would cause repeated messages to be rejected.</li><li>One can append a unique timestamp or nonce to each message.</li></ul><h3 id="构造-secure-的-MAC"><a href="#构造-secure-的-MAC" class="headerlink" title="构造 secure 的 MAC"></a>构造 secure 的 MAC</h3><h4 id="定长-MAC"><a href="#定长-MAC" class="headerlink" title="定长 MAC"></a>定长 MAC</h4><p>如果有函数 $l$ 使得对于任意 $k \leftarrow Gen(1^n)$, $Mac_k$ 仅对  $m\in {0,1}^{l(n)}$ 上的消息有定义.</p><p>使用PRF！</p><p>令 $F$ 是 PRF . 对长为 n 的消息定义一个定长的 MAC： </p><ul><li>Mac : 输入密钥 $k\in {0,1}^n$ 和消息 $m\in{0,1}^n$,输出标签 $t:&#x3D;F_k(m)$.</li><li>Vrfy: 输入密钥 $k\in {0,1}^n$ 消息 $m\in {0,1}^n$ 和标签 $t\in{0,1}^n$,输出1当且仅当 $t&#x3D;F_k(m)$.</li></ul><p>若 $F$ 是 PRF ， 上述构造就是一个对长度为n的消息的 secure fixed-length MAC.</p><h4 id="处理长消息（定长）"><a href="#处理长消息（定长）" class="headerlink" title="处理长消息（定长）"></a>处理长消息（定长）</h4><p>basic CBC-MAC: $F$ 是一个 PRF ， 以及长度函数 $l$</p><ul><li>Mac : 输入 $k \in {0,1}^n, m\in {0,1}^{n\cdot l(n)}$<ul><li>将 $m$ 分成 $l(n)$ 个长度为 $n$ 的块,</li><li>$t_0:&#x3D; 0^n$,对 $i$ 从 1 到 $l(n)$, $t_i :&#x3D; F_k(t_{i-1} \oplus m_i)$</li><li>输出 $t_l$</li></ul></li><li>Vrfy : 输入 $k\in {0,1}^n, m, t$,输出1当且仅当 $|m|&#x3D;n\cdot l(n) \wedge t&#x3D;Mac_k(m)$.</li></ul><p><img src="/../images/basic-cbc.png" alt="basic-cbc mode"></p><p>仍然仅能处理定长的消息！！！</p><h3 id="AE"><a href="#AE" class="headerlink" title="AE"></a>AE</h3><p>消息的安全性和真实性都要！</p><h4 id="定义-1"><a href="#定义-1" class="headerlink" title="定义"></a>定义</h4><p>一个私钥加密方案是 AE 的如果其是 CCA-secure 并且 unforgeable.</p><h4 id="CCA安全"><a href="#CCA安全" class="headerlink" title="CCA安全"></a>CCA安全</h4><p>CCA安全由CCA indistinguishability experiment $PrivK_{\mathcal{A},\Pi}^{cca}(n)$ 定义：</p><ol><li>$k\leftarrow Gen(1^n)$</li><li>给敌手调用 $Enc_k(\cdot),Dec_k(\cdot)$ 的权限，敌手输出 $m_0,m_1$.</li><li>加密 $c\leftarrow Enc_k(m_b),b\overset{$}{\leftarrow}{0,1}$,将 $c$ 发送给敌手.</li><li>敌手调用  $Enc_k(\cdot),Dec_k(\cdot)$ ，但不允许直接调用 $Dec_k(c)$ ，输出$b’$.</li><li>$PrivK_{\mathcal{A},\Pi}^{cca}(n)&#x3D;1$ 当且仅当 $b&#x3D;b’$.</li></ol><p>私钥加密方案 $\Pi$ 是 $CCA-secure$ 的当且仅当对于任意PPT的敌手均有 $$Pr[PrivK_{\mathcal{A},\Pi}^{cca}(n)&#x3D;1]\leq \frac{1}{2} + negl(n).$$</p><p>可延展性（malleable) 在不知道 $m$ 的前提下构造其密文. CCA安全推出了不可延展性.</p><h4 id="不可伪造性"><a href="#不可伪造性" class="headerlink" title="不可伪造性"></a>不可伪造性</h4><p>不可伪造加密试验 $Enc-Forge_{\mathcal{A},\Pi}(n)$:</p><ol><li>$k\leftarrow Gen(1^n)$</li><li>敌手有调用 $Enc_k(\cdot)$ 的权限， 最终输出一个密文.</li><li>$m:&#x3D;Dec_k(c)$ ， $Enc-Forge_{\mathcal{A},\Pi}(n)&#x3D;1$ 当且仅当 密文合法且 $m$ 没被查过.</li></ol><p>私钥加密方案 $\Pi$ 是 unforgeable 当且仅当对于任意PPT的敌手均有 $$Pr[Enc-Forge_{\mathcal{A},\Pi}(n)&#x3D;1]\leq  negl(n).$$</p><h4 id="构造AE"><a href="#构造AE" class="headerlink" title="构造AE"></a>构造AE</h4><p>加密后验证！</p><p><img src="/../images/encrpt-then-authenticate.png" alt="encrpt-then-authenticate"></p><p>$\Pi_E$ 是CPA安全的，$\Pi_M$ 是strongly secure MAC,那么上述构造是AE.</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> notes </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> CRYPTO </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>成长的短视</title>
       <link href="/2024/10/24/%E6%88%90%E9%95%BF%E7%9A%84%E7%9F%AD%E8%A7%86/"/>
       <url>/2024/10/24/%E6%88%90%E9%95%BF%E7%9A%84%E7%9F%AD%E8%A7%86/</url>

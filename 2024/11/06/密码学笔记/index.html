@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="消息认证 消息认证的必要性 MAC 定义 正确性与安全性要求 使用   构造 secure MACs 定长 CBC-MAC处理长消息   AE  定义 CCA安全 不可伪造加密 构造AE    消息认证的必要性安全的对话要确定消息发送方的身份和以及消息未被串改，仅加密在很多时候并不能确保这些. MAC给我们的消息打一个tag！ 定义消息认证码，即 MAC 是一个 PPT 算法组成的三元组 $\Pi">
+<meta property="og:type" content="article">
+<meta property="og:title" content="密码学笔记">
+<meta property="og:url" content="https://passer1202.github.io/2024/11/06/%E5%AF%86%E7%A0%81%E5%AD%A6%E7%AC%94%E8%AE%B0/index.html">
+<meta property="og:site_name" content="Passer&#39;s Homepage">
+<meta property="og:description" content="消息认证 消息认证的必要性 MAC 定义 正确性与安全性要求 使用   构造 secure MACs 定长 CBC-MAC处理长消息   AE  定义 CCA安全 不可伪造加密 构造AE    消息认证的必要性安全的对话要确定消息发送方的身份和以及消息未被串改，仅加密在很多时候并不能确保这些. MAC给我们的消息打一个tag！ 定义消息认证码，即 MAC 是一个 PPT 算法组成的三元组 $\Pi">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://passer1202.github.io/images/basic-cbc.png">
+<meta property="og:image" content="https://passer1202.github.io/images/encrpt-then-authenticate.png">
+<meta property="article:published_time" content="2024-11-06T07:39:43.000Z">
+<meta property="article:modified_time" content="2024-12-19T08:43:07.369Z">
+<meta property="article:author" content="Passer">
+<meta property="article:tag" content="CRYPTO">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://passer1202.github.io/images/basic-cbc.png">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>密码学笔记</title>
+    <!-- async scripts -->
+    <!-- Google Analytics -->
+
+
+    <!-- Umami Analytics -->
+
+
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
+		<script type="text/x-mathjax-config">
+		  MathJax.Hub.Config({
+			tex2jax: {
+			  skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+			  inlineMath: [['$','$']]
+			}
+		  });
+		</script>
+		<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML' async></script>
+	
+<meta name="generator" content="Hexo 7.0.0"></head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="目录"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="目录"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="顶部" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa-solid fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">首页</a></li><!--
+     --><!--
+       --><li><a href="/search/">搜索</a></li><!--
+     --><!--
+       --><li><a href="/tags/">标签</a></li><!--
+     --><!--
+       --><li><a href="/categories/">分类</a></li><!--
+     --><!--
+       --><li><a href="/archives/">归档</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="https://github.com/Passer1202">项目</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        
+        <li><a class="icon" aria-label="下一篇" href="/2024/10/24/%E6%88%90%E9%95%BF%E7%9A%84%E7%9F%AD%E8%A7%86/"><i class="fa-solid fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="返回顶部" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="分享文章" href="#"><i class="fa-solid fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">上一篇</span>
+      <span id="i-next" class="info" style="display:none;">下一篇</span>
+      <span id="i-top" class="info" style="display:none;">返回顶部</span>
+      <span id="i-share" class="info" style="display:none;">分享文章</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://passer1202.github.io/2024/11/06/%E5%AF%86%E7%A0%81%E5%AD%A6%E7%AC%94%E8%AE%B0/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://passer1202.github.io/2024/11/06/%E5%AF%86%E7%A0%81%E5%AD%A6%E7%AC%94%E8%AE%B0/&text=密码学笔记"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://passer1202.github.io/2024/11/06/%E5%AF%86%E7%A0%81%E5%AD%A6%E7%AC%94%E8%AE%B0/&title=密码学笔记"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://passer1202.github.io/2024/11/06/%E5%AF%86%E7%A0%81%E5%AD%A6%E7%AC%94%E8%AE%B0/&is_video=false&description=密码学笔记"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=密码学笔记&body=Check out this article: https://passer1202.github.io/2024/11/06/%E5%AF%86%E7%A0%81%E5%AD%A6%E7%AC%94%E8%AE%B0/"><i class="fa-solid fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://passer1202.github.io/2024/11/06/%E5%AF%86%E7%A0%81%E5%AD%A6%E7%AC%94%E8%AE%B0/&title=密码学笔记"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://passer1202.github.io/2024/11/06/%E5%AF%86%E7%A0%81%E5%AD%A6%E7%AC%94%E8%AE%B0/&title=密码学笔记"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://passer1202.github.io/2024/11/06/%E5%AF%86%E7%A0%81%E5%AD%A6%E7%AC%94%E8%AE%B0/&title=密码学笔记"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://passer1202.github.io/2024/11/06/%E5%AF%86%E7%A0%81%E5%AD%A6%E7%AC%94%E8%AE%B0/&title=密码学笔记"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://passer1202.github.io/2024/11/06/%E5%AF%86%E7%A0%81%E5%AD%A6%E7%AC%94%E8%AE%B0/&name=密码学笔记&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://passer1202.github.io/2024/11/06/%E5%AF%86%E7%A0%81%E5%AD%A6%E7%AC%94%E8%AE%B0/&t=密码学笔记"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    
+    
+      <div id="toc">
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B6%88%E6%81%AF%E8%AE%A4%E8%AF%81"><span class="toc-number">1.</span> <span class="toc-text">消息认证</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B6%88%E6%81%AF%E8%AE%A4%E8%AF%81%E7%9A%84%E5%BF%85%E8%A6%81%E6%80%A7"><span class="toc-number">1.1.</span> <span class="toc-text">消息认证的必要性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#MAC"><span class="toc-number">1.2.</span> <span class="toc-text">MAC</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%9A%E4%B9%89"><span class="toc-number">1.2.1.</span> <span class="toc-text">定义</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%AD%A3%E7%A1%AE%E6%80%A7%E4%B8%8E%E5%AE%89%E5%85%A8%E6%80%A7%E8%A6%81%E6%B1%82"><span class="toc-number">1.2.2.</span> <span class="toc-text">正确性与安全性要求</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8-MAC"><span class="toc-number">1.2.3.</span> <span class="toc-text">如何使用 MAC</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9E%84%E9%80%A0-secure-%E7%9A%84-MAC"><span class="toc-number">1.3.</span> <span class="toc-text">构造 secure 的 MAC</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%9A%E9%95%BF-MAC"><span class="toc-number">1.3.1.</span> <span class="toc-text">定长 MAC</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%A4%84%E7%90%86%E9%95%BF%E6%B6%88%E6%81%AF%EF%BC%88%E5%AE%9A%E9%95%BF%EF%BC%89"><span class="toc-number">1.3.2.</span> <span class="toc-text">处理长消息（定长）</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#AE"><span class="toc-number">1.4.</span> <span class="toc-text">AE</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%9A%E4%B9%89-1"><span class="toc-number">1.4.1.</span> <span class="toc-text">定义</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#CCA%E5%AE%89%E5%85%A8"><span class="toc-number">1.4.2.</span> <span class="toc-text">CCA安全</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%8D%E5%8F%AF%E4%BC%AA%E9%80%A0%E6%80%A7"><span class="toc-number">1.4.3.</span> <span class="toc-text">不可伪造性</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9E%84%E9%80%A0AE"><span class="toc-number">1.4.4.</span> <span class="toc-text">构造AE</span></a></li></ol></li></ol></li></ol>
+      </div>
+    
+  </span>
+</div>
+
+    
+    <div class="content index py4 ">
+        
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle p-name" itemprop="name headline">
+        密码学笔记
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author p-author h-card" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span class="p-name" itemprop="name">Passer</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2024-11-06T07:39:43.000Z" class="dt-published" itemprop="datePublished">2024-11-06</time>
+        
+      
+    </div>
+
+
+      
+    <div class="article-category">
+        <i class="fa-solid fa-archive"></i>
+        <a class="category-link" href="/categories/notes/">notes</a>
+    </div>
+
+
+      
+    <div class="article-tag">
+        <i class="fa-solid fa-tag"></i>
+        <a class="p-category" href="/tags/CRYPTO/" rel="tag">CRYPTO</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content e-content" itemprop="articleBody">
+    <h2 id="消息认证"><a href="#消息认证" class="headerlink" title="消息认证"></a>消息认证</h2><ul>
+<li>消息认证的必要性</li>
+<li>MAC<ul>
+<li>定义</li>
+<li>正确性与安全性要求</li>
+<li>使用</li>
+</ul>
+</li>
+<li>构造 secure MACs<ul>
+<li>定长</li>
+<li>CBC-MAC处理长消息</li>
+</ul>
+</li>
+<li>AE <ul>
+<li>定义</li>
+<li>CCA安全</li>
+<li>不可伪造加密</li>
+<li>构造AE</li>
+</ul>
+</li>
+</ul>
+<h3 id="消息认证的必要性"><a href="#消息认证的必要性" class="headerlink" title="消息认证的必要性"></a>消息认证的必要性</h3><p>安全的对话要确定消息发送方的身份和以及消息未被串改，仅加密在很多时候并不能确保这些.</p>
+<h3 id="MAC"><a href="#MAC" class="headerlink" title="MAC"></a>MAC</h3><p>给我们的消息打一个tag！</p>
+<h4 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h4><p>消息认证码，即 MAC 是一个 PPT 算法组成的三元组 $\Pi&#x3D;(Gen,Mac,Vrfy)$:</p>
+<ul>
+<li>密钥生成算法: $k \leftarrow Gen(1^n) , |k| \geq n$.</li>
+<li>标签生成算法：$t \leftarrow Mac_k(m)\ or\ t :&#x3D; Mac_k(m), m\in {0,1}^*$.</li>
+<li>确定性的认证算法：$b :&#x3D; Vrfy_k(m,t) , b&#x3D;1 \ iff.\ m\ is\ valid$.</li>
+</ul>
+<h4 id="正确性与安全性要求"><a href="#正确性与安全性要求" class="headerlink" title="正确性与安全性要求"></a>正确性与安全性要求</h4><p><strong>正确性</strong>：正确生成的MAC要被认可，即<br>$$\forall n, k \leftarrow Gen(1^n), \forall m\in {0,1}^*, Vrfy_k(m,Mac_k(m))&#x3D;1$$</p>
+<p>当 $Mac$ 是确定性算法时，一种典型的认证方法是重新计算tag并进行比对.</p>
+<p><strong>安全性</strong>通过消息认证试验 $Mac-forge_{\mathcal{A},\Pi}(n)$ 来定义：</p>
+<ol>
+<li>$k \leftarrow Gen(1^n)$ 对敌手保密.</li>
+<li>给 $\mathcal{A}(1^n)$ 调用 $Mac_k(\cdot)$ 的能力，$\mathcal{A}$ 查询若干次，最终输出 $(m,t)$. 记 $\mathcal{Q}$ 为 $\mathcal{A}$ 所查询消息的集合.</li>
+<li>$\mathcal{A}$ 成功也即 $Mac-forge_{\mathcal{A},\Pi}(n)&#x3D;1$ 当且仅当 $Vrfy_k(m,t)&#x3D;1 \wedge m \notin \mathcal{Q}$.</li>
+</ol>
+<p>一个 MAC 是 secure 当且仅当 对于任何一个PPT的敌手 $\mathcal{A}$ , 都存在可忽略的函数 $negl$ ，使得 $$Pr[Mac-forge_{\mathcal{A},\Pi}(n)&#x3D;1]\leq negl(n).$$</p>
+<p>secure 保证了一个敌手不可能为一个先前未认证的<strong>新消息</strong>生成一个合法的tag , 但是并未保证敌手不能为已经认证的消息生成一个<strong>新的合法 tag</strong>, 于是有了 strongly secure</p>
+<p>消息认证试验 $Mac-sforge_{\mathcal{A},\Pi}(n)$ :</p>
+<ol>
+<li>$k \leftarrow Gen(1^n)$ 对敌手保密.</li>
+<li>给 $\mathcal{A}(1^n)$ 调用 $Mac_k(\cdot)$ 的能力，$\mathcal{A}$ 查询若干次，最终输出 $(m,t)$. 记 $\mathcal{Q}$ 为 $\mathcal{A}$ 所查消息和对应tag对的集合.</li>
+<li>$\mathcal{A}$ 成功也即 $Mac-sforge_{\mathcal{A},\Pi}(n)&#x3D;1$ 当且仅当 $Vrfy_k(m,t)&#x3D;1 \wedge (m,t) \notin \mathcal{Q}$.</li>
+</ol>
+<p>一个 MAC 是 strongly secure 当且仅当 对于任何一个PPT的敌手 $\mathcal{A}$ , 都存在可忽略的函数 $negl$ ，使得 $$Pr[Mac-sforge_{\mathcal{A},\Pi}(n)&#x3D;1]\leq negl(n).$$</p>
+<p>显然典型的使用确定性的 secure 的 MAC 天然就是 strongly secure 的. </p>
+<h4 id="如何使用-MAC"><a href="#如何使用-MAC" class="headerlink" title="如何使用 MAC"></a>如何使用 MAC</h4><p>What if Alice needs to send a message in Q, (i.e. was sent previously)?</p>
+<ul>
+<li>Directly applying the MAC would cause repeated messages to be rejected.</li>
+<li>One can append a unique timestamp or nonce to each message.</li>
+</ul>
+<h3 id="构造-secure-的-MAC"><a href="#构造-secure-的-MAC" class="headerlink" title="构造 secure 的 MAC"></a>构造 secure 的 MAC</h3><h4 id="定长-MAC"><a href="#定长-MAC" class="headerlink" title="定长 MAC"></a>定长 MAC</h4><p>如果有函数 $l$ 使得对于任意 $k \leftarrow Gen(1^n)$, $Mac_k$ 仅对  $m\in {0,1}^{l(n)}$ 上的消息有定义.</p>
+<p>使用PRF！</p>
+<p>令 $F$ 是 PRF . 对长为 n 的消息定义一个定长的 MAC： </p>
+<ul>
+<li>Mac : 输入密钥 $k\in {0,1}^n$ 和消息 $m\in{0,1}^n$,输出标签 $t:&#x3D;F_k(m)$.</li>
+<li>Vrfy: 输入密钥 $k\in {0,1}^n$ 消息 $m\in {0,1}^n$ 和标签 $t\in{0,1}^n$,输出1当且仅当 $t&#x3D;F_k(m)$.</li>
+</ul>
+<p>若 $F$ 是 PRF ， 上述构造就是一个对长度为n的消息的 secure fixed-length MAC.</p>
+<h4 id="处理长消息（定长）"><a href="#处理长消息（定长）" class="headerlink" title="处理长消息（定长）"></a>处理长消息（定长）</h4><p>basic CBC-MAC: $F$ 是一个 PRF ， 以及长度函数 $l$</p>
+<ul>
+<li>Mac : 输入 $k \in {0,1}^n, m\in {0,1}^{n\cdot l(n)}$<ul>
+<li>将 $m$ 分成 $l(n)$ 个长度为 $n$ 的块,</li>
+<li>$t_0:&#x3D; 0^n$,对 $i$ 从 1 到 $l(n)$, $t_i :&#x3D; F_k(t_{i-1} \oplus m_i)$</li>
+<li>输出 $t_l$</li>
+</ul>
+</li>
+<li>Vrfy : 输入 $k\in {0,1}^n, m, t$,输出1当且仅当 $|m|&#x3D;n\cdot l(n) \wedge t&#x3D;Mac_k(m)$.</li>
+</ul>
+<p><img src="/../images/basic-cbc.png" alt="basic-cbc mode"></p>
+<p>仍然仅能处理定长的消息！！！</p>
+<h3 id="AE"><a href="#AE" class="headerlink" title="AE"></a>AE</h3><p>消息的安全性和真实性都要！</p>
+<h4 id="定义-1"><a href="#定义-1" class="headerlink" title="定义"></a>定义</h4><p>一个私钥加密方案是 AE 的如果其是 CCA-secure 并且 unforgeable.</p>
+<h4 id="CCA安全"><a href="#CCA安全" class="headerlink" title="CCA安全"></a>CCA安全</h4><p>CCA安全由CCA indistinguishability experiment $PrivK_{\mathcal{A},\Pi}^{cca}(n)$ 定义：</p>
+<ol>
+<li>$k\leftarrow Gen(1^n)$</li>
+<li>给敌手调用 $Enc_k(\cdot),Dec_k(\cdot)$ 的权限，敌手输出 $m_0,m_1$.</li>
+<li>加密 $c\leftarrow Enc_k(m_b),b\overset{$}{\leftarrow}{0,1}$,将 $c$ 发送给敌手.</li>
+<li>敌手调用  $Enc_k(\cdot),Dec_k(\cdot)$ ，但不允许直接调用 $Dec_k(c)$ ，输出$b’$.</li>
+<li>$PrivK_{\mathcal{A},\Pi}^{cca}(n)&#x3D;1$ 当且仅当 $b&#x3D;b’$.</li>
+</ol>
+<p>私钥加密方案 $\Pi$ 是 $CCA-secure$ 的当且仅当对于任意PPT的敌手均有 $$Pr[PrivK_{\mathcal{A},\Pi}^{cca}(n)&#x3D;1]\leq \frac{1}{2} + negl(n).$$</p>
+<p>可延展性（malleable) 在不知道 $m$ 的前提下构造其密文. CCA安全推出了不可延展性.</p>
+<h4 id="不可伪造性"><a href="#不可伪造性" class="headerlink" title="不可伪造性"></a>不可伪造性</h4><p>不可伪造加密试验 $Enc-Forge_{\mathcal{A},\Pi}(n)$:</p>
+<ol>
+<li>$k\leftarrow Gen(1^n)$</li>
+<li>敌手有调用 $Enc_k(\cdot)$ 的权限， 最终输出一个密文.</li>
+<li>$m:&#x3D;Dec_k(c)$ ， $Enc-Forge_{\mathcal{A},\Pi}(n)&#x3D;1$ 当且仅当 密文合法且 $m$ 没被查过.</li>
+</ol>
+<p>私钥加密方案 $\Pi$ 是 unforgeable 当且仅当对于任意PPT的敌手均有 $$Pr[Enc-Forge_{\mathcal{A},\Pi}(n)&#x3D;1]\leq  negl(n).$$</p>
+<h4 id="构造AE"><a href="#构造AE" class="headerlink" title="构造AE"></a>构造AE</h4><p>加密后验证！</p>
+<p><img src="/../images/encrpt-then-authenticate.png" alt="encrpt-then-authenticate"></p>
+<p>$\Pi_E$ 是CPA安全的，$\Pi_M$ 是strongly secure MAC,那么上述构造是AE.</p>
+
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+        
+          <li><a href="/">首页</a></li>
+        
+          <li><a href="/search/">搜索</a></li>
+        
+          <li><a href="/tags/">标签</a></li>
+        
+          <li><a href="/categories/">分类</a></li>
+        
+          <li><a href="/archives/">归档</a></li>
+        
+          <li><a target="_blank" rel="noopener" href="https://github.com/Passer1202">项目</a></li>
+        
+      </ul>
+    </div>
+
+    
+    
+      <div id="toc-footer" style="display: none">
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B6%88%E6%81%AF%E8%AE%A4%E8%AF%81"><span class="toc-number">1.</span> <span class="toc-text">消息认证</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B6%88%E6%81%AF%E8%AE%A4%E8%AF%81%E7%9A%84%E5%BF%85%E8%A6%81%E6%80%A7"><span class="toc-number">1.1.</span> <span class="toc-text">消息认证的必要性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#MAC"><span class="toc-number">1.2.</span> <span class="toc-text">MAC</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%9A%E4%B9%89"><span class="toc-number">1.2.1.</span> <span class="toc-text">定义</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%AD%A3%E7%A1%AE%E6%80%A7%E4%B8%8E%E5%AE%89%E5%85%A8%E6%80%A7%E8%A6%81%E6%B1%82"><span class="toc-number">1.2.2.</span> <span class="toc-text">正确性与安全性要求</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8-MAC"><span class="toc-number">1.2.3.</span> <span class="toc-text">如何使用 MAC</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9E%84%E9%80%A0-secure-%E7%9A%84-MAC"><span class="toc-number">1.3.</span> <span class="toc-text">构造 secure 的 MAC</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%9A%E9%95%BF-MAC"><span class="toc-number">1.3.1.</span> <span class="toc-text">定长 MAC</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%A4%84%E7%90%86%E9%95%BF%E6%B6%88%E6%81%AF%EF%BC%88%E5%AE%9A%E9%95%BF%EF%BC%89"><span class="toc-number">1.3.2.</span> <span class="toc-text">处理长消息（定长）</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#AE"><span class="toc-number">1.4.</span> <span class="toc-text">AE</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%9A%E4%B9%89-1"><span class="toc-number">1.4.1.</span> <span class="toc-text">定义</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#CCA%E5%AE%89%E5%85%A8"><span class="toc-number">1.4.2.</span> <span class="toc-text">CCA安全</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%8D%E5%8F%AF%E4%BC%AA%E9%80%A0%E6%80%A7"><span class="toc-number">1.4.3.</span> <span class="toc-text">不可伪造性</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9E%84%E9%80%A0AE"><span class="toc-number">1.4.4.</span> <span class="toc-text">构造AE</span></a></li></ol></li></ol></li></ol>
+      </div>
+    
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://passer1202.github.io/2024/11/06/%E5%AF%86%E7%A0%81%E5%AD%A6%E7%AC%94%E8%AE%B0/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://passer1202.github.io/2024/11/06/%E5%AF%86%E7%A0%81%E5%AD%A6%E7%AC%94%E8%AE%B0/&text=密码学笔记"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://passer1202.github.io/2024/11/06/%E5%AF%86%E7%A0%81%E5%AD%A6%E7%AC%94%E8%AE%B0/&title=密码学笔记"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://passer1202.github.io/2024/11/06/%E5%AF%86%E7%A0%81%E5%AD%A6%E7%AC%94%E8%AE%B0/&is_video=false&description=密码学笔记"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=密码学笔记&body=Check out this article: https://passer1202.github.io/2024/11/06/%E5%AF%86%E7%A0%81%E5%AD%A6%E7%AC%94%E8%AE%B0/"><i class="fa-solid fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://passer1202.github.io/2024/11/06/%E5%AF%86%E7%A0%81%E5%AD%A6%E7%AC%94%E8%AE%B0/&title=密码学笔记"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://passer1202.github.io/2024/11/06/%E5%AF%86%E7%A0%81%E5%AD%A6%E7%AC%94%E8%AE%B0/&title=密码学笔记"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://passer1202.github.io/2024/11/06/%E5%AF%86%E7%A0%81%E5%AD%A6%E7%AC%94%E8%AE%B0/&title=密码学笔记"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://passer1202.github.io/2024/11/06/%E5%AF%86%E7%A0%81%E5%AD%A6%E7%AC%94%E8%AE%B0/&title=密码学笔记"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://passer1202.github.io/2024/11/06/%E5%AF%86%E7%A0%81%E5%AD%A6%E7%AC%94%E8%AE%B0/&name=密码学笔记&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://passer1202.github.io/2024/11/06/%E5%AF%86%E7%A0%81%E5%AD%A6%E7%AC%94%E8%AE%B0/&t=密码学笔记"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fa-solid fa-bars fa-lg" aria-hidden="true"></i> 菜单</a>
+        
+          <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fa-solid fa-list fa-lg" aria-hidden="true"></i> 目录</a>
+        
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fa-solid fa-share-alt fa-lg" aria-hidden="true"></i> 分享</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up fa-lg" aria-hidden="true"></i> 返回顶部</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2023-2024
+    Passer
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="/">首页</a></li><!--
+     --><!--
+       --><li><a href="/search/">搜索</a></li><!--
+     --><!--
+       --><li><a href="/tags/">标签</a></li><!--
+     --><!--
+       --><li><a href="/categories/">分类</a></li><!--
+     --><!--
+       --><li><a href="/archives/">归档</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="https://github.com/Passer1202">项目</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script>
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script>
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"复制到粘贴板！\">";
+    btn += '<i class="fa-regular fa-clone"></i>';
+    btn += '</span>';
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "复制成功！");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Disqus Comments -->
+
+<!-- utterances Comments -->
+
+</body>
+</html>
