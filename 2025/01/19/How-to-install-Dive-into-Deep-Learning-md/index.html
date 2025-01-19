@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="课程网站上的安装说明已经很friendly了，但是并未列出Windows下的安装教程，谨在此记录我是如何在Win11下进行安装的. 安装配置 Miniconda根据自己使用的python版本，在miniconda官网中选择对应的版本即可，如笔者使用的是python 3.9，则选择了Miniconda3-py39_24.11.1-0-Windows-x86_64.exe来下载并双击安装.  建议勾选">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Win11安装“动手学深度学习”">
+<meta property="og:url" content="https://passer1202.github.io/2025/01/19/How-to-install-Dive-into-Deep-Learning-md/index.html">
+<meta property="og:site_name" content="Passer&#39;s Homepage">
+<meta property="og:description" content="课程网站上的安装说明已经很friendly了，但是并未列出Windows下的安装教程，谨在此记录我是如何在Win11下进行安装的. 安装配置 Miniconda根据自己使用的python版本，在miniconda官网中选择对应的版本即可，如笔者使用的是python 3.9，则选择了Miniconda3-py39_24.11.1-0-Windows-x86_64.exe来下载并双击安装.  建议勾选">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2025-01-18T16:04:19.000Z">
+<meta property="article:modified_time" content="2025-01-18T16:16:40.207Z">
+<meta property="article:author" content="Passer">
+<meta name="twitter:card" content="summary">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>Win11安装“动手学深度学习”</title>
+    <!-- async scripts -->
+    <!-- Google Analytics -->
+
+
+    <!-- Umami Analytics -->
+
+
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
+		<script type="text/x-mathjax-config">
+		  MathJax.Hub.Config({
+			tex2jax: {
+			  skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+			  inlineMath: [['$','$']]
+			}
+		  });
+		</script>
+		<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML' async></script>
+	
+<meta name="generator" content="Hexo 7.0.0"></head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="目录"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="目录"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="顶部" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa-solid fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">首页</a></li><!--
+     --><!--
+       --><li><a href="/search/">搜索</a></li><!--
+     --><!--
+       --><li><a href="/tags/">标签</a></li><!--
+     --><!--
+       --><li><a href="/categories/">分类</a></li><!--
+     --><!--
+       --><li><a href="/archives/">归档</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="https://github.com/Passer1202">项目</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        
+        <li><a class="icon" aria-label="下一篇" href="/2025/01/04/%E7%94%9F%E6%97%A5%E5%BF%AB%E4%B9%90/"><i class="fa-solid fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="返回顶部" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="分享文章" href="#"><i class="fa-solid fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">上一篇</span>
+      <span id="i-next" class="info" style="display:none;">下一篇</span>
+      <span id="i-top" class="info" style="display:none;">返回顶部</span>
+      <span id="i-share" class="info" style="display:none;">分享文章</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://passer1202.github.io/2025/01/19/How-to-install-Dive-into-Deep-Learning-md/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://passer1202.github.io/2025/01/19/How-to-install-Dive-into-Deep-Learning-md/&text=Win11安装“动手学深度学习”"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://passer1202.github.io/2025/01/19/How-to-install-Dive-into-Deep-Learning-md/&title=Win11安装“动手学深度学习”"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://passer1202.github.io/2025/01/19/How-to-install-Dive-into-Deep-Learning-md/&is_video=false&description=Win11安装“动手学深度学习”"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Win11安装“动手学深度学习”&body=Check out this article: https://passer1202.github.io/2025/01/19/How-to-install-Dive-into-Deep-Learning-md/"><i class="fa-solid fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://passer1202.github.io/2025/01/19/How-to-install-Dive-into-Deep-Learning-md/&title=Win11安装“动手学深度学习”"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://passer1202.github.io/2025/01/19/How-to-install-Dive-into-Deep-Learning-md/&title=Win11安装“动手学深度学习”"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://passer1202.github.io/2025/01/19/How-to-install-Dive-into-Deep-Learning-md/&title=Win11安装“动手学深度学习”"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://passer1202.github.io/2025/01/19/How-to-install-Dive-into-Deep-Learning-md/&title=Win11安装“动手学深度学习”"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://passer1202.github.io/2025/01/19/How-to-install-Dive-into-Deep-Learning-md/&name=Win11安装“动手学深度学习”&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://passer1202.github.io/2025/01/19/How-to-install-Dive-into-Deep-Learning-md/&t=Win11安装“动手学深度学习”"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    
+    
+      <div id="toc">
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AE-Miniconda"><span class="toc-number">1.</span> <span class="toc-text">安装配置 Miniconda</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%B6%E4%BD%99%E5%8D%B3%E5%8F%AF%E5%8F%82%E7%85%A7%E8%AF%BE%E7%A8%8B%E7%BD%91%E7%AB%99"><span class="toc-number">2.</span> <span class="toc-text">其余即可参照课程网站</span></a></li></ol>
+      </div>
+    
+  </span>
+</div>
+
+    
+    <div class="content index py4 ">
+        
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle p-name" itemprop="name headline">
+        Win11安装“动手学深度学习”
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author p-author h-card" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span class="p-name" itemprop="name">Passer</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2025-01-18T16:04:19.000Z" class="dt-published" itemprop="datePublished">2025-01-19</time>
+        
+      
+    </div>
+
+
+      
+
+      
+
+    </div>
+  </header>
+  
+
+  <div class="content e-content" itemprop="articleBody">
+    <p>课程网站上的<a target="_blank" rel="noopener" href="https://zh.d2l.ai/chapter_installation/index.html">安装说明</a>已经很friendly了，但是并未列出Windows下的安装教程，谨在此记录我是如何在Win11下进行安装的.</p>
+<h2 id="安装配置-Miniconda"><a href="#安装配置-Miniconda" class="headerlink" title="安装配置 Miniconda"></a>安装配置 Miniconda</h2><p>根据自己使用的python版本，在<a target="_blank" rel="noopener" href="https://repo.anaconda.com/miniconda/">miniconda</a>官网中选择对应的版本即可，如笔者使用的是<code>python 3.9</code>，则选择了<code>Miniconda3-py39_24.11.1-0-Windows-x86_64.exe</code>来下载并双击安装.</p>
+<ul>
+<li>建议勾选 Register Miniconda3 as my default Python 3.9…</li>
+<li>不要忘记设置环境变量</li>
+</ul>
+<p>详细安装教程可参见<a target="_blank" rel="noopener" href="https://www.bilibili.com/opus/509341163774622170">bilibili</a>.</p>
+<h2 id="其余即可参照课程网站"><a href="#其余即可参照课程网站" class="headerlink" title="其余即可参照课程网站"></a>其余即可参照课程网站</h2>
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+        
+          <li><a href="/">首页</a></li>
+        
+          <li><a href="/search/">搜索</a></li>
+        
+          <li><a href="/tags/">标签</a></li>
+        
+          <li><a href="/categories/">分类</a></li>
+        
+          <li><a href="/archives/">归档</a></li>
+        
+          <li><a target="_blank" rel="noopener" href="https://github.com/Passer1202">项目</a></li>
+        
+      </ul>
+    </div>
+
+    
+    
+      <div id="toc-footer" style="display: none">
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AE-Miniconda"><span class="toc-number">1.</span> <span class="toc-text">安装配置 Miniconda</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%B6%E4%BD%99%E5%8D%B3%E5%8F%AF%E5%8F%82%E7%85%A7%E8%AF%BE%E7%A8%8B%E7%BD%91%E7%AB%99"><span class="toc-number">2.</span> <span class="toc-text">其余即可参照课程网站</span></a></li></ol>
+      </div>
+    
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://passer1202.github.io/2025/01/19/How-to-install-Dive-into-Deep-Learning-md/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://passer1202.github.io/2025/01/19/How-to-install-Dive-into-Deep-Learning-md/&text=Win11安装“动手学深度学习”"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://passer1202.github.io/2025/01/19/How-to-install-Dive-into-Deep-Learning-md/&title=Win11安装“动手学深度学习”"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://passer1202.github.io/2025/01/19/How-to-install-Dive-into-Deep-Learning-md/&is_video=false&description=Win11安装“动手学深度学习”"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Win11安装“动手学深度学习”&body=Check out this article: https://passer1202.github.io/2025/01/19/How-to-install-Dive-into-Deep-Learning-md/"><i class="fa-solid fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://passer1202.github.io/2025/01/19/How-to-install-Dive-into-Deep-Learning-md/&title=Win11安装“动手学深度学习”"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://passer1202.github.io/2025/01/19/How-to-install-Dive-into-Deep-Learning-md/&title=Win11安装“动手学深度学习”"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://passer1202.github.io/2025/01/19/How-to-install-Dive-into-Deep-Learning-md/&title=Win11安装“动手学深度学习”"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://passer1202.github.io/2025/01/19/How-to-install-Dive-into-Deep-Learning-md/&title=Win11安装“动手学深度学习”"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://passer1202.github.io/2025/01/19/How-to-install-Dive-into-Deep-Learning-md/&name=Win11安装“动手学深度学习”&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://passer1202.github.io/2025/01/19/How-to-install-Dive-into-Deep-Learning-md/&t=Win11安装“动手学深度学习”"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fa-solid fa-bars fa-lg" aria-hidden="true"></i> 菜单</a>
+        
+          <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fa-solid fa-list fa-lg" aria-hidden="true"></i> 目录</a>
+        
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fa-solid fa-share-alt fa-lg" aria-hidden="true"></i> 分享</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up fa-lg" aria-hidden="true"></i> 返回顶部</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2023-2025
+    Passer
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="/">首页</a></li><!--
+     --><!--
+       --><li><a href="/search/">搜索</a></li><!--
+     --><!--
+       --><li><a href="/tags/">标签</a></li><!--
+     --><!--
+       --><li><a href="/categories/">分类</a></li><!--
+     --><!--
+       --><li><a href="/archives/">归档</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="https://github.com/Passer1202">项目</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script>
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script>
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"复制到粘贴板！\">";
+    btn += '<i class="fa-regular fa-clone"></i>';
+    btn += '</span>';
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "复制成功！");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Disqus Comments -->
+
+<!-- utterances Comments -->
+
+</body>
+</html>
