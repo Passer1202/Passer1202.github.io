@@ -4,6 +4,32 @@
   
     
     <entry>
+      <title>todolist</title>
+      <link href="/2025/03/23/todolist/"/>
+      <url>/2025/03/23/todolist/</url>
+      
+        <content type="html"><![CDATA[<ul><li>套瓷</li><li>复习408</li><li>刷题</li><li>学ML</li></ul>]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>GAMES101</title>
+      <link href="/2025/02/19/GAMES101/"/>
+      <url>/2025/02/19/GAMES101/</url>
+      
+        <content type="html"><![CDATA[<blockquote><p>本人学习GAMES101课程整理的笔记.</p></blockquote><h2 id="观测变换"><a href="#观测变换" class="headerlink" title="观测变换"></a>观测变换</h2><p>TBD</p><h2 id="光栅化"><a href="#光栅化" class="headerlink" title="光栅化"></a>光栅化</h2><blockquote><p>将三维空间的几何形体显示在屏幕上，是实时画面的基础。计算机图形学中实时的定义：每秒能生成30帧。</p></blockquote><p>定义视锥的两个参数：长宽比、垂直可视角度.</p><p>光栅（raster）:德语中的屏幕<br>光栅化：将图像画到屏幕上</p><p>像素</p><h2 id="曲线和曲面"><a href="#曲线和曲面" class="headerlink" title="曲线和曲面"></a>曲线和曲面</h2><h2 id="光追"><a href="#光追" class="headerlink" title="光追"></a>光追</h2><h2 id="动画-模拟"><a href="#动画-模拟" class="headerlink" title="动画&amp;模拟"></a>动画&amp;模拟</h2>]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>Win11安装“动手学深度学习”</title>
       <link href="/2025/01/19/How-to-install-Dive-into-Deep-Learning-md/"/>
       <url>/2025/01/19/How-to-install-Dive-into-Deep-Learning-md/</url>
