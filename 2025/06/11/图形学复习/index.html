@@ -21,12 +21,12 @@
   <meta name="author" content="Passer">
   <meta name="keywords" content="">
   
-    <meta name="description" content="计算机图形学期末预习复习  样卷分析 2021——2022年样卷围绕各个算法展开，涉及直线中点画线算法、直线裁剪算法、多边形扫描转换方法、旋转变换矩阵以及Hermite形式的参数三次多项式曲线. 线画图元生成算法 画线算法 画线，即将线段数字化为一组离散整数位置的过程。场景中的直线段通常由其两端点的坐标位置来定义，通过特定算法计算得到中间各点的位置并将颜色值存放到帧缓存的相应坐标位置，">
+    <meta name="description" content="计算机图形学期末预习复习   这是一份由lhj和fjz共同整理的计算机图形学复习文档.  样卷分析 2021——2022年样卷围绕各个算法展开，涉及直线中点画线算法、直线裁剪算法、多边形扫描转换方法、旋转变换矩阵以及Hermite形式的参数三次多项式曲线. 线画图元生成算法 画线算法 画线，即将线段数字化为一组离散整数位置的过程。场景中的直线段通常由其两端点的坐标位置来定义，通过">
 <meta property="og:type" content="article">
 <meta property="og:title" content="图形学复习">
 <meta property="og:url" content="https://passer1202.github.io/2025/06/11/%E5%9B%BE%E5%BD%A2%E5%AD%A6%E5%A4%8D%E4%B9%A0/index.html">
 <meta property="og:site_name" content="Passer&#39;s Homepage">
-<meta property="og:description" content="计算机图形学期末预习复习  样卷分析 2021——2022年样卷围绕各个算法展开，涉及直线中点画线算法、直线裁剪算法、多边形扫描转换方法、旋转变换矩阵以及Hermite形式的参数三次多项式曲线. 线画图元生成算法 画线算法 画线，即将线段数字化为一组离散整数位置的过程。场景中的直线段通常由其两端点的坐标位置来定义，通过特定算法计算得到中间各点的位置并将颜色值存放到帧缓存的相应坐标位置，">
+<meta property="og:description" content="计算机图形学期末预习复习   这是一份由lhj和fjz共同整理的计算机图形学复习文档.  样卷分析 2021——2022年样卷围绕各个算法展开，涉及直线中点画线算法、直线裁剪算法、多边形扫描转换方法、旋转变换矩阵以及Hermite形式的参数三次多项式曲线. 线画图元生成算法 画线算法 画线，即将线段数字化为一组离散整数位置的过程。场景中的直线段通常由其两端点的坐标位置来定义，通过">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://passer1202.github.io/image/cg/bresenham_line.png">
 <meta property="og:image" content="https://passer1202.github.io/image/cg/circ1.png">
@@ -35,7 +35,7 @@
 <meta property="og:image" content="https://passer1202.github.io/image/cg/summary1.png">
 <meta property="og:image" content="https://passer1202.github.io/image/cg/scantrans.png">
 <meta property="article:published_time" content="2025-06-11T14:31:38.000Z">
-<meta property="article:modified_time" content="2025-06-19T16:03:59.252Z">
+<meta property="article:modified_time" content="2025-06-19T16:10:31.677Z">
 <meta property="article:author" content="Passer">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://passer1202.github.io/image/cg/bresenham_line.png">
@@ -231,7 +231,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          3.8k 字
+          12k 字
         
       </span>
     
@@ -242,7 +242,7 @@
         
         
         
-          32 分钟
+          101 分钟
         
       </span>
     
@@ -287,6 +287,9 @@
                 <h1
 id="计算机图形学期末预习复习">计算机图形学期末<del>预习</del>复习</h1>
 <!-- > 复习资料已上传至[njubox](https://box.nju.edu.cn/d/7bbbcbb2bef8413c9f5b/). -->
+<blockquote>
+<p>这是一份由lhj和fjz共同整理的计算机图形学复习文档.</p>
+</blockquote>
 <h2 id="样卷分析">样卷分析</h2>
 <p>2021——2022年样卷围绕各个算法展开，涉及直线中点画线算法、直线裁剪算法、多边形扫描转换方法、旋转变换矩阵以及Hermite形式的参数三次多项式曲线.</p>
 <h2 id="线画图元生成算法">线画图元生成算法</h2>
@@ -848,6 +851,836 @@ class="math inline">\(k-=2\Delta y\)</span>.</p>
 <h4 id="区域边界顶点的求交处理">区域边界顶点的求交处理</h4>
 <h3 id="区域填充算法">区域填充算法</h3>
 <h3 id="图像填充算法">图像填充算法</h3>
+<h2 id="二维裁剪">二维裁剪</h2>
+<h3 id="图形裁剪的概念">图形裁剪的概念</h3>
+<ul>
+<li><strong>裁剪</strong>：识别图形在指定区域的内、外部分的过程。</li>
+<li><strong>指定区域</strong>：裁剪窗口，用来裁剪对象的区域。</li>
+</ul>
+<h3 id="裁剪窗口类型">裁剪窗口类型</h3>
+<ul>
+<li>裁剪窗口可以是直线边界的多边形，也可以是曲线边界。</li>
+</ul>
+<h3 id="裁剪策略">裁剪策略</h3>
+<ul>
+<li><strong>窗口边界裁剪</strong>：在世界坐标系中对图形进行裁剪。
+<ul>
+<li>通常裁剪窗口等同于观察窗口，只有观察窗口内的部分会被映射到设备空间中。</li>
+</ul></li>
+<li><strong>视区边界裁剪</strong>：图形先从世界坐标系映射到规格化坐标系或设备坐标系，再进行裁剪。
+<ul>
+<li>裁剪窗口等同于设备视区，需要将所有对象（包括观察窗口外的部分）变换到设备坐标系。</li>
+</ul></li>
+</ul>
+<h3 id="裁剪优化">裁剪优化</h3>
+<ul>
+<li>合并观察变换和几何变换可以减少计算量。</li>
+<li>在光栅系统中，裁剪算法可与扫描转换过程结合，提高效率。</li>
+</ul>
+<h3 id="点裁剪">点裁剪</h3>
+<p>点裁剪非常简单，只需判断点 ( P(x, y) ) 是否在裁剪矩形内：</p>
+<ul>
+<li>( x_{min} x x_{max} )</li>
+<li>( y_{min} y y_{max} )</li>
+</ul>
+<p>满足上述条件的点予以保留。</p>
+<hr />
+<h3 id="线段裁剪">线段裁剪</h3>
+<p>线段裁剪通常包括两个步骤：</p>
+<ol type="1">
+<li><strong>关系测试</strong>：判断线段与裁剪窗口的关系
+<ul>
+<li>完全在窗口内</li>
+<li>完全在窗口外</li>
+<li>部分在窗口内（需进一步处理）</li>
+</ul></li>
+<li><strong>交点计算</strong>：对于部分在窗口内的线段，计算其与裁剪边界的交点。</li>
+</ol>
+<h4 id="cohen-sutherland-算法">Cohen-Sutherland 算法</h4>
+<p><strong>核心思想：</strong> 通过对端点编码，减少计算交点的次数。</p>
+<ul>
+<li>区域码采用四位二进制（a4a3a2a1）：
+<ul>
+<li>a4：上边界</li>
+<li>a3：下边界</li>
+<li>a2：右边界</li>
+<li>a1：左边界</li>
+<li>若某位为1，表示端点落在对应区域之外。</li>
+</ul></li>
+</ul>
+<p><strong>步骤：</strong></p>
+<ol type="1">
+<li>计算两个端点的区域码：
+<ul>
+<li>( x &lt; x_{min} ) 则 a1 = 1<br />
+</li>
+<li>( x &gt; x_{max} ) 则 a2 = 1<br />
+</li>
+<li>( y &lt; y_{min} ) 则 a3 = 1<br />
+</li>
+<li>( y &gt; y_{max} ) 则 a4 = 1</li>
+</ul></li>
+<li>分类处理：
+<ol type="1">
+<li>两个端点区域码均为 0000，线段完全在窗口内，无需裁剪。</li>
+<li>两个区域码按位与后不为 0000，线段完全在窗口外，全部裁剪。</li>
+<li>其他情况，依次按左右上下的顺序求出交点，每次舍弃外部线段，保留可能的内部线段，直到不能继续为止。
+<ul>
+<li>求交点时可用参数方程：<br />
+( x = x_1 + u(x_2 - x_1) )<br />
+( y = y_1 + u(y_2 - y_1) )<br />
+其中参数 ( u ) 在 0 到 1 之间时交点</li>
+</ul></li>
+</ol></li>
+</ol>
+<p><strong>伪代码：</strong> <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><code class="hljs pseudo">function CohenSutherlandClip(x1, y1, x2, y2):<br>    code1 = ComputeOutCode(x1, y1)<br>    code2 = ComputeOutCode(x2, y2)<br>    accept = false<br><br>    while true:<br>        if code1 == 0 and code2 == 0:<br>            accept = true<br>            break<br>        elif (code1 &amp; code2) != 0:<br>            break<br>        else:<br>            outcodeOut = code1 if code1 != 0 else code2<br>            if outcodeOut &amp; TOP:<br>                x = x1 + (x2 - x1) * (ymax - y1) / (y2 - y1)<br>                y = ymax<br>            elif outcodeOut &amp; BOTTOM:<br>                x = x1 + (x2 - x1) * (ymin - y1) / (y2 - y1)<br>                y = ymin<br>            elif outcodeOut &amp; RIGHT:<br>                y = y1 + (y2 - y1) * (xmax - x1) / (x2 - x1)<br>                x = xmax<br>            elif outcodeOut &amp; LEFT:<br>                y = y1 + (y2 - y1) * (xmin - x1) / (x2 - x1)<br>                x = xmin<br><br>            if outcodeOut == code1:<br>                x1, y1 = x, y<br>                code1 = ComputeOutCode(x1, y1)<br>            else:<br>                x2, y2 = x, y<br>                code2 = ComputeOutCode(x2, y2)<br><br>    if accept:<br>        输出裁剪后的线段 (x1, y1)-(x2, y2)<br></code></pre></td></tr></table></figure></p>
+<h4 id="梁友栋-barsky-参数裁剪算法">梁友栋-Barsky 参数裁剪算法</h4>
+<p><strong>核心思想：</strong>
+利用参数方程，将线段与裁剪窗口的关系转化为一维参数区间的求交问题（降维），从而高效地计算裁剪结果。</p>
+<ul>
+<li>将线段表示为参数方程：
+<ul>
+<li>( x = x_1 + u(x_2 - x_1) )</li>
+<li>( y = y_1 + u(y_2 - y_1) )</li>
+<li>其中 ( u ) 的取值范围为 [0, 1]，分别对应线段的起点和终点。</li>
+</ul></li>
+</ul>
+<p><strong>步骤：</strong>
+（直观理解：根据参数方程不断更新参数，最终利用参数得到裁剪后线段） 1.
+初始化<span class="math inline">\(u_{in}=0,u_{out}=1\)</span></p>
+<ol start="2" type="1">
+<li>对于每一条边界，计算参数 ( p ) 和 ( q )：
+<ul>
+<li>( p_1 = -(x_2 - x_1) )，( q_1 = x_1 - x_{min} )（左边界）</li>
+<li>( p_2 = x_2 - x_1 )，( q_2 = x_{max} - x_1 )（右边界）</li>
+<li>( p_3 = -(y_2 - y_1) )，( q_3 = y_1 - y_{min} )（下边界）</li>
+<li>( p_4 = y_2 - y_1 )，( q_4 = y_{max} - y_1 )（上边界）</li>
+</ul></li>
+<li>对每个边界，判断：
+<ul>
+<li>若 ( p_i = 0 ) 且 ( q_i &lt; 0
+)，线段平行且在边界外，直接舍弃。</li>
+<li>若 ( p_i )，计算 ( r = q_i / p_i )：
+<ul>
+<li>若 ( p_i &lt; 0 )，更新 ( u_{in} = (u_{in}, r) )</li>
+<li>若 ( p_i &gt; 0 )，更新 ( u_{out} = (u_{out}, r) )</li>
+</ul></li>
+</ul></li>
+<li>最终判断：
+<ul>
+<li>若 ( u_{in} &gt; u_{out} )，线段完全在窗口外，舍弃。</li>
+<li>否则，取 ( u_{in} ) 和 ( u_{out} ) 之间的部分作为裁剪后的线段。</li>
+</ul></li>
+</ol>
+<p><strong>优点：</strong><br />
+-
+求交次数减少（更新参数只需一次除法，最后的交点仅需一次计算，而之前的即使对完全落在窗口外的一条线段也需要反复求交点，且每次求交点都需要除法和乘法）</p>
+<p><strong>伪代码：</strong> <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs pseudo">function LiangBarskyClip(x1, y1, x2, y2, xmin, xmax, ymin, ymax):<br>    dx = x2 - x1<br>    dy = y2 - y1<br>    u_in = 0<br>    u_out = 1<br>    for (p, q) in [(-dx, x1 - xmin), (dx, xmax - x1), (-dy, y1 - ymin), (dy, ymax - y1)]:<br>        if p == 0:<br>            if q &lt; 0:<br>                return &quot;线段在窗口外，舍弃&quot;<br>        else:<br>            r = q / p<br>            if p &lt; 0:<br>                u_in = max(u_in, r)<br>            else:<br>                u_out = min(u_out, r)<br>    if u_in &gt; u_out:<br>        return &quot;线段在窗口外，舍弃&quot;<br>    else:<br>        x_start = x1 + u_in * dx<br>        y_start = y1 + u_in * dy<br>        x_end = x1 + u_out * dx<br>        y_end = y1 + u_out * dy<br>        输出裁剪后的线段 (x_start, y_start)-(x_end, y_end)<br></code></pre></td></tr></table></figure> #### 其他</p>
+<ol type="1">
+<li><p><strong>Nicholl-Lee-Nicholl 算法</strong></p>
+<p><strong>核心思想：</strong><br />
+通过对线段与裁剪窗口的空间关系进行分类，减少不必要的交点计算，提高裁剪效率。</p>
+<ul>
+<li>首先测试一个端点所在区域，然后以窗口的四个角点为基准射出四条射线，将空间划分为更多小区域。利用这些小区域，根据两个端点的相对位置可以直接判断线段与窗口的相交关系，无需多次求交。</li>
+<li>适用于端点分布较为分散的情况，能显著减少与窗口边界的交点计算次数。</li>
+</ul>
+<p><strong>特点：</strong></p>
+<ul>
+<li>相比 Liang-Barsky 算法比较和除法次数减少，效率更高。</li>
+<li>仅仅适用于二维（前两个可以拓展到三维）</li>
+</ul></li>
+<li><p><strong>非矩形裁剪窗口的相关算法</strong></p>
+<p><strong>核心思想：</strong><br />
+针对非矩形（如多边形或曲线边界）裁剪窗口，采用相应的扩展算法进行处理。</p>
+<ul>
+<li>对于<strong>凸多边形</strong>窗口，可扩展 Liang-Barsky
+算法，按多边形的各边坐标范围处理线段。</li>
+<li>对于<strong>凹多边形</strong>窗口，通常先将其分解为一组凸多边形，再分别进行裁剪。</li>
+<li>对于<strong>曲线边界</strong>（如圆形窗口），求交点涉及非线性方程，计算速度较慢。可先用外接矩形进行初步裁剪，再进一步判断与曲线边界的精确关系（如计算圆心到线段的距离等）。</li>
+</ul>
+<p><strong>优点：</strong></p>
+<ul>
+<li>能处理任意形状的裁剪窗口，适用范围广。</li>
+<li>支持复杂图形与窗口的裁剪需求。</li>
+</ul></li>
+</ol>
+<h3 id="多边形裁剪">多边形裁剪</h3>
+<p>多边形由线段构成，基本思想与线段裁剪一致。但由于多边形是封闭的二维区域，裁剪时会遇到以下问题：</p>
+<ul>
+<li>对于<strong>凸多边形</strong>，裁剪后边界可能显示为一系列不连接的直线段，需要用窗口边界的一些部分将其封闭。</li>
+<li>对于<strong>凹多边形</strong>，裁剪后可能被分割成多个小多边形，需确定这些小多边形的边界。</li>
+</ul>
+<hr />
+<h4 id="sutherland-hodgman-算法">Sutherland-Hodgman 算法</h4>
+<ul>
+<li><p><strong>核心思想：</strong><br />
+逐边裁剪。将多边形的所有顶点依次与每一条窗口边界进行裁剪，输出新的顶点序列，最终得到裁剪后的多边形。</p>
+<p>直观地说，就是记录端点序列，按照顺时针或逆时针顺序，逐边裁剪，裁剪后得到新的端点序列按相同顺序连接即可。</p></li>
+<li><p><strong>适用范围：</strong><br />
+适用于凸多边形窗口的裁剪，算法简单高效。<br />
+对于凹多边形，裁剪后可能会出现多余的线段。</p></li>
+</ul>
+<hr />
+<h4 id="weiler-atherton-算法">Weiler-Atherton 算法</h4>
+<ul>
+<li><p><strong>核心思想：</strong><br />
+适用于凹多边形或复杂多边形的裁剪。通过记录多边形与窗口的交点，沿多边形和窗口边界交替遍历，构建裁剪后的多边形或多边形集合。</p>
+<p>直观理解：算法根据交点处多边形顶点穿越边界的方式（由内到外或由外到内）来区分多个小多边形。</p></li>
+<li><p><strong>优点：</strong><br />
+能正确处理裁剪后出现的多个多边形区域，适合复杂情况。</p></li>
+</ul>
+<hr />
+<h4 id="其他">其他</h4>
+<p>多边形裁剪的其它相关问题包括：</p>
+<ul>
+<li>多边形窗口的裁剪</li>
+<li>文字的裁剪</li>
+<li>曲线边界的裁剪</li>
+<li>外部裁剪</li>
+</ul>
+<hr />
+<h2 id="曲线曲面">曲线曲面</h2>
+<h3 id="微分几何曲线曲面论">微分几何曲线/曲面论</h3>
+<h4 id="曲线的基本理论">曲线的基本理论</h4>
+<ul>
+<li>曲线是微分几何研究的主要对象之一，直观上可以看作空间质点运动的轨迹，严格定义为
+([a, b]) 到 (^3) 的连续映射。</li>
+<li>描述空间曲线的几何量有：弧长 (s)、曲率 (k(s))、挠率等。</li>
+</ul>
+<h4 id="曲面的基本理论">曲面的基本理论</h4>
+<ul>
+<li>曲面是二维流形，可以用参数方程或隐式方程描述。</li>
+<li>曲面有三个基本形式（略，可根据需要补充）。</li>
+</ul>
+<hr />
+<h3 id="参数样条曲线曲面">参数样条曲线/曲面</h3>
+<ul>
+<li><strong>参数化表示</strong>
+是计算机图形学中曲线和曲面表示的最常用方式。</li>
+</ul>
+<h4 id="曲线曲面的参数化">曲线曲面的参数化</h4>
+<ul>
+<li>给定一个具体的单（或双）参数的矢量函数，并据此给出一个具体的参数曲线（或曲面）方程。
+<ul>
+<li>决定了所表示曲线（曲面）的形状；</li>
+<li>决定了曲线（曲面）上点与其参数域内点（参数值）之间的对应关系。</li>
+</ul></li>
+<li>曲线曲面理论关注两个方面：
+<ul>
+<li>曲线（曲面）的整体形状；</li>
+<li>曲线（曲面）上点之间的相对位置关系。</li>
+</ul></li>
+<li>空间曲线上一点 (P) 的每个坐标被表示为某个参数 (u) 的函数：
+<ul>
+<li>(x = x(u), y = y(u), z = z(u))</li>
+<li>位置矢量：(P(u) = (x(u), y(u), z(u)))</li>
+<li>参数区间：(u )</li>
+</ul></li>
+</ul>
+<hr />
+<h3 id="样条曲线与样条曲面">样条曲线与样条曲面</h3>
+<ul>
+<li>数学中，样条是指用分段低次多项式函数描述的曲线，其连接处有连续的一阶和二阶导数。</li>
+<li>在计算机图形学中，样条曲线由多项式曲线段连接而成，在每段的边界处满足特定连续条件。</li>
+<li><strong>样条曲线的特点：</strong>
+<ul>
+<li>由控制点定义、建模和管理；</li>
+<li>控制点决定曲线的大致形状；</li>
+<li>可通过移动控制点来调整曲线形状；</li>
+<li>可插入新的控制点以进一步调整曲线。</li>
+</ul></li>
+</ul>
+<hr />
+<h4 id="参数样条">参数样条</h4>
+<ul>
+<li>用参数表示的样条曲线或曲面。</li>
+<li>三次样条曲线关于 (x) 坐标的方程：
+<ul>
+<li>参数多项式：(x(u) = a_x u^3 + b_x u^2 + c_x u + d_x) ((0 u ))</li>
+<li>矩阵形式：(x(u) = [u<sup>3 u</sup>2 u 1] ^T = U C)</li>
+<li>边界条件可设为端点坐标和端点处的一阶导数，四个边界条件决定系数 (a_x,
+b_x, c_x, d_x)。</li>
+<li>(U) 是参数 (u) 的幂次行矩阵，(C) 是系数列矩阵。</li>
+<li>求得系数矩阵后，三次样条曲线可表示为： [ x(u) = U M_{spline}
+M_{geom} ]
+<ul>
+<li>(M_{geom})：包含样条几何约束值（如控制点坐标和其它指定的几何约束）的4元素列矩阵。</li>
+<li>(M_{spline})：4×4矩阵，将几何约束值转化为多项式系数，提供样条曲线特征（有时称为基本矩阵）。</li>
+</ul></li>
+</ul></li>
+<li>方程可扩展为关于坐标 (x) 的参数多项式表示： [ x(u) = _{i=0}^n a_i
+_i(u) ]
+<ul>
+<li>(a_i)：约束参数，如控制点坐标和控制点处的曲线斜率；</li>
+<li>(_i(u))：多项式混合函数或基函数。</li>
+</ul></li>
+<li>计算特定样条曲线的基函数有三种等价方法：
+<ol type="1">
+<li>列出一组加在样条上的边界条件；</li>
+<li>列出刻画样条特征的行列式；</li>
+<li>列出确定如何组合指定的曲线几何约束。</li>
+</ol></li>
+</ul>
+<hr />
+<h4 id="曲线曲面的基函数表示">曲线曲面的基函数表示</h4>
+<ul>
+<li>曲线曲面可由一组基函数及其相联系的系数矢量给出： [ p() = _{i=0}^n
+a_i _i() ]
+<ul>
+<li>(a_i)：系数矢量；</li>
+<li>(p()) 与 (_i()) 根据曲线和曲面而有所不同：
+<ul>
+<li><strong>曲线</strong>：(p()) 与 (_i())
+分别为单参数的矢量函数及以该参数为变量的基函数；</li>
+<li><strong>曲面</strong>：(p()) 与 (_i())
+分别为双参数的矢量函数及以双参数为变量的基函数。</li>
+</ul></li>
+</ul></li>
+<li>表示曲线、曲面的数学方法不同，主要体现在所采用的基函数不同。</li>
+<li>基函数一旦确定，系数矢量也就完全定义了曲线或曲面。</li>
+</ul>
+<hr />
+<h4 id="基函数表示的类型">基函数表示的类型</h4>
+<p>根据所采用基函数的规范程度，基函数表示可分为三种类型：</p>
+<ol type="1">
+<li><strong>规范基表示</strong>
+<ul>
+<li>曲线或曲面上的整体满足柯西条件，即所有基函数之和为1： [ _{i=0}^n
+_i(u) = 1 ]</li>
+<li>例如：线性插值<br />
+[ P(u) = (1-u)P_0 + uP_1 ]</li>
+</ul></li>
+<li><strong>部分规范基表示</strong>
+<ul>
+<li>曲线或曲面上的部分段（片）满足规范条件： [ _{i=0}^{k&lt;n} _i(u) = 1
+]</li>
+<li>例如：分段插值<br />
+[ P(u) = ]</li>
+</ul></li>
+<li><strong>非规范基表示</strong>
+<ul>
+<li>除了上述两种以外的情况。例如： [ P(u) = (1-u)^2 P_0 + u^2 P_1 ]</li>
+</ul></li>
+</ol>
+<hr />
+<h4 id="曲线曲面表示的几何不变性">曲线曲面表示的几何不变性</h4>
+<ul>
+<li><strong>几何不变性</strong>：曲线曲面的表示不依赖于坐标系选择，即在旋转与平移变换下保持不变的性质。</li>
+<li>规范基和部分规范基表示具有几何不变性；</li>
+<li>非规范基表示不具有几何不变性。</li>
+</ul>
+<hr />
+<h4 id="自由曲线曲面生成">自由曲线曲面生成</h4>
+<ul>
+<li><p>根据要求得到贴近一组给定离散点（“型值点”、“样本点”或“控制点”）的函数式描述。</p></li>
+<li><p>根据控制点选取分段连续多项式函数：</p>
+<ul>
+<li>若选取的多项式使所得曲线通过每个控制点，则所得曲线称为这组控制点的<strong>插值样条曲线</strong>。插值曲线常用于绘图或动画设计。</li>
+<li>若多项式选取使得曲线不一定通过每个控制点，所得曲线称为这组控制点的<strong>逼近样条曲线</strong>。逼近曲线一般用来构造物体表面。</li>
+</ul></li>
+<li><p>包围一组控制点的凸多边形边界称为<strong>凸包</strong>，用于测量曲线或曲面与控制点区域间的偏差。</p></li>
+<li><p>对于逼近样条，连接有一定次序控制点的直线序列通常称作曲线的<strong>控制图</strong>或<strong>控制多边形</strong>和<strong>特征多边形</strong>，通常显示以提醒设计者控制点的次序。</p></li>
+<li><p>通常，曲线曲面都是由多个曲线段或曲面片构成。为保证分段参数曲线从一段到另一段平滑过渡，可在连接点处要求各种连续性条件。</p></li>
+</ul>
+<hr />
+<h4 id="曲线曲面连接的连续性类型">曲线曲面连接的连续性类型</h4>
+<ul>
+<li><strong>参数连续性</strong>：通过在曲线段公共部分匹配参数导数来建立。
+<ul>
+<li><strong>0阶参数连续性（C0连续）</strong>：曲线相连，两个曲线段在连接点处的坐标值相等。</li>
+<li><strong>一阶参数连续性（C1连续）</strong>：两个相邻曲线段在连接点处有相同的一阶导数（切线）。</li>
+<li><strong>二阶参数连续性（C2连续）</strong>：两个曲线段在连接点处有相同的一阶和二阶导数。</li>
+<li><strong>高阶参数连续性</strong>：可类似定义。</li>
+</ul></li>
+<li><strong>几何连续性</strong>：两曲线段在相交处的参数导数成比例，而不是相等。
+<ul>
+<li><strong>0阶几何连续性（G0）</strong>：与C0相同，即两个曲线段在公共点处有相同的坐标。</li>
+<li><strong>一阶几何连续性（G1）</strong>：一阶导数在两个相邻段的交点处成比例，切向量大小不一定相等。</li>
+<li><strong>二阶几何连续性（G2）</strong>：一次和二次导数均成比例，简称曲率连续，两个曲线段在交点处的曲率相等。</li>
+</ul></li>
+<li>几何连续条件的曲线与参数连续条件的曲线的形状有差别。对几何连续性，曲线弯向较大的切向量。在函数曲线中，参数连续性（可微性）与几何连续性（光滑度G2）是一致的；在参数曲线里，仅当曲线为正则时，这种一致性保持成立。</li>
+</ul>
+<hr />
+<h4 id="参数曲线类型间的转换">参数曲线类型间的转换</h4>
+<ul>
+<li><p>Hermite曲线、Bézier曲线、B样条都可表示为多项式曲线，是曲线不同的表示形式。</p></li>
+<li><p>不同的表示适用于不同的应用场合，如：</p>
+<ul>
+<li><strong>B-Spline</strong></li>
+<li><strong>NURBS（有理B样条）</strong></li>
+<li><strong>Bezier</strong></li>
+</ul></li>
+<li><p>三次Hermite曲线矩阵表示：( P(u) = G_H M_H U )</p></li>
+<li><p>Bézier曲线矩阵表示：( P(u) = G_{BEZ} M_{BEZ} U )</p></li>
+<li><p>三次B样条曲线矩阵表示：( P(u) = G_B M_B U )</p></li>
+<li><p>曲线类型之间可通过矩阵变换进行转换：</p>
+<ul>
+<li>从Hermite形式转换为Bézier形式：( G_{BEZ} = G_H M_H M_{BEZ} )</li>
+<li>从Bézier形式转换为B样条形式：( G_B = G_{BEZ} M_{BEZ} M_B^{-1} )</li>
+<li>其它类似。</li>
+</ul></li>
+</ul>
+<hr />
+<h3 id="曲线曲面的插值生成">曲线/曲面的插值生成</h3>
+<h4 id="三次插值样条的性质">三次插值样条的性质</h4>
+<ul>
+<li><strong>唯一性</strong>：数据点、边界条件与参数分割唯一确定所定义的参数三次样条曲线。</li>
+<li><strong>收敛性</strong>：若数据点取自某已知或未知的被插曲线，且数据点不断加密时，所生成的参数三次样条趋向序列将收敛到被插曲线。</li>
+<li><strong>计算稳定性</strong>：某点或端点处边界条件的修改对样条曲线的影响，会随着与该点相隔段数的增多而迅速衰减。</li>
+<li><strong>整体性</strong>：某点或端点处边界条件的修改影响会波及整条曲线，使其不便于局部修改。</li>
+<li><strong>不易控制</strong>：事先无法估计曲线范围，修改数据点会引起曲线形状的不可预料变化。</li>
+</ul>
+<hr />
+<h4 id="基本思想">基本思想</h4>
+<p>假设有 ( n+1 ) 个控制点，坐标分别为 ( P_k = (x_k, y_k,
+z_k), k=0,1,2,,n )。<br />
+用下列方程组描述拟合每对控制点的参数三次多项式：</p>
+<ul>
+<li>( x(u) = a_x u^3 + b_x u^2 + c_x u + d_x )</li>
+<li>( y(u) = a_y u^3 + b_y u^2 + c_y u + d_y )</li>
+<li>( z(u) = a_z u^3 + b_z u^2 + c_z u + d_z )</li>
+</ul>
+<p>每段曲线都需确定4个多项式系数。<br />
+( n+1 ) 个控制点产生 ( n ) 个曲线段，每一段都有上述问题。</p>
+<hr />
+<h4 id="按基底或基表示形式划分">按基底或基表示形式划分</h4>
+<ul>
+<li><strong>整体三次样条</strong>：定义在同一参数分割上的三次样条函数。
+<ul>
+<li>参数分割 (u) 确定后，由 ( n+1 )
+个数据点及两个边界条件完全定义。</li>
+<li>分割上的三次样条函数全体构成 ( n+3 ) 维线性空间，任一组 ( n+3 )
+个线性无关的三次样条函数都可作为一组基。</li>
+</ul></li>
+<li><strong>分段三次样条</strong>：每个样条段是参数三次曲线。
+<ul>
+<li>选定基后由四个系数矢量定义，共有 ( 4n ) 个自由度。</li>
+<li>相邻样条段在 ( n-1 ) 个节点处必须满足位置、切矢和二阶导矢连续（即
+C2），共 ( 3(n-1) ) 个约束，总自由度依然为 ( n+3 )。</li>
+</ul></li>
+</ul>
+<p><strong>分段和整体的表示形式：</strong> - Hermite分段形式 -
+幂基分段形式 - 基样条（Cardinal Spline）整体形式 - B样条形式</p>
+<hr />
+<h4 id="按数据点的参数化方法划分">按数据点的参数化方法划分</h4>
+<ul>
+<li><strong>均匀参数三次样条曲线</strong>：取均匀参数分割，即节点在参数轴上等距分布，(u
+= u_{i+1} - u_i = ) 常数。
+<ul>
+<li>适用于数据点多边形各边（弦）接近相等的场合，否则曲线在弦长较长区间会显得扁平，弦长较短区间则鼓得厉害。</li>
+</ul></li>
+<li><strong>积累弦长参数三次样条曲线</strong>：取分割 ( u_0 = 0, u_i =
+u_{i-1} + |p_{i-1}| )，其中 (p_{i-1} = P_{i} - P_{i-1}) 为弦线矢量。
+<ul>
+<li>能较好反映数据点按弦长的分布情况，数据点足够密且插值法具有收敛性时，将生成近似弧长参数曲线。</li>
+</ul></li>
+<li><strong>向心参数三次样条曲线</strong>：取分割 ( u_0 = 0, u_i =
+u_{i-1} + |p_{i-1}|^{1/2}
+)，假设曲线弧上的向心力与曲线切矢转角成正比。</li>
+<li><strong>修正弦长参数三次样条曲线</strong>：取分割 ( u_0 = 0, u_i =
+u_{i-1} + k_i |p_{i-1}|, k_i )。
+<ul>
+<li>用于修正实际弦长偏短于弧长并减缓“切向速度”。</li>
+</ul></li>
+</ul>
+<p><strong>问题</strong>：</p>
+<ul>
+<li>插值曲线<strong>不具有局部性</strong>
+<ul>
+<li>无法使设计和修改结果灵活直观地得到反映。</li>
+</ul></li>
+<li><strong>初始型值点往往不精确</strong>
+<ul>
+<li>修改型值点意味着必须重新生成曲线，且结果难以预测。</li>
+<li>实际使用中，仅为外观而逐点插值计算很不合算</li>
+</ul></li>
+</ul>
+<p>下面介绍几种不同的插值样条曲线：</p>
+<p>首先回顾：</p>
+<p>假设有 ( n+1 ) 个控制点，坐标分别为 ( P_k = (x_k, y_k,
+z_k), k=0,1,2,,n )。<br />
+用下列方程组描述拟合每对控制点的参数三次多项式：</p>
+<ul>
+<li>( x(u) = a_x u^3 + b_x u^2 + c_x u + d_x )</li>
+<li>( y(u) = a_y u^3 + b_y u^2 + c_y u + d_y )</li>
+<li>( z(u) = a_z u^3 + b_z u^2 + c_z u + d_z )</li>
+</ul>
+<p>每段曲线都需确定 4 个多项式系数，<br />
+所以一共需要 ( 4n ) 个方程来确定系数。</p>
+<hr />
+<h4 id="三次自然插值样条">三次自然插值样条</h4>
+<ul>
+<li>考虑 C2
+连续性（公共边界处有相同的一阶与二阶导数），每一个内控制点上都需要考虑两侧的曲线段连续，从而有
+( 2n-2 ) 个方程。</li>
+<li>又因为每个内控制点两侧的曲线段都需要通过该点，又有 ( 2n-2 )
+个方程。</li>
+<li>端点 ( P_0 ) 和 ( P_n ) 处各有两个方程，并且这两个地方的二阶导数为
+0，从而得到最后 4 个方程。</li>
+</ul>
+<p>或者可以直接添加两个虚拟控制点 ( P_{-1} ) 和 ( P_{n+1}
+)，这样所有的控制点都是内控制点。</p>
+<p><strong>缺点：</strong><br />
+控制点上任何一个改动都会影响整个曲线（不允许局部控制，不给出完整的新的控制点，不可能部分构造曲线</p>
+<h4 id="hermite-插值样条">Hermite 插值样条</h4>
+<ul>
+<li>Hermite 样条是分段三次多项式，并且在每个控制点有给定切线。</li>
+<li>每个曲线段仅依赖于端点约束，可局部调整。</li>
+</ul>
+<p>在控制点 ( P_k ) 和 ( P_{k+1} ) 间的曲线段是参数三次函数 ( p(u)
+)，Hermite 曲线段的边界条件为：</p>
+<ul>
+<li>( P(0) = P_k )</li>
+<li>( P'(0) = DP_k )</li>
+<li>( P(1) = P_{k+1} )</li>
+<li>( P'(1) = DP_{k+1} )</li>
+</ul>
+<p>其中 ( DP_k ) 和 ( DP_{k+1} ) 是在控制点 ( P_k ) 和 ( P_{k+1} )
+处相应的导数值（曲线的斜率）。</p>
+<p>Hermite 曲线段的向量方程为： [ P(u) = a u^3 + b u^2 + c u + d, u ] -
+( P ) 的分量 ( x ) 为：( x(u) = a_x u^3 + b_x u^2 + c_x u + d_x ) -
+对分量 ( y ) 和 ( z ) 具有同样形式。</p>
+将 ( u = 0 ) 和 ( u = 1 ) 代入 Hermite 曲线段矩阵方程，可将 Hermite
+边界条件表示为矩阵形式。 [
+<span class="math display">\[\begin{bmatrix}
+P_k \\
+P_{k+1} \\
+DP_k \\
+DP_{k+1}
+\end{bmatrix}\]</span>
+=
+<span class="math display">\[\begin{bmatrix}
+0 &amp; 0 &amp; 0 &amp; 1 \\
+1 &amp; 1 &amp; 1 &amp; 1 \\
+0 &amp; 0 &amp; 1 &amp; 0 \\
+3 &amp; 2 &amp; 1 &amp; 0
+\end{bmatrix}
+\begin{bmatrix}
+a \\
+b \\
+c \\
+d
+\end{bmatrix}\]</span>
+<p>]</p>
+该方程对多项式系数求解，得到： [
+<span class="math display">\[\begin{bmatrix}
+a \\
+b \\
+c \\
+d
+\end{bmatrix}\]</span>
+=
+<span class="math display">\[\begin{bmatrix}
+2 &amp; -2 &amp; 1 &amp; 1 \\
+-3 &amp; 3 &amp; -2 &amp; -1 \\
+0 &amp; 0 &amp; 1 &amp; 0 \\
+1 &amp; 0 &amp; 0 &amp; 0
+\end{bmatrix}
+\begin{bmatrix}
+P_k \\
+P_{k+1} \\
+DP_k \\
+DP_{k+1}
+\end{bmatrix}\]</span>
+=M_H^{-1}
+<span class="math display">\[\begin{bmatrix}
+P_k \\ P_{k+1} \\ DP_k \\ DP_{k+1}
+\end{bmatrix}\]</span>
+] 其中 ( M_H ) 是 Hermite 矩阵，是边界约束矩阵的逆矩阵。
+使用边界条件，矩阵方程可以写成： [ P(u) = [u<sup>3 u</sup>2 u 1]
+M_H^{-1}
+<span class="math display">\[\begin{bmatrix}
+P_k \\ P_{k+1} \\ DP_k \\ DP_{k+1}
+\end{bmatrix}\]</span>
+<p>]</p>
+<p>算出上述方程中的矩阵乘积且合并满足边界约束的函数，得到多项式形式（混合函数表达式）：
+[ P(u) = P_k (2u^3 - 3u^2 + 1) + P_{k+1} (-2u^3 + 3u^2) + DP_k (u^3 -
+2u^2 + u) + DP_{k+1} (u^3 - u^2) ] 或 [ P(u) = P_k H_0(u) + P_{k+1}
+H_1(u) + DP_k H_2(u) + DP_{k+1} H_3(u) ] - 多项式 ( H_k(u) )（(
+k=0,1,2,3 )）称为<strong>混合函数</strong>。 -
+它们混合了边界约束值（终点坐标和斜率）来得到曲线上每个坐标点位置。 -
+Hermite 多项式是通过估算曲线斜率来插值的。 -
+对于计算机图形学的大部分问题而言，除了控制点坐标外，更好的做法是<strong>不输入曲线斜率值或其它几何信息就生成样条曲线</strong>。<br />
+- Cardinal 样条和 Kochanek-Bartels 样条这两种 Hermite
+样条的变形，仅由控制点的坐标位置计算出导数。</p>
+<h4 id="cardinal-插值样条">Cardinal 插值样条</h4>
+<ul>
+<li>Cardinal 样条也是插值分段三次曲线，每个曲线段终点处均指定切线。</li>
+<li>与 Hermite 样条的区别在于：
+<ul>
+<li>不一定要给出终点的切线值；</li>
+<li>控制点处的斜率值由两个相邻控制点的坐标计算得到。</li>
+</ul></li>
+</ul>
+<p>Cardinal 样条由四个连续控制点给出： -
+中间两个控制点作为曲线段的端点； - 另外两个点用于计算端点的斜率。</p>
+<p>设 ( P(u) ) 是两控制点 ( P_k ) 和 ( P_{k+1} )
+间的参数三次函数式，则从 ( P_{k-1} ) 到 ( P_{k+2} ) 的四个控制点用于建立
+Cardinal 样条段的边界条件： - ( P(0) = P_k ) - ( P'(0) = (P_{k+1} -
+P_{k-1}) ) - ( P(1) = P_{k+1} ) - ( P'(1) = (P_{k+2} - P_k) )</p>
+<p>其中，控制点 ( P_k ) 和 ( P_{k+1} ) 处的斜率分别与弦 ( P_{k-1}P_{k+1}
+) 和 ( P_kP_{k+2} ) 成正比。<br />
+参数 ( t ) 控制 Cardinal
+样条与输入控制点间的松紧程度，称为张量（tension）参数。</p>
+用类似 Hermite 样条的方法，可将边界条件转换成矩阵形式 [ P(u) =
+[u<sup>3 u</sup>2 u 1] M_c
+<span class="math display">\[\begin{bmatrix}
+P_{k-1} \\ P_k \\ P_{k+1} \\ P_{k+2}
+\end{bmatrix}\]</span>
+<p>]</p>
+Cardinal 矩阵 ( M_C ) 表示为[ M_c =
+<span class="math display">\[\begin{bmatrix}
+-t &amp; 2-t &amp; t-2 &amp; t \\
+2t &amp; t-3 &amp; 3-2t &amp; -t \\
+-t &amp; 0 &amp; t &amp; 0 \\
+0 &amp; 1 &amp; 0 &amp; 0
+\end{bmatrix}\]</span>
+<p>]。</p>
+<p>将矩阵方程展开成多项式形式，可得到混合函数表达式： [ P(u) =
+P_{k-1}(-t u^3 + 2t u^2 - t u) + P_k[(2-t)u^3 + (t-3)u^2 + 1] +
+P_{k+1}[(t-2)u^3 + (2-t)u^2 + t u] + P_{k+2}(t u^3 - t u^2) ] 或 [ P(u)
+= P_{k-1} CAR_0(u) + P_k CAR_1(u) + P_{k+1} CAR_2(u) + P_{k+2} CAR_3(u)
+]</p>
+<p>其中，多项式 ( CAR_k(u) )（( k=0,1,2,3 )）称为 Cardinal
+混合函数，它们混合了边界约束值（终点坐标和斜率）来得到曲线上每个坐标点的位置。</p>
+<h4 id="kochanek-bartels-样条">Kochanek-Bartels 样条</h4>
+<ul>
+<li><p>Kochanek-Bartels 样条是在 Cardinal
+样条的基础上引入两个附加参数（偏离 bias 和连续性
+continuity）进行扩展。</p></li>
+<li><p>由四个连续控制点 ( P_{k-1} )、( P_k )、( P_{k+1} ) 和 ( P_{k+2} )
+定义，( P_k ) 和 ( P_{k+1} ) 间的 Kochanek-Bartels
+曲线段的边界条件为：</p>
+<ul>
+<li>( P(0) = P_k )</li>
+<li>( P(1) = P_{k+1} )</li>
+<li>( P'(0)_{in} = (1-t))</li>
+<li>( P'(1)_{out} = (1-t))</li>
+</ul></li>
+<li><p>其中：</p>
+<ul>
+<li>( t ) 是张量（tension）参数，控制曲线段的松紧程度；</li>
+<li>( b )
+是偏离（bias）参数，用于调整曲线段在端点处的弯曲程度，曲线段可以偏向一个端点或另一个端点；</li>
+<li>( c )
+是连续性（continuity）参数，控制切向量在曲线段边界处的连续性。若 ( c )
+取非零值，则曲线在曲线段边界处的斜率不连续。</li>
+</ul></li>
+<li><p>Kochanek-Bartels
+样条的设计主要用于动画路径模拟，特别是当物体运动有突变时，可以通过设置参数
+( c ) 为非零值来模拟这种突变效果</p></li>
+</ul>
+<h4 id="省流版总结">省流版总结</h4>
+<ul>
+<li><strong>三次插值样条</strong>：通过所有控制点并在点上超级连续，整体性强但不具备局部性，修改一个点会影响整条曲线，适合数据平滑但不便于局部调整。</li>
+<li><strong>Hermite插值样条</strong>：每段由端点位置和切线（斜率）决定，支持局部调整，适合需要指定端点斜率的场景。</li>
+<li><strong>Cardinal插值样条</strong>：不需手动指定切线，斜率由相邻控制点自动计算，带有张量参数
+( t ) 控制曲线松紧，适合一般插值需求。</li>
+<li><strong>Kochanek-Bartels样条</strong>：在Cardinal基础上增加偏离b和连续性c参数，能灵活控制曲线弯曲和连接处的连续性，适合动画路径等需要特殊形状控制的场合。</li>
+</ul>
+<h3 id="曲线曲面的拟合生成">曲线/曲面的拟合生成</h3>
+<p>既然插值样条曲线的共同特点是<strong>生成的曲线通过所有给定的“型值点”</strong>，存在如下问题：</p>
+<ul>
+<li>插值曲线不具有局部性，无法使设计和修改结果灵活直观地得到反映。</li>
+<li>初始型值点往往不精确，修改型值点意味着必须重新生成曲线，且结果难以预测。</li>
+<li>实际使用中，仅为外观而逐点插值计算很不合算。</li>
+</ul>
+<p>那么可以采用<strong>拟合</strong>方法。</p>
+<hr />
+<h4 id="bézier-曲线">Bézier 曲线</h4>
+<p><strong>定义：</strong><br />
+Bézier 曲线可由给定边界条件或特征矩阵决定，常用表达为： [ P(u) = G_{BEZ}
+M_{BEZ} U ] 其中 ( G_{BEZ} ) 为控制点矩阵，( M_{BEZ} ) 为 Bézier
+基本矩阵，( U ) 为参数幂向量。</p>
+<p>最常用的是<strong>混合函数形式</strong>：</p>
+<ul>
+<li>给定 ( n+1 ) 个控制点：( P_k = (x_k, y_k, z_k) )，( k=0,1,2,,n
+)</li>
+<li>这些点通过混合函数产生位置向量 ( P(u) )，描述 ( P_0 ) 和 ( P_n )
+间的 Bézier 多项式路径（Bézier 曲线）： [ P(u) = <em>{k=0}^{n}
+BEZ</em>{k,n}(u) P_k ]</li>
+<li>其中混合函数 ( BEZ_{k,n}(u) ) 即 Bernstein 多项式。</li>
+<li>利用 Bernstein 基函数的降（升）阶公式，可递归计算 Bézier
+曲线上点的坐标位置。</li>
+<li>用递归定义 Bézier 混合函数： [ BEZ_{k,n}(u) = (1-u) BEZ_{k,n-1}(u) +
+u BEZ_{k-1,n-1}(u) ] 其中：
+<ul>
+<li>( BEZ_{k,k}(u) = u^k )</li>
+<li><h2 id="bez_0ku-1-uk">( BEZ_{0,k}(u) = (1-u)^k )</h2></li>
+</ul></li>
+</ul>
+<p><strong>Bernstein 基函数及其性质：</strong></p>
+<ul>
+<li><p>Bézier 曲线采用 Bernstein 基函数作为基底，其 n 阶 Bernstein
+基函数为： [ BEZ_{i,n}(u) = (1-u)^{n-i} u^i, u , i=0,1,,n ]</p></li>
+<li><p><strong>性质：</strong></p>
+<ul>
+<li><strong>非负性</strong>：在区间 [0,1] 内，( BEZ_{i,n}(u) )</li>
+<li><strong>权和为1</strong>：(<em>{i=0}^n BEZ</em>{i,n}(u) = 1)</li>
+<li><strong>对称性</strong>：( BEZ_{i,n}(u) = BEZ_{n-i,n}(1-u) )</li>
+<li><strong>最大值</strong>：( BEZ_{i,n}(u) ) 在 ( u = )
+处取得最大值</li>
+<li><strong>降阶公式</strong>：n 次 Bernstein 基函数可表示为两个 n-1
+次基函数的线性和： [ BEZ_{i,n}(u) = (1-u) BEZ_{i,n-1}(u) + u
+BEZ_{i-1,n-1}(u),(i=0,1,,n) ]</li>
+<li><strong>升阶公式</strong>：n 次 Bernstein 基函数可表示为两个 n+1
+次基函数的线性和。 [ BEZ_{i,n}(u) = BEZ_{i,n+1}(u) + BEZ_{i+1,n+1}(u)
+]</li>
+<li><strong>区间积分</strong>： [ <em>0^1 BEZ</em>{i,n}(u) du = ]</li>
+<li><strong>线性无关性</strong>：({BEZ_{i,n}(u)}_{i=0}^n) 是 n
+次多项式空间的一组线性无关基函数，任何 n
+次多项式都可表示为它们的线性组合。</li>
+<li><strong>导数</strong>：对 ( i=0,1,2,,n )， [ BEZ'_{i,n}(u) = n
+[BEZ_{i-1,n-1}(u) - BEZ_{i,n-1}(u)] ]</li>
+</ul></li>
+</ul>
+<hr />
+<p><strong>拟合特性：</strong></p>
+<ul>
+<li>Bézier 曲线段可拟合任意数量的控制点。
+<ul>
+<li>Bézier 曲线段<strong>逼近</strong>这些控制点，控制多边形大致勾画出
+Bézier 曲线的形状。要改变曲线，只需改变顶点的位置。</li>
+<li>曲线上除了两个端点外的所有点都与控制多边形的全部顶点有关，因此可以通过控制多边形实现曲线的输入与交互。</li>
+</ul></li>
+<li>控制点的数量决定了 Bézier 多项式的次数。
+<ul>
+<li>一条 n 次 Bézier 曲线可表示为 n+1 个控制顶点的加权和，权重为
+Bernstein 基函数。</li>
+<li>Bézier 多项式的次数比控制点个数小 1：
+<ul>
+<li>三点生成抛物线（2 次曲线），四点生成三次曲线，依此类推。</li>
+</ul></li>
+<li>某些特殊控制点布局会得到退化的 Bézier 多项式：
+<ul>
+<li>三个共线控制点生成的 Bézier 曲线是直线段；</li>
+<li>所有控制点重合时，Bézier 曲线退化为一个点</li>
+</ul></li>
+</ul></li>
+</ul>
+<hr />
+<p><strong>性质：</strong></p>
+<ul>
+<li>端点插值性：曲线起点和终点分别为首尾控制点。</li>
+<li>局部可调性较弱（移动一个控制点会影响全局，但影响随阶数增加而减弱）。</li>
+<li>保凸性：曲线始终在控制多边形的凸包内。</li>
+<li>仿射不变性：对控制点做仿射变换，曲线随之仿射变换。</li>
+</ul>
+<hr />
+<p><strong>Bezier 曲线离散点生成：</strong></p>
+<ul>
+<li>常用 De Casteljau
+算法递归生成曲线上的点，适合数值稳定的曲线绘制。</li>
+</ul>
+<hr />
+<p><strong>分割：</strong></p>
+<ul>
+<li>Bezier 曲线可通过 De Casteljau 算法在任意参数 ( u ) 处分割为两条
+Bezier 曲线，便于局部细分和拼接。</li>
+</ul>
+<hr />
+<p><strong>封闭重合及升降阶：</strong></p>
+<ul>
+<li>封闭曲线可通过首尾控制点重合实现。</li>
+<li>Bezier 曲线可通过升阶算法提升阶数，保证曲线形状不变。</li>
+</ul>
+<hr />
+<p><strong>拼接：</strong></p>
+<ul>
+<li>多段 Bezier
+曲线可通过端点及导数连续性条件进行拼接，实现更复杂的曲线造型。</li>
+</ul>
+<hr />
+<p><strong>Bezier 曲面：</strong></p>
+<ul>
+<li>Bezier 曲面是 Bezier
+曲线在两个参数方向上的推广，由控制网格决定，常用于曲面建模 ####
+B样条</li>
+</ul>
+<h4 id="nurbs">NURBS</h4>
+<h4 id="省流总结">省流总结</h4>
+<p><strong>对比表：</strong></p>
+<table>
+
+<thead>
+<tr>
+<th>特性</th>
+<th>Hermite</th>
+<th>Bézier</th>
+<th>B样条</th>
+<th>NURBS</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>凸包性</strong></td>
+<td>否</td>
+<td>是</td>
+<td>是</td>
+<td>是</td>
+</tr>
+<tr>
+<td><strong>插值控制顶点</strong></td>
+<td>是</td>
+<td>是</td>
+<td>否</td>
+<td>增加节点重数可插值控制顶点</td>
+</tr>
+<tr>
+<td><strong>离散生成方法</strong></td>
+<td>端点与切矢量</td>
+<td>控制顶点</td>
+<td>控制顶点</td>
+<td>控制顶点+权重</td>
+</tr>
+<tr>
+<td><strong>连续性</strong></td>
+<td>C1, G1</td>
+<td>C1, G1</td>
+<td>C2, G2</td>
+<td>C2, G2</td>
+</tr>
+<tr>
+<td><strong>形状控制参量</strong></td>
+<td>端点位置与切矢量</td>
+<td>控制顶点</td>
+<td>控制顶点</td>
+<td>控制顶点、权重</td>
+</tr>
+<tr>
+<td><strong>局部可调性</strong></td>
+<td>局部（每段独立）</td>
+<td>局部（但全局影响）</td>
+<td>强（仅影响相邻区段）</td>
+<td>强（仅影响相邻区段）</td>
+</tr>
+<tr>
+<td><strong>端点插值</strong></td>
+<td>是</td>
+<td>是</td>
+<td>否</td>
+<td>增加节点重数可实现</td>
+</tr>
+<tr>
+<td><strong>计算复杂度</strong></td>
+<td>较好</td>
+<td>好</td>
+<td>一般</td>
+<td>计算复杂</td>
+</tr>
+<tr>
+<td><strong>适用场景</strong></td>
+<td>需指定端点斜率、动画路径</td>
+<td>曲线建模、动画、字体</td>
+<td>曲面建模、CAD、动画</td>
+<td>高级建模、工业设计、动画</td>
+</tr>
+</tbody>
+</table>
+<h2
+id="注nurbsnon-uniform-rational-b-spline在b样条基础上引入权重能表示圆锥曲线等更复杂形状应用最广">&gt;
+注：NURBS（Non-Uniform Rational
+B-Spline）在B样条基础上引入权重，能表示圆锥曲线等更复杂形状，应用最广。</h2>
 
                 
               </div>
