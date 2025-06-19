@@ -30,9 +30,11 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://passer1202.github.io/image/cg/bresenham_line.png">
 <meta property="og:image" content="https://passer1202.github.io/image/cg/circ1.png">
-<meta property="og:image" content="https://passer1202.github.io/2025/06/11/%E5%9B%BE%E5%BD%A2%E5%AD%A6%E5%A4%8D%E4%B9%A0/index.html#%E7%BA%BF%E7%94%BB%E5%9B%BE%E5%85%83%E7%94%9F%E6%88%90%E5%B0%8F%E7%BB%93">
+<meta property="og:image" content="https://passer1202.github.io/image/cg/ellipse1.png">
+<meta property="og:image" content="https://passer1202.github.io/image/cg/ellipse2.png">
+<meta property="og:image" content="https://passer1202.github.io/image/cg/summary1.png">
 <meta property="article:published_time" content="2025-06-11T14:31:38.000Z">
-<meta property="article:modified_time" content="2025-06-19T14:34:10.055Z">
+<meta property="article:modified_time" content="2025-06-19T14:37:26.131Z">
 <meta property="article:author" content="Passer">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://passer1202.github.io/image/cg/bresenham_line.png">
@@ -487,7 +489,10 @@ class="math inline">\((x_c,y_c)\)</span> 为中心的椭圆上.
 在斜率绝对值小于1的区域在 <span class="math inline">\(x\)</span>
 方向取单位步长，在斜率绝对值大于1的区域在 <span
 class="math inline">\(y\)</span> 方向取单位步长来处理这个象限.</p>
-<p>![椭圆处理的区域]{/image/cg/ellipse1.png}</p>
+<figure>
+<img src="/image/cg/ellipse1.png" srcset="/img/loading.gif" lazyload alt="椭圆处理的区域" />
+<figcaption aria-hidden="true">椭圆处理的区域</figcaption>
+</figure>
 <p>定义椭圆函数 <span
 class="math display">\[f_e(x,y)=r_y^2x^2+r_x^2y^2-r_x^2r_y^2\]</span> ,
 我们令椭圆函数作为中点算法的决策参数，帮我们在两候选像素位置之间做决定.</p>
@@ -508,7 +513,12 @@ class="math display">\[p1_k=f_e(x_k+1,y_k-\frac{1}{2})=r_y^2(x_k+1)^2+r_x^2(y_k-
 当 <span class="math inline">\(p_1k&lt;0\)</span> 中点位于椭圆内，选择
 <span class="math inline">\(y_k\)</span> 上的像素更接近椭圆，否则选择
 <span class="math inline">\(y_k-1\)</span> 上的像素.</p>
-<p>![椭圆轨迹上取样位置xk+1处候选像素中点]{/image/cg/ellipse2.png}</p>
+<figure>
+<img src="/image/cg/ellipse2.png" srcset="/img/loading.gif" lazyload
+alt="椭圆轨迹上取样位置xk+1处候选像素中点" />
+<figcaption
+aria-hidden="true">椭圆轨迹上取样位置xk+1处候选像素中点</figcaption>
+</figure>
 <p>计算下一取样位置的决策参数，<span class="math display">\[
 p1_{k+1}=f_e(x_{k+1}+1,y_{k+1}-\frac{1}{2})=r_y^2[(x_k+1)+1]^2+r_x^2(y_{k+1}-\frac{1}{2})^2-r_x^2r_y^2
 \]</span> 从而 <span
@@ -611,8 +621,10 @@ class="math inline">\((x_c, y_c)\)</span>
   \]</span></p>
 </blockquote>
 <h3 id="线画图元生成小结">线画图元生成小结</h3>
-<p><img src="#线画图元生成小结" srcset="/img/loading.gif" lazyload
-alt="线画图元生成小结" />{/image/cg/summary1.png}</p>
+<figure>
+<img src="/image/cg/summary1.png" srcset="/img/loading.gif" lazyload alt="线画图元生成小结" />
+<figcaption aria-hidden="true">线画图元生成小结</figcaption>
+</figure>
 
                 
               </div>
