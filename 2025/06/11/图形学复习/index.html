@@ -21,16 +21,17 @@
   <meta name="author" content="Passer">
   <meta name="keywords" content="">
   
-    <meta name="description" content="计算机图形学期末预习复习  复习资料已上传至njubox.  样卷分析 2021——2022年样卷围绕各个算法展开，涉及直线中点画线算法、直线裁剪算法、多边形扫描转换方法、旋转变换矩阵以及Hermite形式的参数三次多项式曲线. 画线算法 画线，即将线段数字化为一组离散整数位置的过程。场景中的直线段通常由其两端点的坐标位置来定义，通过特定算法计算得到中间各点的位置并将颜色值存放到帧缓">
+    <meta name="description" content="计算机图形学期末预习复习  复习资料已上传至njubox.  样卷分析 2021——2022年样卷围绕各个算法展开，涉及直线中点画线算法、直线裁剪算法、多边形扫描转换方法、旋转变换矩阵以及Hermite形式的参数三次多项式曲线. 图元生成算法 画线算法 画线，即将线段数字化为一组离散整数位置的过程。场景中的直线段通常由其两端点的坐标位置来定义，通过特定算法计算得到中间各点的位置并将">
 <meta property="og:type" content="article">
 <meta property="og:title" content="图形学复习">
 <meta property="og:url" content="https://passer1202.github.io/2025/06/11/%E5%9B%BE%E5%BD%A2%E5%AD%A6%E5%A4%8D%E4%B9%A0/index.html">
 <meta property="og:site_name" content="Passer&#39;s Homepage">
-<meta property="og:description" content="计算机图形学期末预习复习  复习资料已上传至njubox.  样卷分析 2021——2022年样卷围绕各个算法展开，涉及直线中点画线算法、直线裁剪算法、多边形扫描转换方法、旋转变换矩阵以及Hermite形式的参数三次多项式曲线. 画线算法 画线，即将线段数字化为一组离散整数位置的过程。场景中的直线段通常由其两端点的坐标位置来定义，通过特定算法计算得到中间各点的位置并将颜色值存放到帧缓">
+<meta property="og:description" content="计算机图形学期末预习复习  复习资料已上传至njubox.  样卷分析 2021——2022年样卷围绕各个算法展开，涉及直线中点画线算法、直线裁剪算法、多边形扫描转换方法、旋转变换矩阵以及Hermite形式的参数三次多项式曲线. 图元生成算法 画线算法 画线，即将线段数字化为一组离散整数位置的过程。场景中的直线段通常由其两端点的坐标位置来定义，通过特定算法计算得到中间各点的位置并将">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://passer1202.github.io/image/cg/bresenham_line.png">
+<meta property="og:image" content="https://passer1202.github.io/image/cg/circ1.png">
 <meta property="article:published_time" content="2025-06-11T14:31:38.000Z">
-<meta property="article:modified_time" content="2025-06-19T09:21:42.398Z">
+<meta property="article:modified_time" content="2025-06-19T10:28:09.659Z">
 <meta property="article:author" content="Passer">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://passer1202.github.io/image/cg/bresenham_line.png">
@@ -226,7 +227,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1k 字
+          1.8k 字
         
       </span>
     
@@ -237,7 +238,7 @@
         
         
         
-          9 分钟
+          15 分钟
         
       </span>
     
@@ -287,9 +288,10 @@ target="_blank" rel="noopener" href="https://box.nju.edu.cn/d/7bbbcbb2bef8413c9f
 </blockquote>
 <h2 id="样卷分析">样卷分析</h2>
 <p>2021——2022年样卷围绕各个算法展开，涉及直线中点画线算法、直线裁剪算法、多边形扫描转换方法、旋转变换矩阵以及Hermite形式的参数三次多项式曲线.</p>
-<h2 id="画线算法">画线算法</h2>
+<h2 id="图元生成算法">图元生成算法</h2>
+<h3 id="画线算法">画线算法</h3>
 <p>画线，即将线段数字化为一组离散整数位置的过程。场景中的直线段通常由其两<strong>端点</strong>的坐标位置来定义，通过特定算法计算得到中间各点的位置并将颜色值存放到帧缓存的相应坐标位置，待视频控制器从帧缓存读出写入的颜色值并绘制于屏幕。</p>
-<h3 id="dda算法">DDA算法</h3>
+<h4 id="dda算法">DDA算法</h4>
 <p>从一个端点出发，以 <span class="math inline">\(\delta_x\)</span>（或
 <span
 class="math inline">\(\delta_y\)</span>）为步长，逐个计算各点坐标，对于
@@ -307,7 +309,7 @@ class="math inline">\(x_{k+1}=x_k+\frac{1}{m}\)</span>
 ;若从上端点出发，设置 <span
 class="math inline">\(\delta_y=-1\)</span>,则 <span
 class="math inline">\(x_{k+1}=x_k-\frac{1}{m}\)</span>.</p>
-<h3 id="bresenham画线算法">Bresenham画线算法</h3>
+<h4 id="bresenham画线算法">Bresenham画线算法</h4>
 <p>通俗来讲，Bresenham画线算法每次生成两个可能的像素位置，并从中选择一个更接近线路径的，相较于DDA中大量的浮点数运算，Bresenham算法使用整数增量，win！</p>
 <p>以正斜率小于1的直线扫描转换过程为例，我们来思考Bresenham算法做了什么.假如在第k步我们已经确定了要显示的像素在
 <span class="math inline">\((x_k,y_k)\)</span> ，那么 <span
@@ -385,8 +387,94 @@ alt="各区域的Bresenham画线算法" />
 <li>否则为反.</li>
 </ul></li>
 </ul>
-<h2 id="圆生成算法">圆生成算法</h2>
-<p>我们延续Bresenham画线算法的思想，尝试画圆.</p>
+<h3 id="圆生成算法">圆生成算法</h3>
+<p>下面我们延续Bresenham画线算法的思想，尝试画圆.</p>
+<p>如同画线算法，我们在每一步中以<strong>单位间隔</strong>取样,从两候选像素中找出距离目标圆更近的一个.对于圆心在
+<span class="math inline">\((x_c,y_c)\)</span> 半径为 <span
+class="math inline">\(r\)</span> 的圆来说，我们可以使用算法计算圆心在
+<span class="math inline">\((0,0)\)</span> 且半径同为 <span
+class="math inline">\(r\)</span>
+的圆的像素坐标，再经过简单的平移变换得到目标圆的像素坐标.因此，方便起见，算法只考虑圆心位于原点的圆.考虑到圆的对称性，我们只需要考虑第一象限中从
+<span class="math inline">\(x=0\)</span> 到 <span
+class="math inline">\(x=y\)</span> 的圆弧段（八分圆），在正 <span
+class="math inline">\(x\)</span>
+方向取单位步长，其他七个根据对称性求得.</p>
+<p>首先定义圆函数 <span class="math display">\[f_c(x,y) = x^2+y^2-r^2
+\]</span>, 则任何点 <span class="math inline">\((x,y)\)</span>
+和圆的位置关系都可根据 <span class="math inline">\(f_c(x,y)\)</span>
+大于、小于或等于0来判断.下面定义决策参数 <span
+class="math display">\[p_k=f_c(x_k+1 , y_k - \frac{1}{2} )=
+(x_k+1)^2+(y_k-\frac{1}{2})^2-r^2\]</span>.</p>
+<figure>
+<img src="/image/cg/circ1.png" srcset="/img/loading.gif" lazyload
+alt="沿圆路径取样位置xk+1上候选像素间的中点" />
+<figcaption
+aria-hidden="true">沿圆路径取样位置xk+1上候选像素间的中点</figcaption>
+</figure>
+<p>如图所示，若 <span class="math inline">\(p_k&lt;0\)</span>
+则中点位于圆内，显然扫描线 <span class="math inline">\(y_k\)</span>
+上的像素更接近与目标圆，我们没理由不选择它；否则我们将选择位于 <span
+class="math inline">\(y_k-1\)</span> 的像素点.</p>
+<p>惊喜的是，依靠增量运算，我们并不需要每次都进行讨厌的平方运算，考虑
+<span
+class="math display">\[p_{k+1}=f_c(x_{k+1}+1,y_{k+1}-\frac{1}{2})\]</span>，与
+<span class="math inline">\(p_k\)</span> 作差得 <span
+class="math display">\[p_{k+1}-p_k=2(x_k+1)+(y_{k+1}^2-y_k^2)-(y_{k+1}-y_k)+1\]</span>.</p>
+<p>当 <span class="math inline">\(p_k&lt;0\)</span>，我们有 <span
+class="math inline">\(y_{k+1}=y_k\)</span> , <span
+class="math display">\[p_{k+1}-p_k = 2(x_k +1)+1=2x_{k+1}+1\]</span>; 当
+<span class="math inline">\(p_k&gt;0\)</span>，我们有 <span
+class="math inline">\(y_{k+1}=y_k-1\)</span>, <span
+class="math display">\[p_{k+1}-p_k =2x_{k+1}+1 - 2y_k -2=2x_{k+1}+1 -
+2y_{k+1} \]</span>, 而 <span class="math inline">\(2x_{k+1}\)</span> 和
+<span class="math inline">\(2y_{k+1}\)</span>
+的求值也可以通过增量的方式得到 <span
+class="math display">\[2x_{k+1}=2x_k+2,2y_{k+1}=2y_k-2\]</span>.对圆函数在起始位置
+<span class="math inline">\((x_0,y_0)=(0,r)\)</span>
+求值，就得到了初始决策参数 <span
+class="math display">\[p_0=f_c(1,r-\frac{1}{2}) =\frac{5}{4} -r
+\]</span> .</p>
+<p>至此，我们发明了中点圆算法！</p>
+<blockquote>
+<p>中点圆算法： 1. 输入圆的半径 $ r $ 和圆心 <span
+class="math inline">\((x_c,
+y_c)\)</span>，并得到圆周（圆心在原点）上的第一个点：<br />
+<span class="math display">\[
+  (x_0, y_0) = (0, r)
+  \]</span></p>
+<ol start="2" type="1">
+<li><p>计算决策参数的初始值：<br />
+<span class="math display">\[
+  p_0 = \frac{5}{4} - r
+  \]</span></p></li>
+<li><p>从 $ k = 0 $ 开始，在每个 $ x_k $ 位置进行以下检测：<br />
+</p></li>
+</ol>
+<ul>
+<li>如果 $ p_k &lt; 0 $，则下一个点为 <span
+class="math inline">\((x_{k+1}, y_k)\)</span>，并更新决策参数：<br />
+<span class="math display">\[
+p_{k+1} = p_k + 2x_{k+1} + 1
+\]</span><br />
+</li>
+<li>否则，下一个点为 <span class="math inline">\((x_{k+1}, y_k -
+1)\)</span>，并更新决策参数：<br />
+<span class="math display">\[
+p_{k+1} = p_k + 2x_{k+1} + 1 - 2y_{k+1}
+\]</span><br />
+其中，$ 2x_{k+1} = 2x_k + 2 $ 且 $ 2y_{k+1} = 2y_k - 2 $。</li>
+</ul>
+<ol start="4" type="1">
+<li><p>确定在其他七个八分圆中的对称点。</p></li>
+<li><p>将每个计算出的像素位置 <span class="math inline">\((x,
+y)\)</span> 平移到圆心 <span class="math inline">\((x_c, y_c)\)</span>
+的圆路径上：<br />
+$ x = x + x_c, y = y + y_c $</p></li>
+<li><p>重复步骤 3 到步骤 5，直到 $ x y $。</p></li>
+</ol>
+</blockquote>
+<h3 id="椭圆生成算法">椭圆生成算法</h3>
+<p>还是依靠Bresenham算法的思想，我们现在开始尝试画椭圆.</p>
 
                 
               </div>
