@@ -21,12 +21,12 @@
   <meta name="author" content="Passer">
   <meta name="keywords" content="">
   
-    <meta name="description" content="计算机图形学期末预习复习   样卷分析 2021——2022年样卷围绕各个算法展开，涉及直线中点画线算法、直线裁剪算法、多边形扫描转换方法、旋转变换矩阵以及Hermite形式的参数三次多项式曲线. 线画图元生成算法 画线算法 画线，即将线段数字化为一组离散整数位置的过程。场景中的直线段通常由其两端点的坐标位置来定义，通过特定算法计算得到中间各点的位置并将颜色值存放到帧缓存的相应坐标位">
+    <meta name="description" content="计算机图形学期末预习复习   这是一份由lhj和fjz共同整理的计算机图形学复习文档.  样卷分析 2021——2022年样卷围绕各个算法展开，涉及直线中点画线算法、直线裁剪算法、多边形扫描转换方法、旋转变换矩阵以及Hermite形式的参数三次多项式曲线. 线画图元生成算法 画线算法 画线，即将线段数字化为一组离散整数位置的过程。场景中的直线段通常由其两端点的坐标位置来定义，通过">
 <meta property="og:type" content="article">
 <meta property="og:title" content="图形学复习">
 <meta property="og:url" content="https://passer1202.github.io/2025/06/11/%E5%9B%BE%E5%BD%A2%E5%AD%A6%E5%A4%8D%E4%B9%A0/index.html">
 <meta property="og:site_name" content="Passer&#39;s Homepage">
-<meta property="og:description" content="计算机图形学期末预习复习   样卷分析 2021——2022年样卷围绕各个算法展开，涉及直线中点画线算法、直线裁剪算法、多边形扫描转换方法、旋转变换矩阵以及Hermite形式的参数三次多项式曲线. 线画图元生成算法 画线算法 画线，即将线段数字化为一组离散整数位置的过程。场景中的直线段通常由其两端点的坐标位置来定义，通过特定算法计算得到中间各点的位置并将颜色值存放到帧缓存的相应坐标位">
+<meta property="og:description" content="计算机图形学期末预习复习   这是一份由lhj和fjz共同整理的计算机图形学复习文档.  样卷分析 2021——2022年样卷围绕各个算法展开，涉及直线中点画线算法、直线裁剪算法、多边形扫描转换方法、旋转变换矩阵以及Hermite形式的参数三次多项式曲线. 线画图元生成算法 画线算法 画线，即将线段数字化为一组离散整数位置的过程。场景中的直线段通常由其两端点的坐标位置来定义，通过">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://passer1202.github.io/image/cg/bresenham_line.png">
 <meta property="og:image" content="https://passer1202.github.io/image/cg/circ1.png">
@@ -42,8 +42,12 @@
 <meta property="og:image" content="https://passer1202.github.io/image/cg/n16.png">
 <meta property="og:image" content="https://passer1202.github.io/image/cg/scanvstc.png">
 <meta property="og:image" content="https://passer1202.github.io/image/cg/xiaoguo.png">
+<meta property="og:image" content="https://passer1202.github.io/image/cg/cuoqie.png">
+<meta property="og:image" content="https://passer1202.github.io/image/cg/qici.png">
+<meta property="og:image" content="https://passer1202.github.io/image/cg/3dts.png">
+<meta property="og:image" content="https://passer1202.github.io/image/cg/any3dr.png">
 <meta property="article:published_time" content="2025-06-11T14:31:38.000Z">
-<meta property="article:modified_time" content="2025-06-20T04:02:55.857Z">
+<meta property="article:modified_time" content="2025-06-20T08:20:44.401Z">
 <meta property="article:author" content="Passer">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://passer1202.github.io/image/cg/bresenham_line.png">
@@ -239,7 +243,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          6.7k 字
+          7.8k 字
         
       </span>
     
@@ -250,7 +254,7 @@
         
         
         
-          57 分钟
+          66 分钟
         
       </span>
     
@@ -295,7 +299,9 @@
                 <h1
 id="计算机图形学期末预习复习">计算机图形学期末<del>预习</del>复习</h1>
 <!-- > 复习资料已上传至[njubox](https://box.nju.edu.cn/d/7bbbcbb2bef8413c9f5b/). -->
-<!-- > 这是一份由lhj和fjz共同整理的计算机图形学复习文档.-->
+<blockquote>
+<p>这是一份由lhj和fjz共同整理的计算机图形学复习文档.</p>
+</blockquote>
 <h2 id="样卷分析">样卷分析</h2>
 <p>2021——2022年样卷围绕各个算法展开，涉及直线中点画线算法、直线裁剪算法、多边形扫描转换方法、旋转变换矩阵以及Hermite形式的参数三次多项式曲线.</p>
 <h2 id="线画图元生成算法">线画图元生成算法</h2>
@@ -1059,6 +1065,158 @@ e\)</span> 为正，那么，该边从右向左穿越射线，环绕数加1</li>
 <img src="/image/cg/xiaoguo.png" srcset="/img/loading.gif" lazyload alt="填充效果" />
 <figcaption aria-hidden="true">填充效果</figcaption>
 </figure>
+<h2 id="基本几何变换">基本几何变换</h2>
+<h3 id="二维几何变换">二维几何变换</h3>
+<h4 id="平移与旋转">平移与旋转</h4>
+<p>将物体沿直线路径从一个坐标位置到另一个坐标位置重定位，原始位置 <span
+class="math inline">\((x,y)\)</span> 加上平移距离 <span
+class="math inline">\(t_x,t_y\)</span> 即可得到一个新的坐标位置 <span
+class="math inline">\((x&#39;,y&#39;)\)</span>，有 <span
+class="math display">\[P&#39;=P+T\]</span>.</p>
+<ul>
+<li>直线段：平移两端点然后重画端点间线段.</li>
+<li>多边形：平移各顶点坐标，生成新的多边形.</li>
+<li>圆或椭圆：平移中心坐标并在新位置重画图形.</li>
+<li>曲线：平移定义曲线的坐标位置，用新的坐标位置重构曲线.</li>
+</ul>
+<p>物体沿着 <span class="math inline">\(xy\)</span>
+平面内圆弧路径重定位，指定旋转基准点 <span
+class="math inline">\((x_r,y_r)\)</span> 和 旋转角 <span
+class="math inline">\(\theta\)</span> , 逆时针旋转为正,
+绕通过基准点且垂直于 <span class="math inline">\(xy\)</span>
+平面的旋转轴旋转.</p>
+<p>首先考虑基准点为坐标原点时的转换方程，有 <span
+class="math inline">\(x&#39;=x cos\theta - y sin\theta,
+y&#39;=xsin\theta + ycos\theta\)</span>. 旋转矩阵为 <span
+class="math display">\[\begin{bmatrix}
+cos \theta &amp;-sin\theta\\
+sin \theta &amp; cos\theta\\
+\end{bmatrix}\]</span></p>
+<p>而围绕任意基准点，有 <span class="math display">\[
+x&#39;=x_r+(x-x_r)cos\theta -(y-y_r)sin\theta\\
+y&#39;=y_r+(x-x_r)sin\theta +(y-y_r)cos\theta
+\]</span></p>
+<p>依旧是刚体变换.</p>
+<h4 id="缩放与错切">缩放与错切</h4>
+<p>相对于原点的缩放：</p>
+<p><span class="math display">\[
+x&#39;=x \cdot s_x, y&#39;=y\cdot s_y
+\]</span></p>
+<p>也即</p>
+<span class="math display">\[
+P&#39;= SP
+\]</span> ,其中$ S=
+<span class="math display">\[\begin{bmatrix}
+s_x&amp;0\\
+0&amp;s_y
+\end{bmatrix}\]</span>
+<p>$.</p>
+<p>相对于固定点 <span class="math inline">\((x_f,y_f)\)</span> 的缩放，
+<span class="math display">\[
+x&#39;-x_f = (x-x_f)s_x\\
+y&#39;-y_f = (y-y_f)s_y
+\]</span> 有 <span class="math display">\[
+x&#39; = xs_x+x_f(1-s_x)\\
+y&#39; = ys_y+y_f(1-s_y)
+\]</span>.</p>
+<p>错切变换会使物体形状发生变化，错切过的物体由相对滑动的内部夹层组成.</p>
+<figure>
+<img src="/image/cg/cuoqie.png" srcset="/img/loading.gif" lazyload alt="相对x方向的错切" />
+<figcaption aria-hidden="true">相对x方向的错切</figcaption>
+</figure>
+<p>相对于 <span class="math inline">\(x\)</span> 轴 <span
+class="math inline">\(x\)</span> 方向的错切: <span
+class="math display">\[
+x&#39;=x+sh_x \cdot y, y&#39;=y
+\]</span></p>
+<p>相对于 <span class="math inline">\(y=y_{ref}\)</span> 轴 <span
+class="math inline">\(x\)</span> 方向的错切: <span
+class="math display">\[
+x&#39;=x+sh_x \cdot (y-y_{ref}), y&#39;=y
+\]</span></p>
+<p>相对于 <span class="math inline">\(x=x_{ref}\)</span> 轴 <span
+class="math inline">\(u\)</span> 方向的错切: <span
+class="math display">\[
+x&#39;=x, y&#39;=y+sh_y \cdot (x-x_{ref})
+\]</span>.</p>
+<h4 id="齐次坐标">齐次坐标</h4>
+<p>用 <span class="math inline">\(n+1\)</span> 维表示 <span
+class="math inline">\(n\)</span> 维, 用 <span
+class="math inline">\((x_h,y_h,h)\)</span> 表示 <span
+class="math inline">\((x,y)\)</span> ,
+这能帮我们把所有的几何变换方程表示为矩阵乘法，通过左乘变换矩阵实现复合变换.</p>
+<figure>
+<img src="/image/cg/qici.png" srcset="/img/loading.gif" lazyload alt="变换的齐次坐标表示" />
+<figcaption aria-hidden="true">变换的齐次坐标表示</figcaption>
+</figure>
+<h4 id="对称反射变换">对称/反射变换</h4>
+<ul>
+<li>关于 <span class="math inline">\(x\)</span> 轴 、 <span
+class="math inline">\(y\)</span> 轴 、 原点的反射.</li>
+<li>ppt提了嘴关于 <span class="math inline">\(xy\)</span>
+平面任意直线，但没给出变换矩阵.</li>
+</ul>
+<h4 id="仿射变换">仿射变换</h4>
+<p>二维仿射变换允许图形在两个方向上任意伸缩，但仍保持平直性和平行性.</p>
+<p>变换公式 <span class="math display">\[
+x&#39;=a_{xx} x+a_{xy} y+b_x\\
+y&#39;=a_{yx}x+a_{yy}y+b_y
+\]</span>.</p>
+<p>上述变换都是仿射变换的特例,任何常用的仿射变换都可表示成上述五种变换的组合.</p>
+<h3 id="三维几何变换">三维几何变换</h3>
+<h4 id="平移与缩放">平移与缩放</h4>
+<p>在二维层次加上 <span class="math inline">\(z\)</span>
+坐标就很自然得到了三维变换.</p>
+<figure>
+<img src="/image/cg/3dts.png" srcset="/img/loading.gif" lazyload alt="三维平移与缩放" />
+<figcaption aria-hidden="true">三维平移与缩放</figcaption>
+</figure>
+<h4 id="旋转">旋转</h4>
+<p>旋转的扩展就没有那么简单了，这是因为二维旋转只需要考虑沿垂直于 <span
+class="math inline">\(xy\)</span>
+平面的旋转轴而三维空间中可选择空间任意方向作为旋转轴，大多数软件将三维旋转作为绕三个坐标轴的二维旋转的复合变换来处理.</p>
+<p>绕 <span class="math inline">\(z\)</span> 轴旋转变换矩阵 <span
+class="math display">\[
+\begin{bmatrix}
+cos \theta &amp;-sin\theta&amp;0&amp;0\\
+sin \theta &amp;cos\theta&amp;0&amp;0\\
+0 &amp;0&amp;1&amp;0\\
+0 &amp;0&amp;0&amp;1\\
+\end{bmatrix}
+\]</span></p>
+<p>绕 <span class="math inline">\(x\)</span> 轴旋转变换矩阵 <span
+class="math display">\[
+\begin{bmatrix}
+1 &amp;0&amp;0&amp;0\\
+0&amp;cos\theta&amp;-sin\theta&amp;0\\
+0 &amp;sin\theta&amp;cos \theta&amp;0\\
+0 &amp;0&amp;0&amp;1\\
+\end{bmatrix}
+\]</span></p>
+<p>绕 <span class="math inline">\(y\)</span> 轴旋转变换矩阵 <span
+class="math display">\[
+\begin{bmatrix}
+cos \theta &amp;0&amp;sin\theta&amp;0\\
+0 &amp;1&amp;0&amp;0\\
+-sin\theta &amp;0&amp;cos \theta&amp;0\\
+0 &amp;0&amp;0&amp;1\\
+\end{bmatrix}
+\]</span></p>
+<p>绕任意三维轴的变换矩阵通过复合变换得到 + 平移旋转轴至穿过坐标原点 +
+旋转轴绕某坐标轴旋转使其于另一坐标轴重合 +
+根据指定旋转角求出绕坐标轴的旋转矩阵 +
+将旋转轴变回原位置，得到逆矩阵序列.</p>
+<figure>
+<img src="/image/cg/any3dr.png" srcset="/img/loading.gif" lazyload alt="绕任意三维轴旋转一般步骤" />
+<figcaption aria-hidden="true">绕任意三维轴旋转一般步骤</figcaption>
+</figure>
+<blockquote>
+<p>计算机图形学（第三版）有详细介绍</p>
+</blockquote>
+<hr />
+<blockquote>
+<p>以下内容作者为fjz，感谢jzgg的辛苦付出！</p>
+</blockquote>
 
                 
               </div>
