@@ -47,7 +47,7 @@
 <meta property="og:image" content="https://passer1202.github.io/image/cg/3dts.png">
 <meta property="og:image" content="https://passer1202.github.io/image/cg/any3dr.png">
 <meta property="article:published_time" content="2025-06-11T14:31:38.000Z">
-<meta property="article:modified_time" content="2025-06-20T11:52:50.191Z">
+<meta property="article:modified_time" content="2025-06-20T12:09:16.467Z">
 <meta property="article:author" content="Passer">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://passer1202.github.io/image/cg/bresenham_line.png">
@@ -331,8 +331,8 @@ class="math inline">\(x_{k+1}=x_k-\frac{1}{m}\)</span>.</li>
 <p>通俗来讲，Bresenham画线算法每次生成两个可能的像素位置，并从中选择一个更接近线路径的，相较于DDA中大量的浮点数运算，Bresenham算法使用整数增量，win！</p>
 <p>以正斜率小于1的直线扫描转换过程为例，我们来思考Bresenham算法做了什么.假如在第k步我们已经确定了要显示的像素在
 <span class="math inline">\((x_k,y_k)\)</span> ，那么 <span
-class="math inline">\(y_{k+1} \in \{y_k,y_{k+1}\}\)</span> .我们需要衡量
-<span class="math inline">\(y_k,y_{k+1}\)</span>
+class="math inline">\(y_{k+1} \in \{y_k,y_k+1\}\)</span> .我们需要衡量
+<span class="math inline">\(y_k,y_k+1\)</span>
 谁距离目标直线更近，于是我们计算 <span
 class="math inline">\(d_l,d_u\)</span>, 考虑到在 <span
 class="math inline">\(x_k+1\)</span> 处直线上 <span
