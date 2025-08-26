@@ -1,0 +1,830 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/nju.png">
+  <link rel="icon" href="/img/nju.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Passer">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="Lightweight Remote Procedure Callc 阅读笔记 ，一个“小孩子才做选择，我全都要”的故事  引言 LRPC是为同一台机器上不同保护域间（cross-domains）通信设计、优化的通信机制. LRPC结合了 capability systems 的控制转移&amp;通信模型和 RPC 的编程语义和大粒度保护模型，在同机传递简短参数的常见通信场景中实现">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Lightweight Remote Procedure Call">
+<meta property="og:url" content="https://passer1202.github.io/2025/07/10/LRPC/index.html">
+<meta property="og:site_name" content="Passer&#39;s Homepage">
+<meta property="og:description" content="Lightweight Remote Procedure Callc 阅读笔记 ，一个“小孩子才做选择，我全都要”的故事  引言 LRPC是为同一台机器上不同保护域间（cross-domains）通信设计、优化的通信机制. LRPC结合了 capability systems 的控制转移&amp;通信模型和 RPC 的编程语义和大粒度保护模型，在同机传递简短参数的常见通信场景中实现">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://passer1202.github.io/2025/07/10/image/paper/frequency.png">
+<meta property="og:image" content="https://passer1202.github.io/2025/07/10/image/paper/size.png">
+<meta property="og:image" content="https://passer1202.github.io/2025/07/10/image/paper/overhead.png">
+<meta property="article:published_time" content="2025-07-10T12:33:22.000Z">
+<meta property="article:modified_time" content="2025-07-11T11:04:58.933Z">
+<meta property="article:author" content="Passer">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://passer1202.github.io/2025/07/10/image/paper/frequency.png">
+  
+  
+  
+  <title>Lightweight Remote Procedure Call - Passer&#39;s Homepage</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"passer1202.github.io","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 7.0.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Hengji&#39;s Blog</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="Lightweight Remote Procedure Call"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2025-07-10 20:33" pubdate>
+          2025年7月10日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          3.8k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          32 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">Lightweight Remote Procedure Call</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <blockquote>
+<p>Lightweight Remote Procedure Callc 阅读笔记
+，一个“小孩子才做选择，我全都要”的故事</p>
+</blockquote>
+<h2 id="引言">引言</h2>
+<p>LRPC是为同一台机器上不同保护域间（cross-domains）通信设计、优化的通信机制.</p>
+<p>LRPC结合了 capability systems 的控制转移&amp;通信模型和 RPC
+的编程语义和大粒度保护模型，在同机传递简短参数的常见通信场景中实现三倍于传统方法的性能.</p>
+<blockquote>
+<p>capability systems 是什么？ capability systems 是和 ACL（access
+control lists）相对的概念，能力是一种可传达、不可伪造的令牌. ACL:
+一个大表记录某一对象可由谁做操作. ACL ：门卫 ，忽悠业主帮自己送外卖进去
+capability systems ： 刷脸 ， 混不进去:(</p>
+<p>可以很细粒度，比如哪个文件哪哪段、、、
+这个电影你只买了前半段的，后半段不能看！</p>
+</blockquote>
+<ul>
+<li>控制转移&amp;通信机制 ：capability
+systems中一个域中的进程通过<strong>受保护过程调用</strong>作用于另一个域的对象，使用共享内存传参</li>
+<li>想象我们有两个保护域：
+<ul>
+<li>ProcA：普通用户应用，运行在保护域 A</li>
+<li>ProcB：提供计算服务的服务器，运行在保护域 B，拥有 calc()
+服务逻辑</li>
+<li>如果 A 想调用 B 的 calc(x, y)，不能直接执行 B 的函数，而必须：
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs text">enter cap_to_B_entry, offset_to_calc, cap_to_input_data<br></code></pre></td></tr></table></figure></li>
+</ul></li>
+</ul>
+<blockquote>
+<p>PRC 又是什么？ 分布式系统中，被验证了的适合管理子系统的通信协议
+大粒度的保护机制：保护边界定义为及其边界，子系统放到不同的机器上，不同的子系统通过服务器定义的接口像其他子系统暴露自己，使用自动桩生成器和复杂的运行时在消息中传递任意复杂的参数来缓解全局地址空间的缺失.
+自动桩是什么？ <figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs stylus">┌───────────────────────────────────────────────┐<br>│ <span class="hljs-selector-tag">header</span>:                                      │<br>│   <span class="hljs-selector-attr">[ interface_id: 4 bytes ]</span>                  │<br>│   <span class="hljs-selector-attr">[ procedure_id: 4 bytes ]</span>                  │<br>│   <span class="hljs-selector-attr">[ call_id: 8 bytes ]</span>                       │<br>│ <span class="hljs-selector-tag">body</span>:                                        │<br>│   <span class="hljs-selector-attr">[ arg1 serialized ]</span>                        │<br>│   <span class="hljs-selector-attr">[ arg2 serialized ]</span>                        │<br>│   …                                          │<br>└───────────────────────────────────────────────┘<br><br></code></pre></td></tr></table></figure> 具体做什么？</p>
+</blockquote>
+<p>宏内核操作系统使用capability systems来实现安全，但是实现困难.</p>
+<p>当前的微内核操作系统借鉴了RPC的大粒度保护的思想和编程模型，虽然RPC设计的初衷是为了远程通信.
+在微内核中，操作系统中分割开的各个组件被放到不同的域（地址空间）中，通过跨域通信传递消息.</p>
+<p>微内核操作系统还借鉴了分布式系统中的控制转移和通信模型，独立的线程之间交换潜在的大的结构化的消息.</p>
+<p>然而作者发现，操作系统中的大多数通信流量： +
+是同一机器不同域（cross-domain）间的 +
+本地操作代价低，将处理和资源本地化，以合理的成本为最常见的请求实现可接受的性能。
++ 简单而非复杂的数据 + 复杂的数据结构已经被抽象的系统接口隐藏了 , e.g.
+write(fd, buffer, size);</p>
+<p>传统的基于传递消息的机制，很好的解决了本地或远程子系统之间通信的问题，但是违背了一个基本原则，failing
+to isolate the common case，没为常见路径做优化 ,
+本地通信远没有远程通信复杂，但设计者没意识到这点、、、村际火车</p>
+<p>因为传统路子的开销太大了，一些微内核设计者做了个违背祖宗的决定，把一些逻辑上不相关的模块绑定到了一个地址空间，将远程过程调用直接变成了函数调用.</p>
+<p>LRPC做了一下四点优化，保证安全和透明的情况下，实现了显著更优的性能. +
+简单的控制转移，客户端直接在服务器的域里执行请求的过程 +
+简单的数据转移，一个共享的参数栈，减少多余的复制 +
+简单的stub：因为控制转移和数据转移都很简单，导致stub也很简单 +
+并发设计：锁的粒度很细，减少共享数据结构的并发瓶颈</p>
+<blockquote>
+<p>透明？什么意思？什么的透明？对谁透明？
+远程调用和本地调用对程序员来说一样？</p>
+</blockquote>
+<h2 id="rpc系统的性能表现">RPC系统的性能表现</h2>
+<p>cross-machine的活动频次很少,大多数的过程调用都是在本机上，是cross-domain的.</p>
+<p><img src="../image/paper/frequency.png" srcset="/img/loading.gif" lazyload /></p>
+<p>动态分析-大多数的cross-domain的过程调用传递的都是小的结构简单的的参数.</p>
+<p>静态分析-
+4/5的参数在编译时就知道了具体的尺寸，三分之二的程序传递了固定尺寸的参数，60%的不超过32字节.</p>
+<p>简单的字节复制就足以实现跨系统接口的数据传输，而且大多数的接口过程只需要挪动少量数据.</p>
+<p><img src="../image/paper/size.png" srcset="/img/loading.gif" lazyload /></p>
+<p>当前的RPC系统的cross-domain调用是基于cross-machine来实现的，尽管有进行各种各样的优化，但是cross-domain性能依旧很糟糕.</p>
+<p>在一个NULL（）调用上做实验.
+理论上最小花销：一次过程调用，然后陷入内核，修改虚拟内存上下文，陷入内核，恢复虚拟内存上下文.</p>
+<p><img src="../image/paper/overhead.png" srcset="/img/loading.gif" lazyload /></p>
+<h2 id="lrpc的执行过程">LRPC的执行过程</h2>
+<h3 id="binding">Binding</h3>
+<p>服务端导出接口，客户端在使用接口前先绑定接口.</p>
+<p>服务端通过运行时库中的clerk导出接口. clerk
+在名字服务器中注册各个端口然后阻塞，等待 import（导入）请求.</p>
+<blockquote>
+<p>名字服务器是什么？</p>
+</blockquote>
+<blockquote>
+<p>clerk
+是一组驻留在进程（域）内部、负责注册与等待的用户态逻辑，它可以运行在主线程，也可以为了方便隔离阻塞操作而放到辅线程里，但它本身并不是操作系统层面的专用线程。</p>
+</blockquote>
+<p>客户端通过内核发起绑定请求，然后阻塞，等待内核唤醒服务端的clerk.</p>
+<p>clerk回复给内核一个过程描述符表（PDL），包含接口中的各个过程的过程描述符，入口地址、初始并发调用数、参数栈大小.
+内核对每个PD都分配初始并发调用数个参数栈，参数栈被同时映射到服务端、客户端，都具有读写权限.
+内核还为每个A-stack分配一个仅内核可见的linkage
+record，用来记录调用者的返回地址.</p>
+<blockquote>
+<p>并发调用数可以改吗？ 可以、、、5.2节
+如果同一个接口中有多条例程，它们所需的参数栈（A-stack）大小相近，就可以让它们公用同一组
+A-stack，以节省内存开销；公用时的并发调用限制就是这组 A-stack
+的数量总和，虽然这只是一个“软”上限——在需要时还能动态提高</p>
+</blockquote>
+<blockquote>
+<p>内核为会精心布局linkage
+record和A-stack，方便根据A-stack直接找到对应的linkage record.</p>
+</blockquote>
+<p>然后内核就给client一个Binding
+Object，这是客户端调用服务端接口的凭证，不可被伪造。此外，内核还会收到一个A-stack链表.</p>
+<blockquote>
+<p>怎么检测伪造？ 内核维护“可信表” 每当完成一次
+bind，内核就会在自身的数据结构（绑定表）中插入一条记录，记录下这次绑定所生成的
+Binding Object（可以看作一个内核内部的句柄或能力），以及它对应的接口、域
+ID、权限、PDL 等元信息。 任何后续的 LRPC 调用，客户端都必须把这个
+Binding Object 一并交给内核。内核在收到调用陷入时，会把传入的 Binding
+Object 在“绑定表”中查一遍： 如果能找到对应条目，且参数合法，就允许调用；
+如果查不到，或参数与记录不符，就当作伪造或过期处理，直接拒绝。</p>
+</blockquote>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;stdint.h&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;stddef.h&gt;</span></span><br><br><span class="hljs-comment">// 最多支持的例程数</span><br><span class="hljs-meta">#<span class="hljs-keyword">define</span> MAX_PROCS 16</span><br><br><span class="hljs-comment">// 对应每个例程的 A-stack 信息</span><br><span class="hljs-keyword">typedef</span> <span class="hljs-keyword">struct</span> &#123;<br>    <span class="hljs-type">void</span>   *astack_addr;   <span class="hljs-comment">// A-stack 在用户虚拟地址空间中的起始地址</span><br>    <span class="hljs-type">size_t</span>  astack_size;   <span class="hljs-comment">// A-stack 大小（字节）</span><br>&#125; AStackInfo;<br><br><span class="hljs-comment">// Binding Object 结构体</span><br><span class="hljs-keyword">typedef</span> <span class="hljs-keyword">struct</span> &#123;<br>    <span class="hljs-type">uint64_t</span>        magic;                      <span class="hljs-comment">// 魔数，用于快速初步校验</span><br>    <span class="hljs-type">uint32_t</span>        domain_id;                  <span class="hljs-comment">// Server 所在的域／进程标识</span><br>    <span class="hljs-type">uint32_t</span>        interface_id;               <span class="hljs-comment">// 接口标识符（由名称服务器分配）</span><br>    <span class="hljs-type">uint8_t</span>         proc_count;                 <span class="hljs-comment">// 本接口中例程的数量</span><br>    <span class="hljs-type">uint8_t</span>         reserved[<span class="hljs-number">3</span>];                <span class="hljs-comment">// 对齐填充</span><br>    <span class="hljs-type">void</span>           *pdl_ptr;                    <span class="hljs-comment">// PDL（Procedure Descriptor List）的内核映射地址／句柄</span><br>    <span class="hljs-type">uint8_t</span>         flags;                      <span class="hljs-comment">// 标志位：跨域/本机、只读/可写等</span><br>    <span class="hljs-type">uint8_t</span>         nonce[<span class="hljs-number">16</span>];                  <span class="hljs-comment">// 随机数或签名，防止伪造</span><br>    AStackInfo      astacks[MAX_PROCS];         <span class="hljs-comment">// 每条例程对应的 A-stack 信息</span><br>    <span class="hljs-type">uint8_t</span>         checksum[<span class="hljs-number">16</span>];               <span class="hljs-comment">// 可选：整个结构的校验和或 MAC</span><br>&#125; BindingObject;<br></code></pre></td></tr></table></figure>
+<blockquote>
+<p>跨机器的bind如何实现呢？ 还是不太懂RPC的实现、、、</p>
+</blockquote>
+<h3 id="调用过程">调用过程</h3>
+<p>结构中的每个过程都对应于客户端和服务器里的一对stub，客户端通过本地的stub过程来进行LPRC，用来对域变换做初始化.
++ 将bind时得到了A-stack链表作为后进先出队列（栈）来管理.
+调用时，从队列中取一个A-stack，将参数压入A-stack，将A-stack地址、Binding
+Object和过程标识符放入寄存器，陷入内核</p>
+<blockquote>
+<p>Procedure Identifier 就是 “要调用的那条例程在 PDL 中的编号”。它使得
+stub 能用一个简单的整数，快速定位并调用对应的 entry address</p>
+</blockquote>
+<p>内核检查Binding Object，检查Procedure Identifier,定位PD.</p>
+<p>检查A-stack，定位相应的linkage</p>
+<p>确保没人在使用A-stack，linkage对</p>
+<p>记录调用者的返回地址和当前的栈指针</p>
+<p>将linkage压入线程控制模块中linkage 栈顶-&gt;嵌套调用</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-keyword">struct</span> <span class="hljs-title class_">TCB</span> &#123;<br>    <span class="hljs-type">thread_id_t</span>       tid;          <span class="hljs-comment">// 线程标识</span><br>    <span class="hljs-type">cpu_context_t</span>     context;      <span class="hljs-comment">// 寄存器、PC、SP 等上下文</span><br>    <span class="hljs-type">linkage_stack_t</span>   linkages;     <span class="hljs-comment">// 储存 linkage record 的栈</span><br>    <span class="hljs-type">queue_node_t</span>      run_queue;    <span class="hljs-comment">// 调度器用的链表节点</span><br>    <span class="hljs-comment">// … 其他状态、优先级、资源使用情况等 …</span><br>&#125;;<br></code></pre></td></tr></table></figure>
+<p>在服务端域中找一个执行栈E-stack</p>
+<p>将线程的用户栈指针指向E-stack</p>
+<p>切换虚拟内存域，回到用户态执行服务器端的stub</p>
+<blockquote>
+<p>每个 E-stack 都是在 对应的 server 线程被创建
+时分配的——它就是那条线程的普通 C
+栈。关于“何时创建”与“有没有预先排好的队列”，常见做法有两种，取决于具体内核/运行时的策略：</p>
+<p>预先池化（预创建队列）</p>
+<p>在接口 export 或 bind 阶段，clerk／内核会根据 PD
+中的并发限额（Concurrency Limit）预先创建 N 条 server
+线程（或工作线程），并为它们各自分配好 E-stack。 这 N
+条线程被挂入一个就绪/空闲队列（Idle Thread Queue），等待 LRPC
+调用到来时直接被调度，省去了运行时创建线程的开销。</p>
+<p>懒创建（按需分配）</p>
+<p>在更轻量级的实现里，export/bind 时不预先创建线程；
+当真正有调用到来、内核在绑定表里看到没有空闲 server 线程时，才临时
+fork（或 kernel_thread_create）一条线程，分配它的
+E-stack，然后执行调用。
+这条新线程执行完毕后，也会被放回到“空闲队列”里，以便下次复用。</p>
+<p><strong>论文原话</strong>：低延迟域转移路径要求E堆栈管理几乎没有呼叫时间开销。实现此目的的一种方法是在绑定时间静态分配e-stacks，并将每个堆栈与A-stack永久关联。不幸的是，电子堆栈可能很大（数十千字节），必须保守管理；否则，仅几个客户就可以用服务器的地址空间来耗尽。
+LRPC不是静态分配E堆栈，而是延迟了A-stack/e-stack关联，直到需要，也就是说，直到使用没有相关的E-stack进行呼叫。
+当发生这种情况时，内核检查服务器域中是否已经分配了E-stack，但目前与任何A-act都不相关。如果是这样，则内核将E-stack与A-stack相关联。否则，内核将e-stack从服务器域分配，并将其与A-stack相关联。当呼叫返回时，e-stack和a-stack彼此保持关联，以便很快将它们一起用于另一个呼叫（a-stacks由客户端管理）。每当给定服务器域的e-stacks提供较低时，内核就会收回与最近尚未使用的A-stack相关的那些。</p>
+</blockquote>
+<blockquote>
+<p>服务器端的stub做些什么？</p>
+</blockquote>
+<p>参数直接被压到了A-stack中，这得益于独立的参数栈指针（不和E-stack一样），对于语言环境又要求.</p>
+<p>服务端通过自己的stub初始化返回域切换，然后陷入内核.</p>
+<p>和调用不同，返沪的时候不需要再给出Binding
+Object，也不需要做什么检查，因为这些信息已经被操作系统在调用时就维护在了linkage
+record里了.也不用通过消息发送返回值，已经在客户端的A-satck上了.</p>
+<p>对于引用参数，客户端会在A-stack上复制一个一份值，然后服务端在E-stack上创建一个指向A-stack上值的指针.</p>
+<blockquote>
+<p>那还怎么确定A-stack的大小？
+指针参数所指向的数据大小，必须由接口定义明确给出（长度参数、固定大小、最大长度或终止符约定）。LRPC
+的 stub 在生成时会根据这些元信息算出每个调用所需的 A-stack
+大小；否则就无法做安全、正确的跨域参数复制。
+在工业界和系统编程中，几乎所有的 RPC／接口设计都不会让你“随便传个
+void*”给对端然后一点也不管它的长度——这在实践里是绝对要出问题的。常见的做法大致分为以下几类：
++ 接口层显式携带长度或计数 + 定长数组或最大长度限制 +
+高级语言／框架的“序列化类型” + 约定终止符（仅限字符串） +
+结构体内自带长度字段</p>
+</blockquote>
+<h3 id="stub生成">stub生成</h3>
+<p>服务端入口stub直接由内核调用，内核预先在E-stack准备一个初始化调用帧保存stub返回地址，然后stub只需要执行一次分支跳转就行了.</p>
+<p>结构简单、高度格式化、基本上就是move和trap指令-&gt;使用汇编生成stubs</p>
+<p>stubs四倍快于SRC RPC的stubs</p>
+<p>自动生成，选择对应的汇编语言就是了，可移植性不错！</p>
+<p>参数比较复杂时，比如传一个链表，LPRC会退化成RPC（编译时就确定了，不会造成额外开销）</p>
+<h3 id="参数复制">参数复制</h3>
+<p>传统的RPC复制四次，客户端stub栈-&gt;RPC消息-&gt; 内核 -&gt;
+服务端接收队列-&gt; 服务端栈</p>
+<p>在LRPC中，只复制一次，从客户端栈到A-stack.</p>
+<p>A-stack映射给了客户端地址空间，有可能会被更改，因此LRPC做了一些措施，利用参数传递规范、值的正确语义、将复制和检验合并（顺手计算校验和）.</p>
+<blockquote>
+<p>数传递规范、值的正确语义?</p>
+</blockquote>
+<blockquote>
+<p>In most procedure call conventions, the destination address for
+return values is specified by the caller. During the return from an
+LRPC, the client stub copies returned values from the A-stack into their
+final destination. No added safety comes from first copying these values
+out of the server’s domain into the client’s, either directly or by way
+of the kernel.
+安全性一般、、、如果说接受失败的话，就还好？感觉如果有恶意线程可能还是要加锁？
+Parameter copying can also be avoided by recognizing situations in which
+the actual value of the parameter is unimportant to the server. This
+occurs when parameters are processed by the server without
+interpretation. For example, the Write procedure exported by a file
+server takes an array of bytes to be written to disk. The array itself
+is not interpreted by the server, which is made no more secure by an
+assurance that the bytes will not change during the call. Copying is
+unnecessary in this case. These types of arguments can be identified to
+the LRPC stub generator. 还是不能认同... 在 A-stack
+区域前后各放一页不可访问的护卫页，任何越界访问都会触发异常；</p>
+</blockquote>
+<h3 id="多处理器">多处理器</h3>
+<p>多处理器给A-stack队列上锁，高并发 idle预加载上下文，高命中</p>
+<h3 id="表现">表现</h3>
+<p>很亮眼、、、</p>
+<h3 id="不常见情况">不常见情况</h3>
+<p>性能可接受</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>Lightweight Remote Procedure Call</div>
+      <div>https://passer1202.github.io/2025/07/10/LRPC/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Passer</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2025年7月10日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2025/08/22/Lawbreaker/" title="Lawbreaker&amp;ABLE">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Lawbreaker&amp;ABLE</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2025/07/07/%E6%B5%AE%E4%BA%8E%E8%A1%A8%E9%9D%A2%E7%9A%84%E4%BB%A3%E4%BB%B7/" title="浮于表面的代价">
+                        <span class="hidden-mobile">浮于表面的代价</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
