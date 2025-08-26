@@ -23,23 +23,28 @@
   
     <meta name="description" content="Lawbreaker 研究背景 自动驾驶系统（ADS）在上路前需要进行充足的测试，高保真的仿真器（如 LGSVL , CARLA）能够低成本高效地使其在多样化场景下接受检验。尽管已有测试用例的自动生成方法，但这些方法往往只关注“弱”判定标准（例如车辆是否能在无碰撞的情况下到达目的地），而忽略了行程本身是否安全、是否符合交通法规。为此，作者提出了 Lawbreaker ，旨在提供了一套面">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Lawbreaker&amp;ABLE">
-<meta property="og:url" content="https://passer1202.github.io/2025/08/22/Lawbreaker/index.html">
+<meta property="og:title" content="Lawbreaker and ABLE">
+<meta property="og:url" content="https://passer1202.github.io/2025/08/22/Lawbreaker-and-ABLE/index.html">
 <meta property="og:site_name" content="Passer&#39;s Homepage">
 <meta property="og:description" content="Lawbreaker 研究背景 自动驾驶系统（ADS）在上路前需要进行充足的测试，高保真的仿真器（如 LGSVL , CARLA）能够低成本高效地使其在多样化场景下接受检验。尽管已有测试用例的自动生成方法，但这些方法往往只关注“弱”判定标准（例如车辆是否能在无碰撞的情况下到达目的地），而忽略了行程本身是否安全、是否符合交通法规。为此，作者提出了 Lawbreaker ，旨在提供了一套面">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://passer1202.github.io/image/lawbreaker/LF1.png">
-<meta property="og:image" content="https://passer1202.github.io/image/lawbreaker/LF2.png">
+<meta property="og:image" content="https://passer1202.github.io/image/paper/lawbreaker/LF1.png">
+<meta property="og:image" content="https://passer1202.github.io/image/paper/lawbreaker/LF2.png">
+<meta property="og:image" content="https://passer1202.github.io/image/paper/lawbreaker/LF3.png">
+<meta property="og:image" content="https://passer1202.github.io/image/paper/lawbreaker/LF4.png">
+<meta property="og:image" content="https://passer1202.github.io/image/paper/lawbreaker/LF5.png">
+<meta property="og:image" content="https://passer1202.github.io/image/paper/lawbreaker/LF6.png">
+<meta property="og:image" content="https://passer1202.github.io/image/paper/lawbreaker/LF7.png">
 <meta property="article:published_time" content="2025-08-22T08:23:00.000Z">
-<meta property="article:modified_time" content="2025-08-26T12:06:54.906Z">
+<meta property="article:modified_time" content="2025-08-26T13:44:24.673Z">
 <meta property="article:author" content="Passer">
 <meta property="article:tag" content="reading">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://passer1202.github.io/image/lawbreaker/LF1.png">
+<meta name="twitter:image" content="https://passer1202.github.io/image/paper/lawbreaker/LF1.png">
   
   
   
-  <title>Lawbreaker&amp;ABLE - Passer&#39;s Homepage</title>
+  <title>Lawbreaker and ABLE - Passer&#39;s Homepage</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -205,7 +210,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="Lawbreaker&amp;ABLE"></span>
+            <span id="subtitle" data-typed-text="Lawbreaker and ABLE"></span>
           
         </div>
 
@@ -228,7 +233,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.4k 字
+          2.2k 字
         
       </span>
     
@@ -239,7 +244,7 @@
         
         
         
-          12 分钟
+          19 分钟
         
       </span>
     
@@ -276,7 +281,7 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">Lawbreaker&amp;ABLE</h1>
+            <h1 id="seo-header">Lawbreaker and ABLE</h1>
             
             
               <div class="markdown-body">
@@ -337,7 +342,7 @@ Lawbreaker
 ADS
 违反这些法规，从而暴露其设计缺陷。而所有违规行为都会被记录，并可借助仿真器进行可视化回放。</p>
 <figure>
-<img src="/image/lawbreaker/LF1.png" srcset="/img/loading.gif" lazyload alt="LawBreaker的workflow" />
+<img src="/image/paper/lawbreaker/LF1.png" srcset="/img/loading.gif" lazyload alt="LawBreaker的workflow" />
 <figcaption aria-hidden="true">LawBreaker的workflow</figcaption>
 </figure>
 <p>具体的，LawBreaker 的实现包含三部分：</p>
@@ -352,11 +357,11 @@ ADS
 <ul>
 <li>用于描述场景与情境的<strong>现有</strong> DSL（作者使用的 AVUnit
 ）；</li>
-<li>新提出的、面向驾驶员视角的交通法规描述语言，其语义基础为<code>信号时序逻辑</code>；</li>
+<li>新提出的、面向驾驶员视角的交通法规描述语言，其语义基础为<code>时序逻辑公式</code>；</li>
 <li>LawBreaker 模糊测试算法。</li>
 </ul>
 <figure>
-<img src="/image/lawbreaker/LF2.png" srcset="/img/loading.gif" lazyload alt="LawBreaker架构" />
+<img src="/image/paper/lawbreaker/LF2.png" srcset="/img/loading.gif" lazyload alt="LawBreaker架构" />
 <figcaption aria-hidden="true">LawBreaker架构</figcaption>
 </figure>
 <p>具体的，场景脚本组件首先将给定场景翻译为仿真器所需的 API
@@ -365,6 +370,98 @@ oracles），无需依赖关于地图或其交通参与者的任何特定知识�
 ADS
 中提取运行轨迹，依据法规规范对其评估，并根据评估结果生成新的测试用例供仿真器执行。</p>
 <h3 id="面向驾驶员的描述语言">面向驾驶员的描述语言</h3>
+<blockquote>
+<ul>
+<li>轨迹（trace）：若干场景（scene）按序组成的序列。</li>
+<li>场景（scene）：也即状态，各个变量按序组成的序列。</li>
+</ul>
+</blockquote>
+<p>所谓规则，无非是需要满足的较为复杂的布尔表达式，我们使用时序逻辑公式来描述交规，如下图所示：</p>
+<figure>
+<img src="/image/paper/lawbreaker/LF3.png" srcset="/img/loading.gif" lazyload alt="LawBreaker公式语法" />
+<figcaption aria-hidden="true">LawBreaker公式语法</figcaption>
+</figure>
+<p>作者为了描述布尔表达式定义了足足6类变量，用于表示
+<code>车辆状态</code>、<code>驾驶状态</code>、<code>道路状态</code>、<code>信号状况</code>、<code>交通状况</code>、<code>地图状况</code>
+。关于各类变量的定义此处不再赘述，下面来看一个例子：</p>
+<ul>
+<li><code>proposition1</code>
+给出条件：前方十米有停车线或路口，且信号灯为闪烁的黄灯；</li>
+<li><code>proposition2</code> 给出行动：未来两秒内，车速要降到 20 km/h
+以下直到 15 米内没有 NPC；</li>
+<li><code>law42</code> 则要求 <code>proposition1</code>
+为真时，<code>proposition2</code> 永远为真。</li>
+</ul>
+<blockquote>
+<p>《道路交通安全法实施条例》第 42 条: “闪光警告信号灯”
+为持续闪烁的黄灯，提示车辆、行人通过时注意瞭望，确认安全后通过。</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs bash">proposition1 = trafficLightAhead.color==yellow <br>                &amp; trafficLightAhead.blink <br>                &amp; (stoplineAhead(10) | junctionAhead (10) ); <br>proposition2 = F[0,2]((speed &lt;<span class="hljs-number">20</span>) U ~NearestNPC (<span class="hljs-number">15</span>));<br>law42 = G(proposition1 -&gt; proposition2);<br></code></pre></td></tr></table></figure>
+<h3 id="模糊引擎">模糊引擎</h3>
+<p>在讨论算法之前，我们首先约定一些符号。</p>
+<p>令 <span class="math inline">\(\Phi\)</span>
+是一个信号时序逻辑（STL）公式，我们约定 <span
+class="math inline">\(\Theta(\Phi)\)</span> 表示违背 <span
+class="math inline">\(\Phi\)</span> 的不同方式对应的约束集合，则 <span
+class="math display">\[\forall \xi \in \Theta(\Phi),\phi \models \xi
+\Rightarrow \phi \not\models \Phi\]</span>.</p>
+<p>对于 <span class="math inline">\(\Theta(\Phi)\)</span>
+，计算方式见下图：</p>
+<p><img src="/image/paper/lawbreaker/LF4.png" srcset="/img/loading.gif" lazyload /></p>
+<blockquote>
+<p><span
+class="math inline">\(\Theta(\theta_1\mathcal{U}_{\mathcal{I}}\theta_2)\)</span>
+被违背有两种情况： + <span class="math inline">\(\theta_1\)</span> 和
+<span class="math inline">\(\theta_2\)</span> 都不成立之前，一直处于
+<span class="math inline">\(\theta_1\)</span> 成立 <span
+class="math inline">\(\theta_2\)</span> 不成立的状态； + 从一开始就
+<span class="math inline">\(\theta_1\)</span> 和 <span
+class="math inline">\(\theta_2\)</span> 都不成立。</p>
+</blockquote>
+<p>其中，<span class="math inline">\(N(\Phi)\)</span> 表示 <span
+class="math inline">\(\Phi\)</span>
+被满足的不同方式对应的约束集合，计算方式如下图所示：</p>
+<p><img src="/image/paper/lawbreaker/LF5.png" srcset="/img/loading.gif" lazyload /></p>
+<p>实践中只需要利用上述规则和布尔恒等式展开计算即可。</p>
+<p>下面考虑 <span class="math inline">\(\phi \models \xi\)</span>
+的判定问题，作者使用了下图所示的定量语义：</p>
+<p><img src="/image/paper/lawbreaker/LF6.png" srcset="/img/loading.gif" lazyload /></p>
+<p>一旦有 <span class="math inline">\(\rho(\varphi,\pi,t)\geq 0\)</span>
+, 我们就说 <span class="math inline">\(\varphi\)</span> 被 <span
+class="math inline">\(\pi\)</span> 所满足。若不加说明，约定 <span
+class="math inline">\(\rho(\varphi,\pi)=
+\rho(\varphi,\pi,0)\)</span>。</p>
+<p>万事俱备，只欠东风，下面介绍模糊算法：</p>
+<figure>
+<img src="/image/paper/lawbreaker/LF7.png" srcset="/img/loading.gif" lazyload alt="模糊算法本法" />
+<figcaption aria-hidden="true">模糊算法本法</figcaption>
+</figure>
+<p>模糊算法基于<code>遗传算法</code>，<span
+class="math inline">\(\Theta_r\)</span> 集合表示 <span
+class="math inline">\(\Theta(\Phi)\)</span> 中还没满足的约束， <span
+class="math inline">\(Seed_r\)</span>
+将约束和场景一一对应，用于记录亲代，<span
+class="math inline">\(Robust_r\)</span>
+记录当前约束离被满足还差多少，<span class="math inline">\(G\)</span>
+为子代场景集合，而 <span class="math inline">\(\Gamma\)</span>
+为选出的场景，也即测试用例.</p>
+<p>关于模糊算法，还有几点需要注意：</p>
+<ul>
+<li>第20行选子代的时候，<span class="math inline">\(Seed_r\)</span>
+数量未必等于子代数 <span class="math inline">\(n\)</span> , 作者选择将
+<span class="math inline">\(Seed_r\)</span> 依据 <span
+class="math inline">\(Robust_r\)</span> 降序排列，然后从前半部分和所有
+<span class="math inline">\(Seed\)</span>
+各随机抽取一个测试用例作为亲代，然后交换变量，生成子代。</li>
+<li>注意“生殖隔离”，不允许不同类型（作者定义了6类变量）变量的值进行交换！</li>
+<li>存在“变异”：对连续值，施加高斯变异。</li>
+</ul>
+<h3 id="结果">结果</h3>
+<blockquote>
+<p>LawBreaker was able to find 14 violations of these laws, including
+173 test cases that caused accidents.</p>
+</blockquote>
+<h2 id="able">ABLE</h2>
 
                 
               </div>
@@ -389,8 +486,8 @@ ADS
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>Lawbreaker&amp;ABLE</div>
-      <div>https://passer1202.github.io/2025/08/22/Lawbreaker/</div>
+      <div>Lawbreaker and ABLE</div>
+      <div>https://passer1202.github.io/2025/08/22/Lawbreaker-and-ABLE/</div>
     </div>
     <div class="license-meta">
       
