@@ -21,12 +21,12 @@
   <meta name="author" content="Passer">
   <meta name="keywords" content="">
   
-    <meta name="description" content="Lawbreaker 研究背景 自动驾驶系统（ADS）在上路前需要进行充足的测试，高保真的仿真器（如 LGSVL , CARLA）能够低成本高效地使其在多样化场景下接受检验。尽管已有测试用例的自动生成方法，但这些方法往往只关注“弱”判定标准（例如车辆是否能在无碰撞的情况下到达目的地），而忽略了行程本身是否安全、是否符合交通法规。为此，作者提出了 Lawbreaker ，旨在提供了一套面向驾驶员的丰">
+    <meta name="description" content="Lawbreaker 研究背景 自动驾驶系统（ADS）在上路前需要进行充足的测试，高保真的仿真器（如 LGSVL , CARLA）能够低成本高效地使其在多样化场景下接受检验。尽管已有测试用例的自动生成方法，但这些方法往往只关注“弱”判定标准（例如车辆是否能在无碰撞的情况下到达目的地），而忽略了行程本身是否安全、是否符合交通法规。为此，作者提出了 Lawbreaker ，旨在提供了一套面">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Lawbreaker and ABLE">
 <meta property="og:url" content="https://passer1202.github.io/2025/08/22/Lawbreaker-and-ABLE/index.html">
 <meta property="og:site_name" content="Passer&#39;s Homepage">
-<meta property="og:description" content="Lawbreaker 研究背景 自动驾驶系统（ADS）在上路前需要进行充足的测试，高保真的仿真器（如 LGSVL , CARLA）能够低成本高效地使其在多样化场景下接受检验。尽管已有测试用例的自动生成方法，但这些方法往往只关注“弱”判定标准（例如车辆是否能在无碰撞的情况下到达目的地），而忽略了行程本身是否安全、是否符合交通法规。为此，作者提出了 Lawbreaker ，旨在提供了一套面向驾驶员的丰">
+<meta property="og:description" content="Lawbreaker 研究背景 自动驾驶系统（ADS）在上路前需要进行充足的测试，高保真的仿真器（如 LGSVL , CARLA）能够低成本高效地使其在多样化场景下接受检验。尽管已有测试用例的自动生成方法，但这些方法往往只关注“弱”判定标准（例如车辆是否能在无碰撞的情况下到达目的地），而忽略了行程本身是否安全、是否符合交通法规。为此，作者提出了 Lawbreaker ，旨在提供了一套面">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://passer1202.github.io/image/paper/lawbreaker/LF1.png">
 <meta property="og:image" content="https://passer1202.github.io/image/paper/lawbreaker/LF2.png">
@@ -293,63 +293,89 @@
             
               <div class="markdown-body">
                 
-                <h2 id="Lawbreaker">Lawbreaker</h2>
+                <h2 id="lawbreaker">Lawbreaker</h2>
 <h3 id="研究背景">研究背景</h3>
-<p>自动驾驶系统（ADS）在上路前需要进行充足的测试，高保真的仿真器（如 LGSVL , CARLA）能够低成本高效地使其在多样化场景下接受检验。尽管已有测试用例的自动生成方法，但这些方法往往只关注“弱”判定标准（例如车辆是否能在无碰撞的情况下到达目的地），而忽略了行程本身是否安全、是否符合交通法规。为此，作者提出了 <code>Lawbreaker</code> ，旨在提供了一套<code>面向驾驶员</code>的丰富规范语言，用以形式化描述交通法规，并通过<code>模糊测试引擎</code>搜索各种可能的违规方式，以最大化规范覆盖率。</p>
+<p>自动驾驶系统（ADS）在上路前需要进行充足的测试，高保真的仿真器（如
+LGSVL ,
+CARLA）能够低成本高效地使其在多样化场景下接受检验。尽管已有测试用例的自动生成方法，但这些方法往往只关注“弱”判定标准（例如车辆是否能在无碰撞的情况下到达目的地），而忽略了行程本身是否安全、是否符合交通法规。为此，作者提出了
+<code>Lawbreaker</code>
+，旨在提供了一套<code>面向驾驶员</code>的丰富规范语言，用以形式化描述交通法规，并通过<code>模糊测试引擎</code>搜索各种可能的违规方式，以最大化规范覆盖率。</p>
 <h3 id="痛点">痛点</h3>
 <p>交通法规是现成的，但是针对这些法规对 ADS 进行测试还是有挑战性的：</p>
 <ul>
 <li>法规通常以<code>自然语言</code>书写，并且是从<code>驾驶员视角</code>进行描述。这使得在现有基于全局视角的规约语言中进行编码时，往往显得不直观。</li>
 <li>各国交通法规差异显著，因此需要一种通用且可扩展的规约语言，而不是只能针对某一国家、固定内嵌的判定器。</li>
 </ul>
-<p>很不幸，现有的描述交通法规的规约方法在可复用性和可扩展性方面均存在局限。比如 rulebooks 侧重于逻辑转换过程，并未提供一种自然的方式来描述法规；而其他形式化方法则与具体测试场景紧密耦合，每当引入新场景时，都必须对法规进行重新定制。一言以蔽之，<strong>要不难写，要不难改</strong>。</p>
+<p>很不幸，现有的描述交通法规的规约方法在可复用性和可扩展性方面均存在局限。比如
+rulebooks
+侧重于逻辑转换过程，并未提供一种自然的方式来描述法规；而其他形式化方法则与具体测试场景紧密耦合，每当引入新场景时，都必须对法规进行重新定制。一言以蔽之，<strong>要不难写，要不难改</strong>。</p>
 <h3 id="解决方案">解决方案</h3>
-<p>为了解决以上痛点，作者提出了 <code>Lawbreaker</code> ——一种用于描述交通法规的领域专用语言（DSL），以及一个可据此对自动驾驶系统（ADS）进行自动化测试的框架：</p>
+<p>为了解决以上痛点，作者提出了 <code>Lawbreaker</code>
+——一种用于描述交通法规的领域专用语言（DSL），以及一个可据此对自动驾驶系统（ADS）进行自动化测试的框架：</p>
 <ul>
 <li>允许用户从<code>驾驶员视角</code>而非全局视角更自然地表述交通法规，例如“在路口右转时，驾驶员应礼让行人”。</li>
-<li>与任何具体测试场景解耦：同一套法规不仅可以在不同地图上统一解释，还能与任何用于生成测试场景的 DSL 共同使用（这些场景定义了车辆、行人及障碍物在地图中的摆放）。</li>
-<li>内置的<code>模糊测试引擎</code>会系统性地搜索各种违规情形，通过尽可能多地覆盖不同违规方式来发现潜在缺陷，而这些未被覆盖的违规情形也能为改进 ADS 提供线索。</li>
+<li>与任何具体测试场景解耦：同一套法规不仅可以在不同地图上统一解释，还能与任何用于生成测试场景的
+DSL 共同使用（这些场景定义了车辆、行人及障碍物在地图中的摆放）。</li>
+<li>内置的<code>模糊测试引擎</code>会系统性地搜索各种违规情形，通过尽可能多地覆盖不同违规方式来发现潜在缺陷，而这些未被覆盖的违规情形也能为改进
+ADS 提供线索。</li>
 </ul>
 <blockquote>
-<p>领域专用语言是什么？<br>
-领域专用语言（Domain-Specific Language，DSL）是一种为了解决特定领域问题而专门设计的“小语言”。与通用编程语言（如 Python、Java、C++）“什么都能写”不同，DSL 只关注某一个细分领域的词汇、概念和规则，因此语法更简洁、表达更贴近业务，普通人也能快速看懂。</p>
+<p>领域专用语言是什么？ 领域专用语言（Domain-Specific
+Language，DSL）是一种为了解决特定领域问题而专门设计的“小语言”。与通用编程语言（如
+Python、Java、C++）“什么都能写”不同，DSL
+只关注某一个细分领域的词汇、概念和规则，因此语法更简洁、表达更贴近业务，普通人也能快速看懂。</p>
 <ul>
-<li>
-<p>例子</p>
+<li><p>例子</p>
 <ul>
 <li>SQL：专用于“关系数据库查询”的 DSL。</li>
 <li>HTML：专用于“网页结构描述”的 DSL。</li>
 <li>正则表达式：专用于“文本模式匹配”的 DSL。</li>
-<li>LawBreaker 的 DSL：专用于“描述交通法规”的 DSL，让你用接近自然语言的句子（如“在路口右转时应礼让行人”）去告诉计算机一条法规是什么。</li>
-</ul>
-</li>
-<li>
-<p>特点</p>
+<li>LawBreaker 的 DSL：专用于“描述交通法规”的
+DSL，让你用接近自然语言的句子（如“在路口右转时应礼让行人”）去告诉计算机一条法规是什么。</li>
+</ul></li>
+<li><p>特点</p>
 <ul>
 <li>词汇和语法高度贴合领域概念，非程序员也能写。</li>
 <li>功能受限，但在领域内表达力极强，错误更少。</li>
 <li>通常位于“通用语言写的系统”之上，为其提供配置或规则输入。</li>
+</ul></li>
 </ul>
-</li>
-</ul>
-<p>一句话总结：DSL 就是“为特定任务量身定做的小语言”，让领域专家用他们熟悉的话，把需求直接写成计算机能懂的规则。</p>
+<p>一句话总结：DSL
+就是“为特定任务量身定做的小语言”，让领域专家用他们熟悉的话，把需求直接写成计算机能懂的规则。</p>
 </blockquote>
-<p>如下图所示，用户只需提供一个场景脚本、待测 ADS 和仿真器，以及用 Lawbreaker 语言编写的若干交通法规。随后，模糊测试引擎在仿真器中系统地生成测试用例，尝试诱导 ADS 违反这些法规，从而暴露其设计缺陷。而所有违规行为都会被记录，并可借助仿真器进行可视化回放。</p>
-<p><img src="/image/paper/lawbreaker/LF1.png" srcset="/img/loading.gif" lazyload alt="LawBreaker的workflow"></p>
+<p>如下图所示，用户只需提供一个场景脚本、待测 ADS 和仿真器，以及用
+Lawbreaker
+语言编写的若干交通法规。随后，模糊测试引擎在仿真器中系统地生成测试用例，尝试诱导
+ADS
+违反这些法规，从而暴露其设计缺陷。而所有违规行为都会被记录，并可借助仿真器进行可视化回放。</p>
+<figure>
+<img src="/image/paper/lawbreaker/LF1.png" srcset="/img/loading.gif" lazyload alt="LawBreaker的workflow" />
+<figcaption aria-hidden="true">LawBreaker的workflow</figcaption>
+</figure>
 <p>具体的，LawBreaker 的实现包含三部分：</p>
 <ul>
-<li>基于 ANTLR4 的语法解析器，用于抽取场景描述和相应交通法规中的要素；</li>
+<li>基于 ANTLR4
+的语法解析器，用于抽取场景描述和相应交通法规中的要素；</li>
 <li>模糊测试引擎，用于系统地生成测试用例；</li>
-<li>桥接层：将语法解析器、模糊测试引擎、待测 ADS 以及仿真器连接起来，使整套系统能够协同运行。</li>
+<li>桥接层：将语法解析器、模糊测试引擎、待测 ADS
+以及仿真器连接起来，使整套系统能够协同运行。</li>
 </ul>
 <p>LawBreaker 的架构如下图所示：</p>
 <ul>
-<li>用于描述场景与情境的<strong>现有</strong> DSL（作者使用的 AVUnit ）；</li>
+<li>用于描述场景与情境的<strong>现有</strong> DSL（作者使用的 AVUnit
+）；</li>
 <li>新提出的、面向驾驶员视角的交通法规描述语言，其语义基础为<code>时序逻辑公式</code>；</li>
 <li>LawBreaker 模糊测试算法。</li>
 </ul>
-<p><img src="/image/paper/lawbreaker/LF2.png" srcset="/img/loading.gif" lazyload alt="LawBreaker架构"></p>
-<p>具体的，场景脚本组件首先将给定场景翻译为仿真器所需的 API 调用，为其准备初始测试用例。然后交通法规组件完全从驾驶员视角描述测试预言（testing oracles），无需依赖关于地图或其交通参与者的任何特定知识。最后，模糊测试引擎不断从 ADS 中提取运行轨迹，依据法规规范对其评估，并根据评估结果生成新的测试用例供仿真器执行。</p>
+<figure>
+<img src="/image/paper/lawbreaker/LF2.png" srcset="/img/loading.gif" lazyload alt="LawBreaker架构" />
+<figcaption aria-hidden="true">LawBreaker架构</figcaption>
+</figure>
+<p>具体的，场景脚本组件首先将给定场景翻译为仿真器所需的 API
+调用，为其准备初始测试用例。然后交通法规组件完全从驾驶员视角描述测试预言（testing
+oracles），无需依赖关于地图或其交通参与者的任何特定知识。最后，模糊测试引擎不断从
+ADS
+中提取运行轨迹，依据法规规范对其评估，并根据评估结果生成新的测试用例供仿真器执行。</p>
 <h3 id="面向驾驶员的描述语言">面向驾驶员的描述语言</h3>
 <blockquote>
 <ul>
@@ -358,91 +384,180 @@
 </ul>
 </blockquote>
 <p>所谓规则，无非是需要满足的较为复杂的布尔表达式，我们使用时序逻辑公式来描述交规，如下图所示：</p>
-<p><img src="/image/paper/lawbreaker/LF3.png" srcset="/img/loading.gif" lazyload alt="LawBreaker公式语法"></p>
-<p>作者为了描述布尔表达式定义了足足6类变量，用于表示 <code>车辆状态</code>、<code>驾驶状态</code>、<code>道路状态</code>、<code>信号状况</code>、<code>交通状况</code>、<code>地图状况</code> 。关于各类变量的定义此处不再赘述，下面来看一个例子：</p>
+<figure>
+<img src="/image/paper/lawbreaker/LF3.png" srcset="/img/loading.gif" lazyload alt="LawBreaker公式语法" />
+<figcaption aria-hidden="true">LawBreaker公式语法</figcaption>
+</figure>
+<p>作者为了描述布尔表达式定义了足足6类变量，用于表示
+<code>车辆状态</code>、<code>驾驶状态</code>、<code>道路状态</code>、<code>信号状况</code>、<code>交通状况</code>、<code>地图状况</code>
+。关于各类变量的定义此处不再赘述，下面来看一个例子：</p>
 <ul>
-<li><code>proposition1</code> 给出条件：前方十米有停车线或路口，且信号灯为闪烁的黄灯；</li>
-<li><code>proposition2</code> 给出行动：未来两秒内，车速要降到 20 km/h 以下直到 15 米内没有 NPC；</li>
-<li><code>law42</code> 则要求 <code>proposition1</code> 为真时，<code>proposition2</code> 永远为真。</li>
+<li><code>proposition1</code>
+给出条件：前方十米有停车线或路口，且信号灯为闪烁的黄灯；</li>
+<li><code>proposition2</code> 给出行动：未来两秒内，车速要降到 20 km/h
+以下直到 15 米内没有 NPC；</li>
+<li><code>law42</code> 则要求 <code>proposition1</code>
+为真时，<code>proposition2</code> 永远为真。</li>
 </ul>
 <blockquote>
-<p>《道路交通安全法实施条例》第 42 条: “闪光警告信号灯” 为持续闪烁的黄灯，提示车辆、行人通过时注意瞭望，确认安全后通过。</p>
+<p>《道路交通安全法实施条例》第 42 条: “闪光警告信号灯”
+为持续闪烁的黄灯，提示车辆、行人通过时注意瞭望，确认安全后通过。</p>
 </blockquote>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs bash">proposition1 = trafficLightAhead.color==yellow <br>                &amp; trafficLightAhead.blink <br>                &amp; (stoplineAhead(10) | junctionAhead (10) ); <br>proposition2 = F[0,2]((speed &lt;<span class="hljs-number">20</span>) U ~NearestNPC (<span class="hljs-number">15</span>));<br>law42 = G(proposition1 -&gt; proposition2);<br></code></pre></td></tr></table></figure>
 <h3 id="模糊引擎">模糊引擎</h3>
 <p>在讨论算法之前，我们首先约定一些符号。</p>
-<p>令 $\Phi$ 是一个信号时序逻辑（STL）公式，我们约定 $\Theta(\Phi)$ 表示违背 $\Phi$ 的不同方式对应的约束集合，则 $$\forall \xi \in \Theta(\Phi),\phi \models \xi \Rightarrow \phi \not\models \Phi$$.</p>
-<p>对于 $\Theta(\Phi)$ ，计算方式见下图：</p>
-<p><img src="/image/paper/lawbreaker/LF4.png" srcset="/img/loading.gif" lazyload alt=""></p>
+<p>令 <span class="math inline">\(\Phi\)</span>
+是一个信号时序逻辑（STL）公式，我们约定 <span
+class="math inline">\(\Theta(\Phi)\)</span> 表示违背 <span
+class="math inline">\(\Phi\)</span> 的不同方式对应的约束集合，则 <span
+class="math display">\[\forall \xi \in \Theta(\Phi),\phi \models \xi
+\Rightarrow \phi \not\models \Phi\]</span>.</p>
+<p>对于 <span class="math inline">\(\Theta(\Phi)\)</span>
+，计算方式见下图：</p>
+<p><img src="/image/paper/lawbreaker/LF4.png" srcset="/img/loading.gif" lazyload /></p>
 <blockquote>
-<p>$\Theta(\theta_1\mathcal{U}_{\mathcal{I}}\theta_2)$ 被违背有两种情况：</p>
+<p><span
+class="math inline">\(\Theta(\theta_1\mathcal{U}_{\mathcal{I}}\theta_2)\)</span>
+被违背有两种情况：</p>
 <ul>
-<li>$\theta_1$ 和 $\theta_2$ 都不成立之前，一直处于 $\theta_1$ 成立 $\theta_2$ 不成立的状态；</li>
-<li>从一开始就 $\theta_1$ 和 $\theta_2$ 都不成立。</li>
+<li><span class="math inline">\(\theta_1\)</span> 和 <span
+class="math inline">\(\theta_2\)</span> 都不成立之前，一直处于 <span
+class="math inline">\(\theta_1\)</span> 成立 <span
+class="math inline">\(\theta_2\)</span> 不成立的状态；</li>
+<li>从一开始就 <span class="math inline">\(\theta_1\)</span> 和 <span
+class="math inline">\(\theta_2\)</span> 都不成立。</li>
 </ul>
 </blockquote>
-<p>其中，$N(\Phi)$ 表示 $\Phi$ 被满足的不同方式对应的约束集合，计算方式如下图所示：</p>
-<p><img src="/image/paper/lawbreaker/LF5.png" srcset="/img/loading.gif" lazyload alt=""></p>
+<p>其中，<span class="math inline">\(N(\Phi)\)</span> 表示 <span
+class="math inline">\(\Phi\)</span>
+被满足的不同方式对应的约束集合，计算方式如下图所示：</p>
+<p><img src="/image/paper/lawbreaker/LF5.png" srcset="/img/loading.gif" lazyload /></p>
 <p>实践中只需要利用上述规则和布尔恒等式展开计算即可。</p>
-<p>下面考虑 $\phi \models \xi$ 的判定问题，作者使用了下图所示的定量语义：</p>
-<p><img src="/image/paper/lawbreaker/LF6.png" srcset="/img/loading.gif" lazyload alt=""></p>
-<p>一旦有 $\rho(\varphi,\pi,t)\geq 0$ , 我们就说 $\varphi$ 被 $\pi$ 所满足。若不加说明，约定 $\rho(\varphi,\pi)= \rho(\varphi,\pi,0)$。</p>
+<p>下面考虑 <span class="math inline">\(\phi \models \xi\)</span>
+的判定问题，作者使用了下图所示的定量语义：</p>
+<p><img src="/image/paper/lawbreaker/LF6.png" srcset="/img/loading.gif" lazyload /></p>
+<p>一旦有 <span class="math inline">\(\rho(\varphi,\pi,t)\geq 0\)</span>
+, 我们就说 <span class="math inline">\(\varphi\)</span> 被 <span
+class="math inline">\(\pi\)</span> 所满足。若不加说明，约定 <span
+class="math inline">\(\rho(\varphi,\pi)=
+\rho(\varphi,\pi,0)\)</span>。</p>
 <p>万事俱备，只欠东风，下面介绍模糊算法：</p>
-<p><img src="/image/paper/lawbreaker/LF7.png" srcset="/img/loading.gif" lazyload alt="模糊算法本法"></p>
-<p>模糊算法基于<code>遗传算法</code>，$\Theta_r$ 集合表示 $\Theta(\Phi)$ 中还没满足的约束， $Seed_r$ 将约束和场景一一对应，用于记录亲代，$Robust_r$ 记录当前约束离被满足还差多少，$G$ 为子代场景集合，而 $\Gamma$ 为选出的场景，也即测试用例.</p>
+<figure>
+<img src="/image/paper/lawbreaker/LF7.png" srcset="/img/loading.gif" lazyload alt="模糊算法本法" />
+<figcaption aria-hidden="true">模糊算法本法</figcaption>
+</figure>
+<p>模糊算法基于<code>遗传算法</code>，<span
+class="math inline">\(\Theta_r\)</span> 集合表示 <span
+class="math inline">\(\Theta(\Phi)\)</span> 中还没满足的约束， <span
+class="math inline">\(Seed_r\)</span>
+将约束和场景一一对应，用于记录亲代，<span
+class="math inline">\(Robust_r\)</span>
+记录当前约束离被满足还差多少，<span class="math inline">\(G\)</span>
+为子代场景集合，而 <span class="math inline">\(\Gamma\)</span>
+为选出的场景，也即测试用例.</p>
 <p>关于模糊算法，还有几点需要注意：</p>
 <ul>
-<li>第20行选子代的时候，$Seed_r$ 数量未必等于子代数 $n$ , 作者选择将 $Seed_r$ 依据 $Robust_r$ 降序排列，然后从前半部分和所有 $Seed$ 各随机抽取一个测试用例作为亲代，然后交换变量，生成子代。</li>
+<li>第20行选子代的时候，<span class="math inline">\(Seed_r\)</span>
+数量未必等于子代数 <span class="math inline">\(n\)</span> , 作者选择将
+<span class="math inline">\(Seed_r\)</span> 依据 <span
+class="math inline">\(Robust_r\)</span> 降序排列，然后从前半部分和所有
+<span class="math inline">\(Seed\)</span>
+各随机抽取一个测试用例作为亲代，然后交换变量，生成子代。</li>
 <li>注意“生殖隔离”，不允许不同类型（作者定义了6类变量）变量的值进行交换！</li>
 <li>存在“变异”：对连续值，施加高斯变异。</li>
 </ul>
 <h3 id="结果">结果</h3>
 <blockquote>
-<p>LawBreaker was able to find 14 violations  of these laws, including 173 test cases that caused accidents.</p>
+<p>LawBreaker was able to find 14 violations of these laws, including
+173 test cases that caused accidents.</p>
 </blockquote>
-<hr>
-<h2 id="ABLE">ABLE</h2>
-<h3 id="研究背景-2">研究背景</h3>
-<p>在 <code>LawBreaker</code> 提出后，研究者们发现其基于遗传算法（GA）的模糊搜索虽然能够覆盖一定范围的交通法规违规情况，但存在明显的<code>早熟收敛</code>问题：LawBreaker 在前 50 次测试就找到了绝大部分违规场景，而后续几百次测试几乎只是在重复相似场景，<strong>效率很低</strong>。这主要是因为不同的交通法规违规情形往往彼此<strong>相距甚远</strong>，需要截然不同的场景设定，而 GA 难以高效探索如此庞大且离散的搜索空间。于是，作者提出了 ABLE（Aims to Break many Laws Efficiently），旨在系统化、覆盖性更强地生成多样化的违规场景，并且避免冗余测试。</p>
+<hr />
+<h2 id="able">ABLE</h2>
+<h3 id="研究背景-1">研究背景</h3>
+<p>在 <code>LawBreaker</code>
+提出后，研究者们发现其基于遗传算法（GA）的模糊搜索虽然能够覆盖一定范围的交通法规违规情况，但存在明显的<code>早熟收敛</code>问题：LawBreaker
+在前 50
+次测试就找到了绝大部分违规场景，而后续几百次测试几乎只是在重复相似场景，<strong>效率很低</strong>。这主要是因为不同的交通法规违规情形往往彼此<strong>相距甚远</strong>，需要截然不同的场景设定，而
+GA 难以高效探索如此庞大且离散的搜索空间。于是，作者提出了 ABLE（Aims to
+Break many Laws
+Efficiently），旨在系统化、覆盖性更强地生成多样化的违规场景，并且避免冗余测试。</p>
 <h3 id="核心思路">核心思路</h3>
-<p>ABLE 借鉴了 Generative Flow Network（GFlowNet） 的思想，将测试场景生成建模为<code>逐步采样动作</code>的过程。不同于 GA 的“全局变异”，ABLE 更像是“逐步搭积木”，每次给场景加上合适的元素（如一辆 NPC 车的位置、速度），最终形成一个能诱导违规的完整场景。</p>
-<p>如下图所示，ABLE 分数据准备、场景生成、场景测试、主动学习四个阶段。</p>
-<p><img src="/image/paper/lawbreaker/AF1.png" srcset="/img/loading.gif" lazyload alt="ABLE架构"></p>
+<p>ABLE 借鉴了 Generative Flow Network（GFlowNet）
+的思想，将测试场景生成建模为<code>逐步采样动作</code>的过程。不同于 GA
+的“全局变异”，ABLE 更像是“逐步搭积木”，每次给场景加上合适的元素（如一辆
+NPC 车的位置、速度），最终形成一个能诱导违规的完整场景。</p>
+<p>如下图所示，ABLE
+分数据准备、场景生成、场景测试、主动学习四个阶段。</p>
+<figure>
+<img src="/image/paper/lawbreaker/AF1.png" srcset="/img/loading.gif" lazyload alt="ABLE架构" />
+<figcaption aria-hidden="true">ABLE架构</figcaption>
+</figure>
 <p>在<code>数据准备</code>阶段，输入初始场景和对应轨迹（可以利用Lawbreaker生成），将场景编码成动作序列并根据轨迹计算鲁棒性，然后够根据鲁棒性向量计算场景的奖励值。</p>
 <blockquote>
-<p>个人感觉这儿的 $Cov$ 有些冗余？因为第三阶段有对 $\phi(\Theta)$ 直接进行改动，不知道是不是理解错误。</p>
+<p>个人感觉这儿的 <span class="math inline">\(Cov\)</span>
+有些冗余？因为第三阶段有对 <span
+class="math inline">\(\phi(\Theta)\)</span>
+直接进行改动，不知道是不是理解错误。</p>
 </blockquote>
-<p><img src="/image/paper/lawbreaker/AF2.png" srcset="/img/loading.gif" lazyload alt="DataPreparation"><br>
-<img src="/image/paper/lawbreaker/AF6.png" srcset="/img/loading.gif" lazyload alt="DataPreparation"></p>
-<p>在<code>场景生成</code>阶段，使用上一阶段得到的（动作序列，奖励值）训练一个代理 $\mathbb{R}$ ，从而使我们不需要进行仿真也能得到对动作序列奖励值的估计。然后利用 $\mathbb{R}$ 和 动作序列 $S^a$ 来训练 $GFN$ 。我们把场景构建的过程建模成一个有向无环图，将边映射到动作，则每经过一条边，我们就可以给场景加上合适的元素（比如一辆 NPC 车的位置、速度），最终形成一个能诱导违规的完整场景。而 $GFN$ 的作用则是帮助我们搭建这个有向无环图。利用网络流的约束，有损失函数 $$\mathcal{L}=(log\frac{\sum_{s’\in Parent(s)F(s’\rightarrow s)}}{\sum_{s’‘\in Child(s)F(s\rightarrow s’')}})^2$$.然后便是利用训练得到的 $GFN$ 来采样生成动作序列并解码成场景。</p>
+<p><img src="/image/paper/lawbreaker/AF2.png" srcset="/img/loading.gif" lazyload alt="DataPreparation" />
+<img src="/image/paper/lawbreaker/AF6.png" srcset="/img/loading.gif" lazyload alt="DataPreparation" /></p>
+<p>在<code>场景生成</code>阶段，使用上一阶段得到的（动作序列，奖励值）训练一个代理
+<span class="math inline">\(\mathbb{R}\)</span>
+，从而使我们不需要进行仿真也能得到对动作序列奖励值的估计。然后利用 <span
+class="math inline">\(\mathbb{R}\)</span> 和 动作序列 <span
+class="math inline">\(S^a\)</span> 来训练 <span
+class="math inline">\(GFN\)</span>
+。我们把场景构建的过程建模成一个有向无环图，将边映射到动作，则每经过一条边，我们就可以给场景加上合适的元素（比如一辆
+NPC 车的位置、速度），最终形成一个能诱导违规的完整场景。而 <span
+class="math inline">\(GFN\)</span>
+的作用则是帮助我们搭建这个有向无环图。利用网络流的约束，有损失函数 <span
+class="math display">\[\mathcal{L}=(log\frac{\sum_{s&#39;\in
+Parent(s)F(s&#39;\rightarrow s)}}{\sum_{s&#39;&#39;\in
+Child(s)F(s\rightarrow s&#39;&#39;)}})^2\]</span>.然后便是利用训练得到的
+<span class="math inline">\(GFN\)</span>
+来采样生成动作序列并解码成场景。</p>
 <blockquote>
 <ul>
-<li>关于 $\mathbb{R}$ 具体如何发挥作用，文章并未直接给出，但指出“流”可以看作是落在某个状态或某条边上的概率质量，而 $\mathbb{R}$ 是给每个“已完成场景”打的分数，猜测其作用在于告诉 GFlowNet：哪些场景是我们更想要的，从而在训练中引导网络把概率质量（flow）更多地分配给高奖励的生成路径。</li>
-<li>此外，$GFN$ 采样动作时是有所限制的，具体体现在限制某一次采样时的动作类型，这是因为场景脚本中的语句必须在语境上彼此相关，其对应的动作必须保持与语句一致的顺序。</li>
+<li>关于 <span class="math inline">\(\mathbb{R}\)</span>
+具体如何发挥作用，文章并未直接给出，但指出“流”可以看作是落在某个状态或某条边上的概率质量，而
+<span class="math inline">\(\mathbb{R}\)</span>
+是给每个“已完成场景”打的分数，猜测其作用在于告诉
+GFlowNet：哪些场景是我们更想要的，从而在训练中引导网络把概率质量（flow）更多地分配给高奖励的生成路径。</li>
+<li>此外，<span class="math inline">\(GFN\)</span>
+采样动作时是有所限制的，具体体现在限制某一次采样时的动作类型，这是因为场景脚本中的语句必须在语境上彼此相关，其对应的动作必须保持与语句一致的顺序。</li>
 </ul>
 </blockquote>
-<p><img src="/image/paper/lawbreaker/AF3.png" srcset="/img/loading.gif" lazyload alt="ScenarioGeneration"></p>
+<figure>
+<img src="/image/paper/lawbreaker/AF3.png" srcset="/img/loading.gif" lazyload alt="ScenarioGeneration" />
+<figcaption aria-hidden="true">ScenarioGeneration</figcaption>
+</figure>
 <p>在<code>场景测试</code>阶段，针对上一阶段生成的每一个场景进行仿真测试并记录轨迹，然后检查是否满足约束，将已满足约束剔除，记录场景和约束对。</p>
-<p><img src="/image/paper/lawbreaker/AF4.png" srcset="/img/loading.gif" lazyload alt="ScenariosTesting"></p>
+<figure>
+<img src="/image/paper/lawbreaker/AF4.png" srcset="/img/loading.gif" lazyload alt="ScenariosTesting" />
+<figcaption aria-hidden="true">ScenariosTesting</figcaption>
+</figure>
 <p>在<code>主动学习</code>阶段，不断重复上述流程，更新违规记录，将把本轮刚测过的新场景直接加入训练集。</p>
-<p><img src="/image/paper/lawbreaker/AF5.png" srcset="/img/loading.gif" lazyload alt="ActiveLearning"></p>
+<figure>
+<img src="/image/paper/lawbreaker/AF5.png" srcset="/img/loading.gif" lazyload alt="ActiveLearning" />
+<figcaption aria-hidden="true">ActiveLearning</figcaption>
+</figure>
 <h2 id="思考">思考</h2>
-<ol>
+<ol type="1">
 <li>仿真环境下，如果移植到机器人上，应该关注哪些工程流程？
 <ul>
-<li>调研机器人仿真测试中关注的 oracle 是否是弱的/可加强。比如工业机器人要服从厂内安全规程，服务机器人除了不伤害人类还应提供情绪价值…</li>
+<li>调研机器人仿真测试中关注的 oracle
+是否是弱的/可加强。比如工业机器人要服从厂内安全规程，服务机器人除了不伤害人类还应提供情绪价值...</li>
 <li>确定适用法规集（道路/园区/厂区/仓内安全规程），区分相关/可描述/可测试三层。</li>
-<li>将含糊条款参数化（距离/速度/时间窗），准备本地化实例（如园区限速 12km/h、叉口让行半径 8m）。</li>
+<li>将含糊条款参数化（距离/速度/时间窗），准备本地化实例（如园区限速
+12km/h、叉口让行半径 8m）。</li>
 <li>将机器人系统、仿真平台、规则测试桥接起来。</li>
-</ul>
-</li>
+</ul></li>
 <li>可测试场景有限，扩展测试场景会不会很有卖点？
 <ul>
 <li>毕竟是22年的文章，可能还得去调研现在的高保真仿真测试 。</li>
-</ul>
-</li>
+</ul></li>
 </ol>
-<p><img src="/image/paper/lawbreaker/TF1.png" srcset="/img/loading.gif" lazyload alt=""></p>
+<p><img src="/image/paper/lawbreaker/TF1.png" srcset="/img/loading.gif" lazyload /></p>
 
                 
               </div>

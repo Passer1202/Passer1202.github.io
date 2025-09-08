@@ -21,17 +21,15 @@
   <meta name="author" content="Passer">
   <meta name="keywords" content="">
   
-    <meta name="description" content="消息认证  消息认证的必要性 MAC  定义 正确性与安全性要求 使用   构造 secure MACs  定长 CBC-MAC处理长消息   AE  定义 CCA安全 不可伪造加密 构造AE    消息认证的必要性 安全的对话要确定消息发送方的身份和以及消息未被串改，仅加密在很多时候并不能确保这些. MAC 给我们的消息打一个tag！ 定义 消息认证码，即 MAC 是一个 PPT 算法组成的三元">
+    <meta name="description" content="消息认证  消息认证的必要性 MAC  定义 正确性与安全性要求 使用  构造 secure MACs  定长 CBC-MAC处理长消息  AE  定义 CCA安全 不可伪造加密 构造AE   消息认证的必要性 安全的对话要确定消息发送方的身份和以及消息未被串改，仅加密在很多时候并不能确保这些. MAC 给我们的消息打一个tag！ 定义 消息认">
 <meta property="og:type" content="article">
 <meta property="og:title" content="CRYPTO">
 <meta property="og:url" content="https://passer1202.github.io/2024/11/06/%E5%AF%86%E7%A0%81%E5%AD%A6%E7%AC%94%E8%AE%B0/index.html">
 <meta property="og:site_name" content="Passer&#39;s Homepage">
-<meta property="og:description" content="消息认证  消息认证的必要性 MAC  定义 正确性与安全性要求 使用   构造 secure MACs  定长 CBC-MAC处理长消息   AE  定义 CCA安全 不可伪造加密 构造AE    消息认证的必要性 安全的对话要确定消息发送方的身份和以及消息未被串改，仅加密在很多时候并不能确保这些. MAC 给我们的消息打一个tag！ 定义 消息认证码，即 MAC 是一个 PPT 算法组成的三元">
+<meta property="og:description" content="消息认证  消息认证的必要性 MAC  定义 正确性与安全性要求 使用  构造 secure MACs  定长 CBC-MAC处理长消息  AE  定义 CCA安全 不可伪造加密 构造AE   消息认证的必要性 安全的对话要确定消息发送方的身份和以及消息未被串改，仅加密在很多时候并不能确保这些. MAC 给我们的消息打一个tag！ 定义 消息认">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://passer1202.github.io/image/crypto/basic-cbc.png">
 <meta property="og:image" content="https://passer1202.github.io/image/crypto/encrpt-then-authenticate.png">
-<meta property="og:image" content="https://passer1202.github.io/image/crypto/Partition_and_Padding.png">
-<meta property="og:image" content="https://passer1202.github.io/image/crypto/Chained-Compressing.png">
 <meta property="og:image" content="https://passer1202.github.io/images/HMAC.png">
 <meta property="og:image" content="https://passer1202.github.io/image/crypto/Goldreich-Levin-Theorem.png">
 <meta property="og:image" content="https://passer1202.github.io/image/crypto/polyPRG.png">
@@ -256,7 +254,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          4k 字
+          4.1k 字
         
       </span>
     
@@ -267,7 +265,7 @@
         
         
         
-          34 分钟
+          35 分钟
         
       </span>
     
@@ -317,111 +315,168 @@
 <li>定义</li>
 <li>正确性与安全性要求</li>
 <li>使用</li>
-</ul>
-</li>
+</ul></li>
 <li>构造 secure MACs
 <ul>
 <li>定长</li>
 <li>CBC-MAC处理长消息</li>
-</ul>
-</li>
+</ul></li>
 <li>AE
 <ul>
 <li>定义</li>
 <li>CCA安全</li>
 <li>不可伪造加密</li>
 <li>构造AE</li>
-</ul>
-</li>
+</ul></li>
 </ul>
 <h3 id="消息认证的必要性">消息认证的必要性</h3>
 <p>安全的对话要确定消息发送方的身份和以及消息未被串改，仅加密在很多时候并不能确保这些.</p>
-<h3 id="MAC">MAC</h3>
+<h3 id="mac">MAC</h3>
 <p>给我们的消息打一个tag！</p>
 <h4 id="定义">定义</h4>
-<p>消息认证码，即 MAC 是一个 PPT 算法组成的三元组 $\Pi=(Gen,Mac,Vrfy)$:</p>
-<ul>
-<li>密钥生成算法: $k \leftarrow Gen(1^n) , |k| \geq n$.</li>
-<li>标签生成算法：$t \leftarrow Mac_k(m)\ or\ t := Mac_k(m), m\in {0,1}^*$.</li>
-<li>确定性的认证算法：$b := Vrfy_k(m,t) , b=1 \ iff.\ m\ is\ valid$.</li>
-</ul>
+<p>消息认证码，即 MAC 是一个 PPT 算法组成的三元组 <span
+class="math inline">\(\Pi=(Gen,Mac,Vrfy)\)</span>: + 密钥生成算法: <span
+class="math inline">\(k \leftarrow Gen(1^n) , |k| \geq n\)</span>. +
+标签生成算法：<span class="math inline">\(t \leftarrow Mac_k(m)\ or\ t
+:= Mac_k(m), m\in \{0,1\}^*\)</span>. + 确定性的认证算法：<span
+class="math inline">\(b := Vrfy_k(m,t) , b=1 \ iff.\ m\ is\
+valid\)</span>.</p>
 <h4 id="正确性与安全性要求">正确性与安全性要求</h4>
-<p><strong>正确性</strong>：正确生成的MAC要被认可，即<br>
-$$\forall n, k \leftarrow Gen(1^n), \forall m\in {0,1}^*, Vrfy_k(m,Mac_k(m))=1$$</p>
-<p>当 $Mac$ 是确定性算法时，一种典型的认证方法是重新计算tag并进行比对.</p>
-<p><strong>安全性</strong>通过消息认证试验 $Mac-forge_{\mathcal{A},\Pi}(n)$ 来定义：</p>
-<ol>
-<li>$k \leftarrow Gen(1^n)$ 对敌手保密.</li>
-<li>给 $\mathcal{A}(1^n)$ 调用 $Mac_k(\cdot)$ 的能力，$\mathcal{A}$ 查询若干次，最终输出 $(m,t)$. 记 $\mathcal{Q}$ 为 $\mathcal{A}$ 所查询消息的集合.</li>
-<li>$\mathcal{A}$ 成功也即 $Mac-forge_{\mathcal{A},\Pi}(n)=1$ 当且仅当 $Vrfy_k(m,t)=1 \wedge m \notin \mathcal{Q}$.</li>
-</ol>
-<p>一个 MAC 是 secure 当且仅当 对于任何一个PPT的敌手 $\mathcal{A}$ , 都存在可忽略的函数 $negl$ ，使得 $$Pr[Mac-forge_{\mathcal{A},\Pi}(n)=1]\leq negl(n).$$</p>
-<p>secure 保证了一个敌手不可能为一个先前未认证的<strong>新消息</strong>生成一个合法的tag , 但是并未保证敌手不能为已经认证的消息生成一个<strong>新的合法 tag</strong>, 于是有了 strongly secure</p>
-<p>消息认证试验 $Mac-sforge_{\mathcal{A},\Pi}(n)$ :</p>
-<ol>
-<li>$k \leftarrow Gen(1^n)$ 对敌手保密.</li>
-<li>给 $\mathcal{A}(1^n)$ 调用 $Mac_k(\cdot)$ 的能力，$\mathcal{A}$ 查询若干次，最终输出 $(m,t)$. 记 $\mathcal{Q}$ 为 $\mathcal{A}$ 所查消息和对应tag对的集合.</li>
-<li>$\mathcal{A}$ 成功也即 $Mac-sforge_{\mathcal{A},\Pi}(n)=1$ 当且仅当 $Vrfy_k(m,t)=1 \wedge (m,t) \notin \mathcal{Q}$.</li>
-</ol>
-<p>一个 MAC 是 strongly secure 当且仅当 对于任何一个PPT的敌手 $\mathcal{A}$ , 都存在可忽略的函数 $negl$ ，使得 $$Pr[Mac-sforge_{\mathcal{A},\Pi}(n)=1]\leq negl(n).$$</p>
+<p><strong>正确性</strong>：正确生成的MAC要被认可，即 <span
+class="math display">\[\forall n, k \leftarrow Gen(1^n), \forall m\in
+\{0,1\}^*, Vrfy_k(m,Mac_k(m))=1\]</span></p>
+<p>当 <span class="math inline">\(Mac\)</span>
+是确定性算法时，一种典型的认证方法是重新计算tag并进行比对.</p>
+<p><strong>安全性</strong>通过消息认证试验 <span
+class="math inline">\(Mac-forge_{\mathcal{A},\Pi}(n)\)</span> 来定义：
+1. <span class="math inline">\(k \leftarrow Gen(1^n)\)</span>
+对敌手保密. 2. 给 <span class="math inline">\(\mathcal{A}(1^n)\)</span>
+调用 <span class="math inline">\(Mac_k(\cdot)\)</span> 的能力，<span
+class="math inline">\(\mathcal{A}\)</span> 查询若干次，最终输出 <span
+class="math inline">\((m,t)\)</span>. 记 <span
+class="math inline">\(\mathcal{Q}\)</span> 为 <span
+class="math inline">\(\mathcal{A}\)</span> 所查询消息的集合. 3. <span
+class="math inline">\(\mathcal{A}\)</span> 成功也即 <span
+class="math inline">\(Mac-forge_{\mathcal{A},\Pi}(n)=1\)</span> 当且仅当
+<span class="math inline">\(Vrfy_k(m,t)=1 \wedge m \notin
+\mathcal{Q}\)</span>.</p>
+<p>一个 MAC 是 secure 当且仅当 对于任何一个PPT的敌手 <span
+class="math inline">\(\mathcal{A}\)</span> , 都存在可忽略的函数 <span
+class="math inline">\(negl\)</span> ，使得 <span
+class="math display">\[Pr[Mac-forge_{\mathcal{A},\Pi}(n)=1]\leq
+negl(n).\]</span></p>
+<p>secure
+保证了一个敌手不可能为一个先前未认证的<strong>新消息</strong>生成一个合法的tag
+, 但是并未保证敌手不能为已经认证的消息生成一个<strong>新的合法
+tag</strong>, 于是有了 strongly secure</p>
+<p>消息认证试验 <span
+class="math inline">\(Mac-sforge_{\mathcal{A},\Pi}(n)\)</span> : 1.
+<span class="math inline">\(k \leftarrow Gen(1^n)\)</span> 对敌手保密.
+2. 给 <span class="math inline">\(\mathcal{A}(1^n)\)</span> 调用 <span
+class="math inline">\(Mac_k(\cdot)\)</span> 的能力，<span
+class="math inline">\(\mathcal{A}\)</span> 查询若干次，最终输出 <span
+class="math inline">\((m,t)\)</span>. 记 <span
+class="math inline">\(\mathcal{Q}\)</span> 为 <span
+class="math inline">\(\mathcal{A}\)</span> 所查消息和对应tag对的集合. 3.
+<span class="math inline">\(\mathcal{A}\)</span> 成功也即 <span
+class="math inline">\(Mac-sforge_{\mathcal{A},\Pi}(n)=1\)</span>
+当且仅当 <span class="math inline">\(Vrfy_k(m,t)=1 \wedge (m,t) \notin
+\mathcal{Q}\)</span>.</p>
+<p>一个 MAC 是 strongly secure 当且仅当 对于任何一个PPT的敌手 <span
+class="math inline">\(\mathcal{A}\)</span> , 都存在可忽略的函数 <span
+class="math inline">\(negl\)</span> ，使得 <span
+class="math display">\[Pr[Mac-sforge_{\mathcal{A},\Pi}(n)=1]\leq
+negl(n).\]</span></p>
 <p>显然典型的使用确定性的 secure 的 MAC 天然就是 strongly secure 的.</p>
-<h4 id="如何使用-MAC">如何使用 MAC</h4>
-<p>What if Alice needs to send a message in Q, (i.e. was sent previously)?</p>
-<ul>
-<li>Directly applying the MAC would cause repeated messages to be rejected.</li>
-<li>One can append a unique timestamp or nonce to each message.</li>
-</ul>
-<h3 id="构造-secure-的-MAC">构造 secure 的 MAC</h3>
-<h4 id="定长-MAC">定长 MAC</h4>
-<p>如果有函数 $l$ 使得对于任意 $k \leftarrow Gen(1^n)$, $Mac_k$ 仅对  $m\in {0,1}^{l(n)}$ 上的消息有定义.</p>
+<h4 id="如何使用-mac">如何使用 MAC</h4>
+<p>What if Alice needs to send a message in Q, (i.e. was sent
+previously)? + Directly applying the MAC would cause repeated messages
+to be rejected. + One can append a unique timestamp or nonce to each
+message.</p>
+<h3 id="构造-secure-的-mac">构造 secure 的 MAC</h3>
+<h4 id="定长-mac">定长 MAC</h4>
+<p>如果有函数 <span class="math inline">\(l\)</span> 使得对于任意 <span
+class="math inline">\(k \leftarrow Gen(1^n)\)</span>, <span
+class="math inline">\(Mac_k\)</span> 仅对 <span
+class="math inline">\(m\in \{0,1\}^{l(n)}\)</span> 上的消息有定义.</p>
 <p>使用PRF！</p>
-<p>令 $F$ 是 PRF . 对长为 n 的消息定义一个定长的 MAC：</p>
-<ul>
-<li>Mac : 输入密钥 $k\in {0,1}^n$ 和消息 $m\in{0,1}^n$,输出标签 $t:=F_k(m)$.</li>
-<li>Vrfy: 输入密钥 $k\in {0,1}^n$ 消息 $m\in {0,1}^n$ 和标签 $t\in{0,1}^n$,输出1当且仅当 $t=F_k(m)$.</li>
-</ul>
-<p>若 $F$ 是 PRF ， 上述构造就是一个对长度为n的消息的 secure fixed-length MAC.</p>
-<h4 id="处理长消息（定长）">处理长消息（定长）</h4>
-<p>basic CBC-MAC: $F$ 是一个 PRF ， 以及长度函数 $l$</p>
-<ul>
-<li>Mac : 输入 $k \in {0,1}^n, m\in {0,1}^{n\cdot l(n)}$
-<ul>
-<li>将 $m$ 分成 $l(n)$ 个长度为 $n$ 的块,</li>
-<li>$t_0:= 0^n$,对 $i$ 从 1 到 $l(n)$, $t_i := F_k(t_{i-1} \oplus m_i)$</li>
-<li>输出 $t_l$</li>
-</ul>
-</li>
-<li>Vrfy : 输入 $k\in {0,1}^n, m, t$,输出1当且仅当 $|m|=n\cdot l(n) \wedge t=Mac_k(m)$.</li>
-</ul>
-<p><img src="/image/crypto/basic-cbc.png" srcset="/img/loading.gif" lazyload alt="basic-cbc mode"></p>
+<p>令 <span class="math inline">\(F\)</span> 是 PRF . 对长为 n
+的消息定义一个定长的 MAC： + Mac : 输入密钥 <span
+class="math inline">\(k\in \{0,1\}^n\)</span> 和消息 <span
+class="math inline">\(m\in\{0,1\}^n\)</span>,输出标签 <span
+class="math inline">\(t:=F_k(m)\)</span>. + Vrfy: 输入密钥 <span
+class="math inline">\(k\in \{0,1\}^n\)</span> 消息 <span
+class="math inline">\(m\in \{0,1\}^n\)</span> 和标签 <span
+class="math inline">\(t\in\{0,1\}^n\)</span>,输出1当且仅当 <span
+class="math inline">\(t=F_k(m)\)</span>.</p>
+<p>若 <span class="math inline">\(F\)</span> 是 PRF ，
+上述构造就是一个对长度为n的消息的 secure fixed-length MAC.</p>
+<h4 id="处理长消息定长">处理长消息（定长）</h4>
+<p>basic CBC-MAC: <span class="math inline">\(F\)</span> 是一个 PRF ，
+以及长度函数 <span class="math inline">\(l\)</span> + Mac : 输入 <span
+class="math inline">\(k \in \{0,1\}^n, m\in \{0,1\}^{n\cdot
+l(n)}\)</span> + 将 <span class="math inline">\(m\)</span> 分成 <span
+class="math inline">\(l(n)\)</span> 个长度为 <span
+class="math inline">\(n\)</span> 的块, + <span
+class="math inline">\(t_0:= 0^n\)</span>,对 <span
+class="math inline">\(i\)</span> 从 1 到 <span
+class="math inline">\(l(n)\)</span>, <span class="math inline">\(t_i :=
+F_k(t_{i-1} \oplus m_i)\)</span> + 输出 <span
+class="math inline">\(t_l\)</span> + Vrfy : 输入 <span
+class="math inline">\(k\in \{0,1\}^n, m, t\)</span>,输出1当且仅当 <span
+class="math inline">\(|m|=n\cdot l(n) \wedge t=Mac_k(m)\)</span>.</p>
+<figure>
+<img src="/image/crypto/basic-cbc.png" srcset="/img/loading.gif" lazyload alt="basic-cbc mode" />
+<figcaption aria-hidden="true">basic-cbc mode</figcaption>
+</figure>
 <p>仍然仅能处理定长的消息！！！</p>
-<h3 id="AE">AE</h3>
+<h3 id="ae">AE</h3>
 <p>消息的安全性和真实性都要！</p>
-<h4 id="定义-2">定义</h4>
+<h4 id="定义-1">定义</h4>
 <p>一个私钥加密方案是 AE 的如果其是 CCA-secure 并且 unforgeable.</p>
-<h4 id="CCA安全">CCA安全</h4>
-<p>CCA安全由CCA indistinguishability experiment $PrivK_{\mathcal{A},\Pi}^{cca}(n)$ 定义：</p>
-<ol>
-<li>$k\leftarrow Gen(1^n)$</li>
-<li>给敌手调用 $Enc_k(\cdot),Dec_k(\cdot)$ 的权限，敌手输出 $m_0,m_1$.</li>
-<li>加密 $c\leftarrow Enc_k(m_b),b\overset{$}{\leftarrow}{0,1}$,将 $c$ 发送给敌手.</li>
-<li>敌手调用  $Enc_k(\cdot),Dec_k(\cdot)$ ，但不允许直接调用 $Dec_k©$ ，输出$b’$.</li>
-<li>$PrivK_{\mathcal{A},\Pi}^{cca}(n)=1$ 当且仅当 $b=b’$.</li>
-</ol>
-<p>私钥加密方案 $\Pi$ 是 $CCA-secure$ 的当且仅当对于任意PPT的敌手均有 $$Pr[PrivK_{\mathcal{A},\Pi}^{cca}(n)=1]\leq \frac{1}{2} + negl(n).$$</p>
-<p>可延展性（malleable) 在不知道 $m$ 的前提下构造其密文. CCA安全推出了不可延展性.</p>
+<h4 id="cca安全">CCA安全</h4>
+<p>CCA安全由CCA indistinguishability experiment <span
+class="math inline">\(PrivK_{\mathcal{A},\Pi}^{cca}(n)\)</span> 定义：
+1. <span class="math inline">\(k\leftarrow Gen(1^n)\)</span> 2.
+给敌手调用 <span
+class="math inline">\(Enc_k(\cdot),Dec_k(\cdot)\)</span>
+的权限，敌手输出 <span class="math inline">\(m_0,m_1\)</span>. 3. 加密
+<span class="math inline">\(c\leftarrow
+Enc_k(m_b),b\overset{\$}{\leftarrow}\{0,1\}\)</span>,将 <span
+class="math inline">\(c\)</span> 发送给敌手. 4. 敌手调用 <span
+class="math inline">\(Enc_k(\cdot),Dec_k(\cdot)\)</span>
+，但不允许直接调用 <span class="math inline">\(Dec_k(c)\)</span>
+，输出<span class="math inline">\(b&#39;\)</span>. 5. <span
+class="math inline">\(PrivK_{\mathcal{A},\Pi}^{cca}(n)=1\)</span>
+当且仅当 <span class="math inline">\(b=b&#39;\)</span>.</p>
+<p>私钥加密方案 <span class="math inline">\(\Pi\)</span> 是 <span
+class="math inline">\(CCA-secure\)</span>
+的当且仅当对于任意PPT的敌手均有 <span
+class="math display">\[Pr[PrivK_{\mathcal{A},\Pi}^{cca}(n)=1]\leq
+\frac{1}{2} + negl(n).\]</span></p>
+<p>可延展性（malleable) 在不知道 <span class="math inline">\(m\)</span>
+的前提下构造其密文. CCA安全推出了不可延展性.</p>
 <h4 id="不可伪造性">不可伪造性</h4>
-<p>不可伪造加密试验 $Enc-Forge_{\mathcal{A},\Pi}(n)$:</p>
-<ol>
-<li>$k\leftarrow Gen(1^n)$</li>
-<li>敌手有调用 $Enc_k(\cdot)$ 的权限， 最终输出一个密文.</li>
-<li>$m:=Dec_k©$ ， $Enc-Forge_{\mathcal{A},\Pi}(n)=1$ 当且仅当 密文合法且 $m$ 没被查过.</li>
-</ol>
-<p>私钥加密方案 $\Pi$ 是 unforgeable 当且仅当对于任意PPT的敌手均有 $$Pr[Enc-Forge_{\mathcal{A},\Pi}(n)=1]\leq  negl(n).$$</p>
-<h4 id="构造AE">构造AE</h4>
+<p>不可伪造加密试验 <span
+class="math inline">\(Enc-Forge_{\mathcal{A},\Pi}(n)\)</span>: 1. <span
+class="math inline">\(k\leftarrow Gen(1^n)\)</span> 2. 敌手有调用 <span
+class="math inline">\(Enc_k(\cdot)\)</span> 的权限， 最终输出一个密文.
+3. <span class="math inline">\(m:=Dec_k(c)\)</span> ， <span
+class="math inline">\(Enc-Forge_{\mathcal{A},\Pi}(n)=1\)</span> 当且仅当
+密文合法且 <span class="math inline">\(m\)</span> 没被查过.</p>
+<p>私钥加密方案 <span class="math inline">\(\Pi\)</span> 是 unforgeable
+当且仅当对于任意PPT的敌手均有 <span
+class="math display">\[Pr[Enc-Forge_{\mathcal{A},\Pi}(n)=1]\leq  negl(n).\]</span></p>
+<h4 id="构造ae">构造AE</h4>
 <p>加密后验证！</p>
-<p><img src="/image/crypto/encrpt-then-authenticate.png" srcset="/img/loading.gif" lazyload alt="encrpt-then-authenticate"></p>
-<p>$\Pi_E$ 是CPA安全的，$\Pi_M$ 是strongly secure MAC,那么上述构造是AE.</p>
+<figure>
+<img src="/image/crypto/encrpt-then-authenticate.png" srcset="/img/loading.gif" lazyload
+alt="encrpt-then-authenticate" />
+<figcaption aria-hidden="true">encrpt-then-authenticate</figcaption>
+</figure>
+<p><span class="math inline">\(\Pi_E\)</span> 是CPA安全的，<span
+class="math inline">\(\Pi_M\)</span> 是strongly secure
+MAC,那么上述构造是AE.</p>
 <h2 id="哈希函数及其应用">哈希函数及其应用</h2>
 <ul>
 <li>哈希函数
@@ -429,288 +484,515 @@ $$\forall n, k \leftarrow Gen(1^n), \forall m\in {0,1}^*, Vrfy_k(m,Mac_k(m))=1$$
 <li>加密哈希函数</li>
 <li>定义域扩展</li>
 <li>例子</li>
-</ul>
-</li>
+</ul></li>
 <li>MAC 和 Hash
 <ul>
 <li>使用哈希函数扩展 MAC 的定义域</li>
 <li>使用哈希函数构造 MAC</li>
-</ul>
-</li>
+</ul></li>
 <li>哈希函数的应用</li>
 <li>针对哈希函数一般攻击</li>
 </ul>
 <h3 id="哈希函数">哈希函数</h3>
 <p>将长串映射到短串！！！</p>
 <h4 id="加密哈希函数">加密哈希函数</h4>
-<p>能在加密应用中使用的符合密码学要求的哈希函数，一般满足如下要求：</p>
-<ul>
-<li>collision resistant: It is difficult to find two different messages $m$ and $m′$ such that $hash(m) = hash(m′)$.</li>
-<li>“completely unpredictable” (a.k.a. <strong>random oracles</strong>): The hash function is indistinguishable from a random mapping.</li>
-</ul>
+<p>能在加密应用中使用的符合密码学要求的哈希函数，一般满足如下要求： +
+collision resistant: It is difficult to find two different messages
+<span class="math inline">\(m\)</span> and <span
+class="math inline">\(m′\)</span> such that <span
+class="math inline">\(hash(m) = hash(m′)\)</span>. + “completely
+unpredictable” (a.k.a. <strong>random oracles</strong>): The hash
+function is indistinguishable from a random mapping.</p>
 <h5 id="抗碰撞哈希函数">抗碰撞哈希函数</h5>
-<p>我们将键控哈希函数 $H$ 视为一个以密钥 $s$ 和字符串 $x$ 为输入的函数 $H^s(x)=H(s,x)$.</p>
-<p>这儿的密钥 $s$ 通常并不是随机采样出来的，而是由密钥生成算法 $Gen$ 生成的.此外，密钥 $s$ 并不保密…</p>
-<p>输出长度为 $l$ 的哈希函数是这么一对 PPT 的算法 (Gen,H), 满足:</p>
-<ul>
-<li>$s \leftarrow Gen(1^n)$</li>
-<li>$H$ 以密钥 $s$ 和串 $x\in{0,1}^*$ 为输入，输出串 $H^s(x) \in {0,1}^{l(n)}$.</li>
-</ul>
-<p>如果 $H^s$ 仅对定长 $l’(n)&gt;l(n)$ 的输入有定义，我们就称之为定长哈希函数，也叫compression function.</p>
+<p>我们将键控哈希函数 <span class="math inline">\(H\)</span>
+视为一个以密钥 <span class="math inline">\(s\)</span> 和字符串 <span
+class="math inline">\(x\)</span> 为输入的函数 <span
+class="math inline">\(H^s(x)=H(s,x)\)</span>.</p>
+<p>这儿的密钥 <span class="math inline">\(s\)</span>
+通常并不是随机采样出来的，而是由密钥生成算法 <span
+class="math inline">\(Gen\)</span> 生成的.此外，密钥 <span
+class="math inline">\(s\)</span> 并不保密...</p>
+<p>输出长度为 <span class="math inline">\(l\)</span>
+的哈希函数是这么一对 PPT 的算法 (Gen,H), 满足: + <span
+class="math inline">\(s \leftarrow Gen(1^n)\)</span> + <span
+class="math inline">\(H\)</span> 以密钥 <span
+class="math inline">\(s\)</span> 和串 <span
+class="math inline">\(x\in\{0,1\}^*\)</span> 为输入，输出串 <span
+class="math inline">\(H^s(x) \in \{0,1\}^{l(n)}\)</span>.</p>
+<p>如果 <span class="math inline">\(H^s\)</span> 仅对定长 <span
+class="math inline">\(l&#39;(n)&gt;l(n)\)</span>
+的输入有定义，我们就称之为定长哈希函数，也叫compression function.</p>
 <h5 id="碰撞检测试验">碰撞检测试验</h5>
-<p>The collision-finding experiment $Hash\text{-}coll_{\mathcal{A},\Pi}(n)$:</p>
-<ol>
-<li>$s \leftarrow Gen(1^n)$</li>
-<li>给敌手 $s$, 敌手输出 $x,x’$</li>
-<li>$Hash\text{-}coll_{\mathcal{A},\Pi}(n)=1$ 当且仅当 $H^s(x)=H^s(x’)$</li>
-</ol>
-<p>一个哈希函数 $\Pi=(Gen,H)$ 是抗碰撞（collision resistant）的当且仅当对任意PPT的敌手 $\mathcal{A}$ ,都有$$Pr[Hash\text{-}coll_{\mathcal{A},\Pi}(n)=1]\leq negl(n).$$</p>
-<p>我们有时候省略掉 $Gen$ ，直接称 $H$ 或 $H^s$ 为抗碰撞哈希函数.此外，在实践中，有很多非键控抗碰撞哈希函数.</p>
-<p><strong>更弱的抗碰撞</strong></p>
-<ul>
-<li>2nd p.r. 给一个均匀随机的 $x$，找 $x’$ 使得 $H^s(x)=H^s(x’)$.</li>
-<li>p.r. 给一个均匀随机的 $y$, 找 $x’$ 使得 $y=H^s(x’)$.</li>
-</ul>
-<p>$$ c.r. \Rightarrow 2nd\ p.r. \Rightarrow p.r.$$</p>
+<p>The collision-finding experiment <span
+class="math inline">\(Hash\text{-}coll_{\mathcal{A},\Pi}(n)\)</span>: 1.
+<span class="math inline">\(s \leftarrow Gen(1^n)\)</span> 2. 给敌手
+<span class="math inline">\(s\)</span>, 敌手输出 <span
+class="math inline">\(x,x&#39;\)</span> 3. <span
+class="math inline">\(Hash\text{-}coll_{\mathcal{A},\Pi}(n)=1\)</span>
+当且仅当 <span class="math inline">\(H^s(x)=H^s(x&#39;)\)</span></p>
+<p>一个哈希函数 <span class="math inline">\(\Pi=(Gen,H)\)</span>
+是抗碰撞（collision resistant）的当且仅当对任意PPT的敌手 <span
+class="math inline">\(\mathcal{A}\)</span> ,都有<span
+class="math display">\[Pr[Hash\text{-}coll_{\mathcal{A},\Pi}(n)=1]\leq
+negl(n).\]</span></p>
+<p>我们有时候省略掉 <span class="math inline">\(Gen\)</span> ，直接称
+<span class="math inline">\(H\)</span> 或 <span
+class="math inline">\(H^s\)</span>
+为抗碰撞哈希函数.此外，在实践中，有很多非键控抗碰撞哈希函数.</p>
+<p><strong>更弱的抗碰撞</strong> + 2nd p.r. 给一个均匀随机的 <span
+class="math inline">\(x\)</span>，找 <span
+class="math inline">\(x&#39;\)</span> 使得 <span
+class="math inline">\(H^s(x)=H^s(x&#39;)\)</span>. + p.r.
+给一个均匀随机的 <span class="math inline">\(y\)</span>, 找 <span
+class="math inline">\(x&#39;\)</span> 使得 <span
+class="math inline">\(y=H^s(x&#39;)\)</span>.</p>
+<p><span class="math display">\[ c.r. \Rightarrow 2nd\ p.r. \Rightarrow
+p.r.\]</span></p>
 <h4 id="定义域扩展">定义域扩展</h4>
 <p>使用定长的 c.r. 哈希来构造对任意长度的哈希.</p>
-<p>Merkle-Damgard Transform:</p>
-<ul>
-<li>“Partition and Padding”.
-<ul>
-<li><img src="/image/crypto/Partition_and_Padding.png" srcset="/img/loading.gif" lazyload alt="Partition and Padding"></li>
-</ul>
-</li>
-<li>“Chained-Compressing”.
-<ul>
-<li><img src="/image/crypto/Chained-Compressing.png" srcset="/img/loading.gif" lazyload alt="Chained-Compressing"></li>
-</ul>
-</li>
-</ul>
+<p>Merkle-Damgard Transform: + “Partition and Padding”. + <img
+src="/image/crypto/Partition_and_Padding.png" srcset="/img/loading.gif" lazyload
+alt="Partition and Padding" /> + “Chained-Compressing”. + <img
+src="/image/crypto/Chained-Compressing.png" srcset="/img/loading.gif" lazyload
+alt="Chained-Compressing" /></p>
 <blockquote>
-<p>If (Gen, h) is collision resistant, the (Gen, H) is also collision resistant.<br>
-Pf. 考虑 $|x|=|x’|$ 和 $|x|\neq|x’|$ 两种情况.</p>
+<p>If (Gen, h) is collision resistant, the (Gen, H) is also collision
+resistant. Pf. 考虑 <span class="math inline">\(|x|=|x&#39;|\)</span> 和
+<span class="math inline">\(|x|\neq|x&#39;|\)</span> 两种情况.</p>
 </blockquote>
-<h3 id="MAC-与-哈希">MAC 与 哈希</h3>
-<h4 id="Hash-and-MAC">Hash and MAC</h4>
+<h3 id="mac-与-哈希">MAC 与 哈希</h3>
+<h4 id="hash-and-mac">Hash and MAC</h4>
 <p>至此，我们有对定长消息做认证的MAC，也有将任意长度的串映射到定长串的Hash，二者的结合注定发生奇妙的化学反应.</p>
-<p>令 $\Pi=(Mac,Vrfy)$ 是对长度为 $l(n)$ 的消息的 MAC , $\Pi_H=(Gen_H,H)$ 是输出为定长 $l(n)$ 的哈希函数, 构造一个MAC $\Pi’=(Gen’,Mac’,Vrfy’)$ 适用于任意长度的消息：</p>
-<ul>
-<li>Gen’: 输入 $1^n$ ，均匀选择 $k\in{0,1}^n$ , 运行 $Gen_H(1^n)$ 得到 $s$ , 密钥 $k’:=&lt;k,s&gt;$.</li>
-<li>Mac’: 输入密钥 $&lt;k,s&gt;$ , 和任意长度的消息 $m\in{0,1}^*$ , 输出 $t \leftarrow Mac_k(H^s(m))$.</li>
-<li>Vrfy’: 输入密钥 $&lt;k,s&gt;$ , 消息 $m\in{0,1}^*$ , tag $t$ , 输出1当且仅当 $Vrfy_k(H^s(m),t)=1$.</li>
-</ul>
-<p>如果 $MAC$ 是secure的 , 且 $\Pi_H$ 是抗碰撞的， 那么上述构造是对任意长度的消息的一个secure的MAC.（Pf.两种情况分别规约到c.r. Hash和secure MAC上）</p>
-<h4 id="HMAC">HMAC</h4>
-<p><img src="/images/HMAC.png" srcset="/img/loading.gif" lazyload alt="HMAC"></p>
+<p>令 <span class="math inline">\(\Pi=(Mac,Vrfy)\)</span> 是对长度为
+<span class="math inline">\(l(n)\)</span> 的消息的 MAC , <span
+class="math inline">\(\Pi_H=(Gen_H,H)\)</span> 是输出为定长 <span
+class="math inline">\(l(n)\)</span> 的哈希函数, 构造一个MAC <span
+class="math inline">\(\Pi&#39;=(Gen&#39;,Mac&#39;,Vrfy&#39;)\)</span>
+适用于任意长度的消息： + Gen': 输入 <span
+class="math inline">\(1^n\)</span> ，均匀选择 <span
+class="math inline">\(k\in\{0,1\}^n\)</span> , 运行 <span
+class="math inline">\(Gen_H(1^n)\)</span> 得到 <span
+class="math inline">\(s\)</span> , 密钥 <span
+class="math inline">\(k&#39;:=&lt;k,s&gt;\)</span>. + Mac': 输入密钥
+<span class="math inline">\(&lt;k,s&gt;\)</span> , 和任意长度的消息
+<span class="math inline">\(m\in\{0,1\}^*\)</span> , 输出 <span
+class="math inline">\(t \leftarrow Mac_k(H^s(m))\)</span>. + Vrfy':
+输入密钥 <span class="math inline">\(&lt;k,s&gt;\)</span> , 消息 <span
+class="math inline">\(m\in\{0,1\}^*\)</span> , tag <span
+class="math inline">\(t\)</span> , 输出1当且仅当 <span
+class="math inline">\(Vrfy_k(H^s(m),t)=1\)</span>.</p>
+<p>如果 <span class="math inline">\(MAC\)</span> 是secure的 , 且 <span
+class="math inline">\(\Pi_H\)</span> 是抗碰撞的，
+那么上述构造是对任意长度的消息的一个secure的MAC.（Pf.两种情况分别规约到c.r.
+Hash和secure MAC上）</p>
+<h4 id="hmac">HMAC</h4>
+<figure>
+<img src="/images/HMAC.png" srcset="/img/loading.gif" lazyload alt="HMAC" />
+<figcaption aria-hidden="true">HMAC</figcaption>
+</figure>
 <h3 id="针对哈希的一般攻击">针对哈希的一般攻击</h3>
-<p>由鸽巢原理，找 $2^{l+1}$ 个值总能找到碰撞 $\Theta(2^l)$, 有没有可能少找一些期望有一定概率找到呢？</p>
-<p>生日问题：</p>
+<p>由鸽巢原理，找 <span class="math inline">\(2^{l+1}\)</span>
+个值总能找到碰撞 <span class="math inline">\(\Theta(2^l)\)</span>,
+有没有可能少找一些期望有一定概率找到呢？</p>
+<p>生日问题： &gt; If q people are in a room, what is the probability
+that two of them have the same birthday?</p>
+<p>若 <span class="math inline">\(y_1,...,y_q\)</span> 是从 <span
+class="math inline">\(\{1,...,N\}\)</span> 中均匀抽取的，当 <span
+class="math inline">\(q=\Theta(N^{1/2})\)</span> 时，有接近 1/2
+的概率存在碰撞.</p>
 <blockquote>
-<p>If q people are in a room, what is the probability that two of them have the same birthday?</p>
+<p>The above imply that a hash function with n-bit output is limited to
+n/2 bits of security.</p>
 </blockquote>
-<p>若 $y_1,…,y_q$ 是从 ${1,…,N}$ 中均匀抽取的，当 $q=\Theta(N^{1/2})$ 时，有接近 1/2 的概率存在碰撞.</p>
-<blockquote>
-<p>The above imply that a hash function with n-bit output is limited to n/2 bits of security.</p>
-</blockquote>
-<h2 id="单向函数与硬核谓词-Hard-Core-Predicates">单向函数与硬核谓词(Hard-Core Predicates)</h2>
+<h2
+id="单向函数与硬核谓词hard-core-predicates">单向函数与硬核谓词(Hard-Core
+Predicates)</h2>
 <ul>
 <li>单向函数</li>
 <li>OWF候选名单</li>
 <li>硬核谓词
 <ul>
 <li>任意OWF的硬核谓词</li>
-</ul>
-</li>
+</ul></li>
 <li>使用OWF构造PRG</li>
 </ul>
 <h3 id="单向函数">单向函数</h3>
-<p>什么是OWF？</p>
-<ul>
-<li>easy to compute</li>
-<li>hard to invert</li>
-</ul>
-<p>我们给出OWF的<strong>形式化定义</strong>.一个函数 $f:{0,1}^* \rightarrow {0,1}^*$ 是 <strong>one-way</strong> 如果满足以下两个条件：</p>
-<ol>
-<li>Easy to compute : 存在PPT的算法 $M_f$ 来计算 f (多项式时间内可计算)</li>
-<li>Hard to invert: $\forall PPT \mathcal{A} , Pr_{x\overset{$}{\leftarrow}{0,1}^n}[\mathcal{A}(1^n,f(x))\in f^{-1}(f(x))]\leq negl(n)$.</li>
-</ol>
-<p>注意，此处的 $x\overset{$}{\leftarrow}{0,1}^n$ 是均匀选取的，并且我们只要求给出原象，不求给出 $x$ 本身.</p>
-<p>我们当然也有inverting experiment $Invert_{\mathcal{A},f}(n)$:</p>
-<ol>
-<li>均匀选取 $x\in{0,1}^n$ , 计算 $y:=f(x)$</li>
-<li>敌手以 $y$ 为输入， 输出 $x’$</li>
-<li>$Invert_{\mathcal{A},f}(n)=1/ iff./ f(x’)=y$</li>
-</ol>
-<p>Hard to invert: 对任意PPT的敌手 $\mathcal{A}$ , $Pr[Invert_{\mathcal{A},f}(n)=1]\leq negl(n)$.</p>
-<h3 id="OWF的候选名单">OWF的候选名单</h3>
-<p>事实上，我们并不知道是不是真的有OWF:(但是我们还是有些候选函数，至少我们至今没有发现PPT的算法来invert它们…</p>
+<p>什么是OWF？ + easy to compute + hard to invert</p>
+<p>我们给出OWF的<strong>形式化定义</strong>.一个函数 <span
+class="math inline">\(f:\{0,1\}^* \rightarrow \{0,1\}^*\)</span> 是
+<strong>one-way</strong> 如果满足以下两个条件： 1. Easy to compute :
+存在PPT的算法 <span class="math inline">\(M_f\)</span> 来计算 f
+(多项式时间内可计算) 2. Hard to invert: <span
+class="math inline">\(\forall PPT \mathcal{A} ,
+Pr_{x\overset{\$}{\leftarrow}\{0,1\}^n}[\mathcal{A}(1^n,f(x))\in
+f^{-1}(f(x))]\leq negl(n)\)</span>.</p>
+<p>注意，此处的 <span
+class="math inline">\(x\overset{\$}{\leftarrow}\{0,1\}^n\)</span>
+是均匀选取的，并且我们只要求给出原象，不求给出 <span
+class="math inline">\(x\)</span> 本身.</p>
+<p>我们当然也有inverting experiment <span
+class="math inline">\(Invert_{\mathcal{A},f}(n)\)</span>: 1. 均匀选取
+<span class="math inline">\(x\in\{0,1\}^n\)</span> , 计算 <span
+class="math inline">\(y:=f(x)\)</span> 2. 敌手以 <span
+class="math inline">\(y\)</span> 为输入， 输出 <span
+class="math inline">\(x&#39;\)</span> 3. <span
+class="math inline">\(Invert_{\mathcal{A},f}(n)=1/ iff./
+f(x&#39;)=y\)</span></p>
+<p>Hard to invert: 对任意PPT的敌手 <span
+class="math inline">\(\mathcal{A}\)</span> , <span
+class="math inline">\(Pr[Invert_{\mathcal{A},f}(n)=1]\leq
+negl(n)\)</span>.</p>
+<h3 id="owf的候选名单">OWF的候选名单</h3>
+<p>事实上，我们并不知道是不是真的有OWF:(但是我们还是有些候选函数，至少我们至今没有发现PPT的算法来invert它们...</p>
 <ul>
 <li>整数分解</li>
 <li>子集和问题</li>
 <li>离散对数问题</li>
 </ul>
-<h3 id="硬核谓词-Hard-Core-Predicates">硬核谓词(Hard-Core Predicates)</h3>
-<p>$f(x)$ 是OWF意味着我们无法从 $f(x)$ 中还原出 $x$, 但并不意味着 $f(x)$ 不会泄露 $x$ 的信息，就比如 $f(x_1||x_2)=x_1||g(x_2)$.</p>
-<p>我们定义函数 $f$ (不一定是OWF) 的硬核谓词 $hc:{0,1}^*\rightarrow {0,1}$ 如果 $hc$ 可以在多项式时间内计算，并且对任意PPT的 $\mathcal{A}$ 有 $$Pr_{x\overset{$}{\leftarrow}{0,1}^n}[\mathcal{A}(1^n,f(x))=hc(x)]\leq 1/2 + negl(n)$$.</p>
-<p>这儿的 $x\overset{$}{\leftarrow}{0,1}^n$ 依然是均匀选取的.另外，我们没要求函数 $f$ 一定是OWF.</p>
-<h4 id="任意OWF的硬核谓词">任意OWF的硬核谓词</h4>
-<p><strong>Goldreich-Levin Theorem</strong>: Assume one-way function (resp. permutation) exists. Then there exists a one-way function (resp. permutation) $g$ and a hard-core predicate $hc$ of $g$.</p>
-<p><img src="/image/crypto/Goldreich-Levin-Theorem.png" srcset="/img/loading.gif" lazyload alt="Goldreich-Levin Theorem"></p>
-<p>这里的 $r$ 是均匀随机选取的.</p>
-<h3 id="使用OWF构造PRG">使用OWF构造PRG</h3>
-<p>令 $f$ 是一个one-way permutation，$hc$ 是 $f$ 的硬核谓词，那么 $G(s)=f(s)||hc(s)$ 是一个 PRG 扩展因子为 $l(n)=n+1$.</p>
+<h3 id="硬核谓词hard-core-predicates">硬核谓词(Hard-Core
+Predicates)</h3>
+<p><span class="math inline">\(f(x)\)</span> 是OWF意味着我们无法从 <span
+class="math inline">\(f(x)\)</span> 中还原出 <span
+class="math inline">\(x\)</span>, 但并不意味着 <span
+class="math inline">\(f(x)\)</span> 不会泄露 <span
+class="math inline">\(x\)</span> 的信息，就比如 <span
+class="math inline">\(f(x_1||x_2)=x_1||g(x_2)\)</span>.</p>
+<p>我们定义函数 <span class="math inline">\(f\)</span> (不一定是OWF)
+的硬核谓词 <span class="math inline">\(hc:\{0,1\}^*\rightarrow
+\{0,1\}\)</span> 如果 <span class="math inline">\(hc\)</span>
+可以在多项式时间内计算，并且对任意PPT的 <span
+class="math inline">\(\mathcal{A}\)</span> 有 <span
+class="math display">\[Pr_{x\overset{\$}{\leftarrow}\{0,1\}^n}[\mathcal{A}(1^n,f(x))=hc(x)]\leq
+1/2 + negl(n)\]</span>.</p>
+<p>这儿的 <span
+class="math inline">\(x\overset{\$}{\leftarrow}\{0,1\}^n\)</span>
+依然是均匀选取的.另外，我们没要求函数 <span
+class="math inline">\(f\)</span> 一定是OWF.</p>
+<h4 id="任意owf的硬核谓词">任意OWF的硬核谓词</h4>
+<p><strong>Goldreich-Levin Theorem</strong>: Assume one-way function
+(resp. permutation) exists. Then there exists a one-way function (resp.
+permutation) <span class="math inline">\(g\)</span> and a hard-core
+predicate <span class="math inline">\(hc\)</span> of <span
+class="math inline">\(g\)</span>.</p>
+<figure>
+<img src="/image/crypto/Goldreich-Levin-Theorem.png" srcset="/img/loading.gif" lazyload
+alt="Goldreich-Levin Theorem" />
+<figcaption aria-hidden="true">Goldreich-Levin Theorem</figcaption>
+</figure>
+<p>这里的 <span class="math inline">\(r\)</span> 是均匀随机选取的.</p>
+<h3 id="使用owf构造prg">使用OWF构造PRG</h3>
+<p>令 <span class="math inline">\(f\)</span> 是一个one-way
+permutation，<span class="math inline">\(hc\)</span> 是 <span
+class="math inline">\(f\)</span> 的硬核谓词，那么 <span
+class="math inline">\(G(s)=f(s)||hc(s)\)</span> 是一个 PRG 扩展因子为
+<span class="math inline">\(l(n)=n+1\)</span>.</p>
 <p>下面开始叠叠乐！</p>
-<p>如果有一个 扩展因子为 $n+1$ 的PRG，那么对任意多项式 $poly$ ，存在PRG $\hat{G}$ 扩展因子为 $poly(n)$.</p>
-<p><img src="/image/crypto/polyPRG.png" srcset="/img/loading.gif" lazyload alt="polyPRG"></p>
+<p>如果有一个 扩展因子为 <span class="math inline">\(n+1\)</span>
+的PRG，那么对任意多项式 <span class="math inline">\(poly\)</span>
+，存在PRG <span class="math inline">\(\hat{G}\)</span> 扩展因子为 <span
+class="math inline">\(poly(n)\)</span>.</p>
+<figure>
+<img src="/image/crypto/polyPRG.png" srcset="/img/loading.gif" lazyload alt="polyPRG" />
+<figcaption aria-hidden="true">polyPRG</figcaption>
+</figure>
 <h2 id="数论与密码学困难度假设">数论与密码学困难度假设</h2>
 <h3 id="基础知识">基础知识</h3>
-<p>带余除法唯一表示：$$a \in \mathbb{Z} , b \in \mathbb{Z}<em>+ , \exists \ unique\ q,r \in \mathbb{Z}, s.t.\ a=qb+r,\ 0\leq r\leq b.$$<br>
-<strong>最大公因数</strong> $$a,b\in \mathbb{Z}</em>+, \exists X,Y \in \mathbb{Z},\ s.t.\ Xa+Yb=gac(a,b).$$<br>
-此外，$gcd(a,b)$ 是满足上述方程的最小正整数.</p>
+<p>带余除法唯一表示：<span class="math display">\[a \in \mathbb{Z} , b
+\in \mathbb{Z}_+ , \exists \ unique\ q,r \in \mathbb{Z}, s.t.\ a=qb+r,\
+0\leq r\leq b.\]</span> <strong>最大公因数</strong> <span
+class="math display">\[a,b\in \mathbb{Z}_+, \exists X,Y \in \mathbb{Z},\
+s.t.\ Xa+Yb=gac(a,b).\]</span> 此外，<span
+class="math inline">\(gcd(a,b)\)</span> 是满足上述方程的最小正整数.</p>
 <blockquote>
 <p>欧几里得算法与拓展欧几里得算法.</p>
 </blockquote>
-<p>对大于等于1的整数 $b,N$ , $b$ 在模 $N$ 意义上有逆元当且仅当 $gcd(b,N)=1$.</p>
+<p>对大于等于1的整数 <span class="math inline">\(b,N\)</span> , <span
+class="math inline">\(b\)</span> 在模 <span
+class="math inline">\(N\)</span> 意义上有逆元当且仅当 <span
+class="math inline">\(gcd(b,N)=1\)</span>.</p>
 <blockquote>
 <p>拓展欧几里得算法.</p>
 </blockquote>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">exgcd</span><span class="hljs-params">(<span class="hljs-type">int</span> a, <span class="hljs-type">int</span> b, <span class="hljs-type">int</span>&amp; x, <span class="hljs-type">int</span>&amp; y)</span> </span>&#123;<br>  <span class="hljs-keyword">if</span> (b == <span class="hljs-number">0</span>) &#123;<br>    x = <span class="hljs-number">1</span>, y = <span class="hljs-number">0</span>;<br>    <span class="hljs-keyword">return</span>;<br>  &#125;<br>  <span class="hljs-built_in">exgcd</span>(b, a % b, y, x);<br>  y -= a / b * x;<br>&#125;<br></code></pre></td></tr></table></figure>
-<p><strong>群</strong>是一种代数结构，由一个集合 $\mathbb{G}$ 和定义在集合上的二元运算 $\circ$ 构成，满足:</p>
-<ul>
-<li>封闭性</li>
-<li>结合律</li>
-<li>有逆元</li>
-<li>有单位元<br>
-<img src="/image/crypto/group.png" srcset="/img/loading.gif" lazyload alt="group"></li>
-</ul>
-<p>$N=\Pi_i p_i^{e_i} $ , 其中 $p_i$ 是不同的素数， $e_i\geq 1$, 那么有 $\phi(N)=\Pi_i p_i^{e_i-1}(p_i-1)$.</p>
-<p>$g^0\overset{def}{=}1,g^{-m}\overset{def}{=}(g^{-1})^m$.</p>
-<p>令 $\mathbb{G}$ 是有限群 $m=|\mathbb{G}|$ ,则 $\forall g \in \mathbb{G} ,g^m=1$.</p>
-<p><strong>Fermat-Euler Theorem</strong> $\forall N&gt;1, a\in Z_N^* ,a^\phi(N)=1\ mod\ N.$</p>
+<p><strong>群</strong>是一种代数结构，由一个集合 <span
+class="math inline">\(\mathbb{G}\)</span> 和定义在集合上的二元运算 <span
+class="math inline">\(\circ\)</span> 构成，满足: + 封闭性 + 结合律 +
+有逆元 + 有单位元 <img src="/image/crypto/group.png" srcset="/img/loading.gif" lazyload alt="group" /></p>
+<p>$N=_i p_i^{e_i} $ , 其中 <span class="math inline">\(p_i\)</span>
+是不同的素数， <span class="math inline">\(e_i\geq 1\)</span>, 那么有
+<span class="math inline">\(\phi(N)=\Pi_i
+p_i^{e_i-1}(p_i-1)\)</span>.</p>
+<p><span
+class="math inline">\(g^0\overset{def}{=}1,g^{-m}\overset{def}{=}(g^{-1})^m\)</span>.</p>
+<p>令 <span class="math inline">\(\mathbb{G}\)</span> 是有限群 <span
+class="math inline">\(m=|\mathbb{G}|\)</span> ,则 <span
+class="math inline">\(\forall g \in \mathbb{G} ,g^m=1\)</span>.</p>
+<p><strong>Fermat-Euler Theorem</strong> <span
+class="math inline">\(\forall N&gt;1, a\in Z_N^* ,a^\phi(N)=1\ mod\
+N.\)</span></p>
 <blockquote>
 <p>Fermat-Euler Theorem 在计算模下求幂和非素性检测有用</p>
 </blockquote>
 <h3 id="中国剩余定理">中国剩余定理</h3>
 <p>常用来解同余方程.</p>
-<p><img src="/image/crypto/CRT.png" srcset="/img/loading.gif" lazyload alt="CRT"></p>
+<figure>
+<img src="/image/crypto/CRT.png" srcset="/img/loading.gif" lazyload alt="CRT" />
+<figcaption aria-hidden="true">CRT</figcaption>
+</figure>
 <blockquote>
-<p>from <a target="_blank" rel="noopener" href="https://oi-wiki.org/math/number-theory/crt/#%E5%BC%95%E5%85%A5">OI-Wiki</a></p>
+<p>from <a
+target="_blank" rel="noopener" href="https://oi-wiki.org/math/number-theory/crt/#%E5%BC%95%E5%85%A5">OI-Wiki</a></p>
 </blockquote>
 <p>群论下的中国剩余定理：</p>
-<p><img src="/image/crypto/gCRT.png" srcset="/img/loading.gif" lazyload alt="gCRT"></p>
+<figure>
+<img src="/image/crypto/gCRT.png" srcset="/img/loading.gif" lazyload alt="gCRT" />
+<figcaption aria-hidden="true">gCRT</figcaption>
+</figure>
 <p>求逆：</p>
-<p><img src="/image/crypto/crt-eg3.png" srcset="/img/loading.gif" lazyload alt="crt-eg3"></p>
-<p><img src="/image/crypto/crt-eg3-.png" srcset="/img/loading.gif" lazyload alt="crt-eg3—"></p>
-<h3 id="Factoring-Assumption">Factoring Assumption</h3>
-<p><strong>$GenModulus(1^n)$</strong>:</p>
-<ul>
-<li>输出 $(N,p,q)$</li>
-<li>$N=pq$</li>
-<li>除可忽略的概率 $negl(n)$ 外，$p,q$ 均为 $n-bit$ 素数.</li>
-</ul>
-<p><strong>The factoring experiment</strong> $Factor_{\mathcal{A},GenModulus}(n)$:</p>
-<ol>
-<li>$(N,p,q) \leftarrow GenModulus(1^n)$</li>
-<li>给 $\mathcal{A}$ $N$ , 要其输出 $p’,q’$</li>
-<li>$Factor_{\mathcal{A},GenModulus}(n)=1$ iff. $N=p’q’$.</li>
-</ol>
-<p><strong>Factoring is hard relative to GenModulus</strong> if for all PPT algorithms $\mathcal{A}$ there exists a negligible function $negl$ such that $$Pr[Factor_{\mathcal{A},GenModulus}(n)=1]\leq negl(n).$$</p>
-<p><strong>Factoring Assumption</strong>就是假设存在这么一个<strong>GenModulus</strong>使factoring是hard的.</p>
-<h3 id="RSA-problem">RSA problem</h3>
-<p>$GenRSA(1^n)$ :</p>
-<ul>
-<li>输出 $(N,e,d)$</li>
-<li>$N$ 是两个 $n-bit$ 素数的乘积</li>
-<li>$gcd(e,\phi(N))=1, ed=1\ mod\ \phi(N)$</li>
-</ul>
-<p>The RSA experiment $RSA-inv_{\mathcal{A},GenRSA}(n)$:</p>
-<ol>
-<li>$(N,e,d)\leftarrow GenRSA(1^n)$</li>
-<li>均匀选取 $y\in \mathbb{Z}_N^*$.</li>
-<li>给 $\mathcal{A}$ $(N,e,y)$ , 输出 $x\in \mathbb{Z}_N^*$</li>
-<li>$RSA-inv_{\mathcal{A},GenRSA}(n)=1$ iff. $x^e=y$.</li>
-</ol>
-<p><strong>The RSA problem is hard relative to GenRSA</strong> if for all PPT algorithms $\mathcal{A}$ there exists a negligible function $negl$ such that $$Pr[RSA-inv_{\mathcal{A},GenRSA}(n)=1]\leq negl(n).$$</p>
-<p><strong>RSA Assumption</strong>就是假设存在这么一个<strong>GenRSA</strong>使RSA problem是hard的.</p>
+<figure>
+<img src="/image/crypto/crt-eg3.png" srcset="/img/loading.gif" lazyload alt="crt-eg3" />
+<figcaption aria-hidden="true">crt-eg3</figcaption>
+</figure>
+<figure>
+<img src="/image/crypto/crt-eg3-.png" srcset="/img/loading.gif" lazyload alt="crt-eg3—" />
+<figcaption aria-hidden="true">crt-eg3—</figcaption>
+</figure>
+<h3 id="factoring-assumption">Factoring Assumption</h3>
+<p><strong><span
+class="math inline">\(GenModulus(1^n)\)</span></strong>: + 输出 <span
+class="math inline">\((N,p,q)\)</span> + <span
+class="math inline">\(N=pq\)</span> + 除可忽略的概率 <span
+class="math inline">\(negl(n)\)</span> 外，<span
+class="math inline">\(p,q\)</span> 均为 <span
+class="math inline">\(n-bit\)</span> 素数.</p>
+<p><strong>The factoring experiment</strong> <span
+class="math inline">\(Factor_{\mathcal{A},GenModulus}(n)\)</span>: 1.
+<span class="math inline">\((N,p,q) \leftarrow GenModulus(1^n)\)</span>
+2. 给 <span class="math inline">\(\mathcal{A}\)</span> <span
+class="math inline">\(N\)</span> , 要其输出 <span
+class="math inline">\(p&#39;,q&#39;\)</span> 3. <span
+class="math inline">\(Factor_{\mathcal{A},GenModulus}(n)=1\)</span> iff.
+<span class="math inline">\(N=p&#39;q&#39;\)</span>.</p>
+<p><strong>Factoring is hard relative to GenModulus</strong> if for all
+PPT algorithms <span class="math inline">\(\mathcal{A}\)</span> there
+exists a negligible function <span class="math inline">\(negl\)</span>
+such that <span
+class="math display">\[Pr[Factor_{\mathcal{A},GenModulus}(n)=1]\leq
+negl(n).\]</span></p>
+<p><strong>Factoring
+Assumption</strong>就是假设存在这么一个<strong>GenModulus</strong>使factoring是hard的.</p>
+<h3 id="rsa-problem">RSA problem</h3>
+<p><span class="math inline">\(GenRSA(1^n)\)</span> : + 输出 <span
+class="math inline">\((N,e,d)\)</span> + <span
+class="math inline">\(N\)</span> 是两个 <span
+class="math inline">\(n-bit\)</span> 素数的乘积 + <span
+class="math inline">\(gcd(e,\phi(N))=1, ed=1\ mod\ \phi(N)\)</span></p>
+<p>The RSA experiment <span
+class="math inline">\(RSA-inv_{\mathcal{A},GenRSA}(n)\)</span>: 1. <span
+class="math inline">\((N,e,d)\leftarrow GenRSA(1^n)\)</span> 2. 均匀选取
+<span class="math inline">\(y\in \mathbb{Z}_N^*\)</span>. 3. 给 <span
+class="math inline">\(\mathcal{A}\)</span> <span
+class="math inline">\((N,e,y)\)</span> , 输出 <span
+class="math inline">\(x\in \mathbb{Z}_N^*\)</span> 4. <span
+class="math inline">\(RSA-inv_{\mathcal{A},GenRSA}(n)=1\)</span> iff.
+<span class="math inline">\(x^e=y\)</span>.</p>
+<p><strong>The RSA problem is hard relative to GenRSA</strong> if for
+all PPT algorithms <span class="math inline">\(\mathcal{A}\)</span>
+there exists a negligible function <span
+class="math inline">\(negl\)</span> such that <span
+class="math display">\[Pr[RSA-inv_{\mathcal{A},GenRSA}(n)=1]\leq
+negl(n).\]</span></p>
+<p><strong>RSA
+Assumption</strong>就是假设存在这么一个<strong>GenRSA</strong>使RSA
+problem是hard的.</p>
 <h3 id="循环群">循环群</h3>
-<p><img src="/image/crypto/cyclic_group.png" srcset="/img/loading.gif" lazyload alt="cyclic_group"></p>
+<figure>
+<img src="/image/crypto/cyclic_group.png" srcset="/img/loading.gif" lazyload alt="cyclic_group" />
+<figcaption aria-hidden="true">cyclic_group</figcaption>
+</figure>
 <h3 id="离散对数问题">离散对数问题</h3>
-<p>对于 $h\in \mathbb{G}$ , $\mathbb{G}$ 是一个循环群, 存在唯一的 $x\in Z_q, q=|\mathbb{G}|$, 使得 $g^x=h$, 我们称 $x$ 是 $h$ 的离散对数 w.r.t $g$ , 写作 $x=log_g\ h$.</p>
+<p>对于 <span class="math inline">\(h\in \mathbb{G}\)</span> , <span
+class="math inline">\(\mathbb{G}\)</span> 是一个循环群, 存在唯一的 <span
+class="math inline">\(x\in Z_q, q=|\mathbb{G}|\)</span>, 使得 <span
+class="math inline">\(g^x=h\)</span>, 我们称 <span
+class="math inline">\(x\)</span> 是 <span
+class="math inline">\(h\)</span> 的离散对数 w.r.t <span
+class="math inline">\(g\)</span> , 写作 <span
+class="math inline">\(x=log_g\ h\)</span>.</p>
 <p>离散对数问题就是求解一个在循环群上均匀抽取的元素的离散对数，可定义为以下试验.</p>
-<p>The discrete-logarithm experiment $DLog_{\mathcal{A},\mathcal{G}}$:</p>
-<ol>
-<li>$(\mathbb{G},q,g)\leftarrow \mathcal{G}(1^n)$, 其中 $\mathbb{G}$ 是循环群, $q=|\mathbb{G}|,\overline{||q||=n}$, $g$ 是生成元.</li>
-<li>$h \overset{$}{\leftarrow} \mathbb{G} $</li>
-<li>给 $\mathcal{A}$ 输入 $\mathbb{G},q,g,h$ , 其输出 $x\in \mathbb{Z}_q$.</li>
-<li>$DLog_{\mathcal{A},\mathcal{G}}=1$ iff. $g^x=h$.</li>
-</ol>
-<p>We say that **the discrete-logarithm problem is hard relative to $\mathcal{G}$ **if for all PPT algorithms $\mathcal{A}$ there exists a negligible function $negl$ such that $$ Pr[DLog_{\mathcal{A},\mathcal{G}}=1]\leq negl(n) .$$</p>
-<p>离散对数假设就是假定存在这么一个 $\mathcal{G}$.</p>
-<h3 id="D-H-Problem">D-H Problem</h3>
-<p>The <strong>computational</strong> D-H (CDH) problem: Given $g$, $g^x$ and $g^y$, can you compute $g^{xy}$?</p>
-<p>The <strong>decisional</strong> D-H (DDH) problem: Given $g$, $g^x$, $g^y$, and g^{xy}, can you differentiate $g^{xy}$ from a uniform random group element $g^z$?</p>
-<p>The D-H assumptions are assumptions that there exists instances of CDH/DDH problem which are hard.</p>
+<p>The discrete-logarithm experiment <span
+class="math inline">\(DLog_\{\mathcal{A},\mathcal{G}\}\)</span>: 1.
+<span class="math inline">\((\mathbb{G},q,g)\leftarrow
+\mathcal{G}(1^n)\)</span>, 其中 <span
+class="math inline">\(\mathbb{G}\)</span> 是循环群, <span
+class="math inline">\(q=|\mathbb{G}|,\overline{||q||=n}\)</span>, <span
+class="math inline">\(g\)</span> 是生成元. 2. $h $ 3. 给 <span
+class="math inline">\(\mathcal{A}\)</span> 输入 <span
+class="math inline">\(\mathbb{G},q,g,h\)</span> , 其输出 <span
+class="math inline">\(x\in \mathbb{Z}_q\)</span>. 4. <span
+class="math inline">\(DLog_\{\mathcal{A},\mathcal{G}\}=1\)</span> iff.
+<span class="math inline">\(g^x=h\)</span>.</p>
+<p>We say that <strong>the discrete-logarithm problem is hard relative
+to <span class="math inline">\(\mathcal{G}\)</span> </strong>if for all
+PPT algorithms <span class="math inline">\(\mathcal{A}\)</span> there
+exists a negligible function <span class="math inline">\(negl\)</span>
+such that <span class="math display">\[
+Pr[DLog_\{\mathcal{A},\mathcal{G}\}=1]\leq negl(n) .\]</span></p>
+<p>离散对数假设就是假定存在这么一个 <span
+class="math inline">\(\mathcal{G}\)</span>.</p>
+<h3 id="d-h-problem">D-H Problem</h3>
+<p>The <strong>computational</strong> D-H (CDH) problem: Given <span
+class="math inline">\(g\)</span>, <span
+class="math inline">\(g^x\)</span> and <span
+class="math inline">\(g^y\)</span>, can you compute <span
+class="math inline">\(g^{xy}\)</span>?</p>
+<p>The <strong>decisional</strong> D-H (DDH) problem: Given <span
+class="math inline">\(g\)</span>, <span
+class="math inline">\(g^x\)</span>, <span
+class="math inline">\(g^y\)</span>, and g^{xy}, can you differentiate
+<span class="math inline">\(g^{xy}\)</span> from a uniform random group
+element <span class="math inline">\(g^z\)</span>?</p>
+<p>The D-H assumptions are assumptions that there exists instances of
+CDH/DDH problem which are hard.</p>
 <blockquote>
-<p>Closed related to the discrete-logarithm problem, but <strong>not known</strong> to be equivalent.</p>
+<p>Closed related to the discrete-logarithm problem, but <strong>not
+known</strong> to be equivalent.</p>
 </blockquote>
 <h2 id="密钥管理与公钥加密变革">密钥管理与公钥加密变革</h2>
-<h3 id="KDC">KDC</h3>
+<h3 id="kdc">KDC</h3>
 <p>A secure key-distribution protocol using a KDC:</p>
-<p><img src="/image/crypto/Needham-Schroeder.png" srcset="/img/loading.gif" lazyload alt="Needham-Schroeder"></p>
-<h3 id="D-H-key-exchange-protocol">D-H key-exchange protocol</h3>
-<p>D-H key-exchange protocol 的构造如下，其中 $\mathbb{G}$ 是循环群, $q=|\mathbb{G}|,||q||=n$, $g$ 是生成元$:</p>
-<p><img src="/image/crypto/D-H-exchange.png" srcset="/img/loading.gif" lazyload alt="D-H-exchange"></p>
+<figure>
+<img src="/image/crypto/Needham-Schroeder.png" srcset="/img/loading.gif" lazyload
+alt="Needham-Schroeder" />
+<figcaption aria-hidden="true">Needham-Schroeder</figcaption>
+</figure>
+<h3 id="d-h-key-exchange-protocol">D-H key-exchange protocol</h3>
+<p>D-H key-exchange protocol 的构造如下，其中 <span
+class="math inline">\(\mathbb{G}\)</span> 是循环群, <span
+class="math inline">\(q=|\mathbb{G}|,||q||=n\)</span>, <span
+class="math inline">\(g\)</span> 是生成元$:</p>
+<figure>
+<img src="/image/crypto/D-H-exchange.png" srcset="/img/loading.gif" lazyload alt="D-H-exchange" />
+<figcaption aria-hidden="true">D-H-exchange</figcaption>
+</figure>
 <p><strong>安全性</strong>：我们把脚本协议双方来往的所有信息记录下来丢给敌手，如果敌手在此加持下无法区分真正的密钥和一个随机抽取的假密钥，那么协议应该是安全的。具体的：</p>
-<p><img src="/image/crypto/KE.png" srcset="/img/loading.gif" lazyload alt="KE"></p>
-<p>A key-exchange protocol $\Pi$ is secure in the presence of an eavesdropper if for all PPT adversaries $\mathcal{A}$ there is a negligible function $negl$ such that $$ Pr[KE^{eav}_{\mathcal{A},\Pi}(n) = 1] ≤ 1/2+ negl(n).$$</p>
-<p><img src="/image/crypto/KEsecure.png" srcset="/img/loading.gif" lazyload alt="KEsecure"></p>
+<figure>
+<img src="/image/crypto/KE.png" srcset="/img/loading.gif" lazyload alt="KE" />
+<figcaption aria-hidden="true">KE</figcaption>
+</figure>
+<p>A key-exchange protocol <span class="math inline">\(\Pi\)</span> is
+secure in the presence of an eavesdropper if for all PPT adversaries
+<span class="math inline">\(\mathcal{A}\)</span> there is a negligible
+function <span class="math inline">\(negl\)</span> such that <span
+class="math display">\[ Pr[KE^{eav}_{\mathcal{A},\Pi}(n) = 1] ≤ 1/2+
+negl(n).\]</span></p>
+<figure>
+<img src="/image/crypto/KEsecure.png" srcset="/img/loading.gif" lazyload alt="KEsecure" />
+<figcaption aria-hidden="true">KEsecure</figcaption>
+</figure>
 <blockquote>
 <p>我们在这儿使用了KE试验的变体，证明时将DDH问题规约到KE上来.</p>
 </blockquote>
 <h2 id="公钥加密">公钥加密</h2>
-<h3 id="定义-3">定义</h3>
+<h3 id="定义-2">定义</h3>
 <p>公钥加密方案是一个PPT算法的三元组(Gen,Enc,Dec),其中Gen生成一对密钥(pk,sk),Enc使用公钥pk进行加密,Dec则使用私钥sk进行解密.具体的<strong>定义</strong>见下图：</p>
-<p><img src="/image/crypto/public-key_encryption.png" srcset="/img/loading.gif" lazyload alt="public-key_encryption"></p>
+<figure>
+<img src="/image/crypto/public-key_encryption.png" srcset="/img/loading.gif" lazyload
+alt="public-key_encryption" />
+<figcaption aria-hidden="true">public-key_encryption</figcaption>
+</figure>
 <h3 id="安全性">安全性</h3>
-<h4 id="CPA">CPA</h4>
-<p>在下图所定义的EAV试验中，敌手 $\mathcal{A}$ 是被给予了 $pk$ 的，以及试验中的加密采用了公钥加密方案，除此之外和私钥加密时定义的EAV试验是一样的。但是正由于敌手被给予了 $pk$ ，而加密方案又是公开的，因此敌手相当于得到了Enc的权限，从而一旦secure天然就有CPA-secure.</p>
-<p><img src="/image/crypto/pubeav.png" srcset="/img/loading.gif" lazyload alt="pubeav"></p>
+<h4 id="cpa">CPA</h4>
+<p>在下图所定义的EAV试验中，敌手 <span
+class="math inline">\(\mathcal{A}\)</span> 是被给予了 <span
+class="math inline">\(pk\)</span>
+的，以及试验中的加密采用了公钥加密方案，除此之外和私钥加密时定义的EAV试验是一样的。但是正由于敌手被给予了
+<span class="math inline">\(pk\)</span>
+，而加密方案又是公开的，因此敌手相当于得到了Enc的权限，从而一旦secure天然就有CPA-secure.</p>
+<figure>
+<img src="/image/crypto/pubeav.png" srcset="/img/loading.gif" lazyload alt="pubeav" />
+<figcaption aria-hidden="true">pubeav</figcaption>
+</figure>
 <p>同样我们有根据试验所定义的<strong>安全性</strong>.</p>
-<p><img src="/image/crypto/Pub-secure.png" srcset="/img/loading.gif" lazyload alt="Pub-secure"></p>
+<figure>
+<img src="/image/crypto/Pub-secure.png" srcset="/img/loading.gif" lazyload alt="Pub-secure" />
+<figcaption aria-hidden="true">Pub-secure</figcaption>
+</figure>
 <p>如果一个公钥加密方案是CPA-secure，它对多消息加密天然也是CPA-secure的.</p>
 <p>此外，定长的CPA-secure加密可以推出任意长的CPA-secure加密(切成定长块，和多消息加密差不多了就).</p>
-<h4 id="CCA">CCA</h4>
+<h4 id="cca">CCA</h4>
 <p>私钥当然是不能给敌手的，因此敌手还是以神谕基的形式调用Dec.</p>
-<p><img src="/image/crypto/CCA-secure.png" srcset="/img/loading.gif" lazyload alt="CCA-secure"></p>
+<figure>
+<img src="/image/crypto/CCA-secure.png" srcset="/img/loading.gif" lazyload alt="CCA-secure" />
+<figcaption aria-hidden="true">CCA-secure</figcaption>
+</figure>
 <p>我们当然也有基于试验的安全性定义.</p>
-<p><img src="/image/crypto/CCA-secure-def.png" srcset="/img/loading.gif" lazyload alt="CCA-secure-def"></p>
-<p>如果一个公钥加密方案是CCA-secure，它对多消息加密天然也是CCA-secure的.但是我们无法将定长CCA安全方案推广到任意长了，因为敌手完全可以打乱顺序进行解密…</p>
+<figure>
+<img src="/image/crypto/CCA-secure-def.png" srcset="/img/loading.gif" lazyload alt="CCA-secure-def" />
+<figcaption aria-hidden="true">CCA-secure-def</figcaption>
+</figure>
+<p>如果一个公钥加密方案是CCA-secure，它对多消息加密天然也是CCA-secure的.但是我们无法将定长CCA安全方案推广到任意长了，因为敌手完全可以打乱顺序进行解密...</p>
 <h3 id="杂交加密">杂交加密</h3>
-<p><img src="/image/crypto/hybrid-encryption.png" srcset="/img/loading.gif" lazyload alt="hybrid-encryption"></p>
+<figure>
+<img src="/image/crypto/hybrid-encryption.png" srcset="/img/loading.gif" lazyload
+alt="hybrid-encryption" />
+<figcaption aria-hidden="true">hybrid-encryption</figcaption>
+</figure>
 <p>KEM: 一个黑盒，输入公钥，为私钥加密生成对应的私钥和私钥密文.</p>
 <p>DEM: 也就是公钥加密.</p>
 <blockquote>
-<p>A key-encapsulation mechanism (KEM) is a public-key primitive that efficiently generates an encryption key for the private-key encryption k and its ciphertext c in a hybrid encryption scheme. Accordingly, the private-key encryption scheme is called a data-encapsulation mechanism (DEM) here.</p>
+<p>A key-encapsulation mechanism (KEM) is a public-key primitive that
+efficiently generates an encryption key for the private-key encryption k
+and its ciphertext c in a hybrid encryption scheme. Accordingly, the
+private-key encryption scheme is called a data-encapsulation mechanism
+(DEM) here.</p>
 </blockquote>
-<p><img src="/image/crypto/KEM-DEM.png" srcset="/img/loading.gif" lazyload alt="KEM-DEM"></p>
-<h3 id="CDH-DDH-Based-Encryption">CDH/DDH-Based Encryption</h3>
+<figure>
+<img src="/image/crypto/KEM-DEM.png" srcset="/img/loading.gif" lazyload alt="KEM-DEM" />
+<figcaption aria-hidden="true">KEM-DEM</figcaption>
+</figure>
+<h3 id="cdhddh-based-encryption">CDH/DDH-Based Encryption</h3>
 <p>The El Gamal encryption scheme is described in the following:</p>
-<p><img src="/image/crypto/El-Gamal-encryption.png" srcset="/img/loading.gif" lazyload alt="El-Gamal-encryption"></p>
+<figure>
+<img src="/image/crypto/El-Gamal-encryption.png" srcset="/img/loading.gif" lazyload
+alt="El-Gamal-encryption" />
+<figcaption aria-hidden="true">El-Gamal-encryption</figcaption>
+</figure>
 <p>安全性：</p>
-<p><img src="/image/crypto/El-Gamal-encryption-secure.png" srcset="/img/loading.gif" lazyload alt="El-Gamal-encryption-secure"></p>
+<figure>
+<img src="/image/crypto/El-Gamal-encryption-secure.png" srcset="/img/loading.gif" lazyload
+alt="El-Gamal-encryption-secure" />
+<figcaption aria-hidden="true">El-Gamal-encryption-secure</figcaption>
+</figure>
 <blockquote>
-<p>构造一个完全随机的 $&lt;g^y,g^z\cdot m$ 来证明.</p>
+<p>构造一个完全随机的 <span class="math inline">\(&lt;g^y,g^z\cdot
+m\)</span> 来证明.</p>
 </blockquote>
-<p>El Gamal encryption 不是CCA安全的！！！具有延展性($&lt;c_1,c_2&gt;,&lt;c_1^2,c_2^2&gt;$).</p>
-<h3 id="RSA">RSA</h3>
-<h4 id="Plain-RSA">Plain RSA</h4>
-<p><img src="/image/crypto/RSA-key-generation.png" srcset="/img/loading.gif" lazyload alt="RSA-key-generation"></p>
-<p><img src="/image/crypto/plain-RSA-encryption-scheme.png" srcset="/img/loading.gif" lazyload alt="plain-RSA-encryption-scheme"></p>
-<p>plainRSA不是CPA安全的.事实上任何确定性的公钥加密算法都不会是CPA安全的！此外，我们无法通过RSA assumption来证明其安全性…</p>
-<h4 id="Padded-RSA">Padded RSA</h4>
-<p><img src="/image/crypto/Padded-RSA.png" srcset="/img/loading.gif" lazyload alt="Padded-RSA"></p>
-<p><img src="/image/crypto/PKCS.png" srcset="/img/loading.gif" lazyload alt="PKCS"></p>
+<p>El Gamal encryption 不是CCA安全的！！！具有延展性(<span
+class="math inline">\(&lt;c_1,c_2&gt;,&lt;c_1^2,c_2^2&gt;\)</span>).</p>
+<h3 id="rsa">RSA</h3>
+<h4 id="plain-rsa">Plain RSA</h4>
+<figure>
+<img src="/image/crypto/RSA-key-generation.png" srcset="/img/loading.gif" lazyload
+alt="RSA-key-generation" />
+<figcaption aria-hidden="true">RSA-key-generation</figcaption>
+</figure>
+<figure>
+<img src="/image/crypto/plain-RSA-encryption-scheme.png" srcset="/img/loading.gif" lazyload
+alt="plain-RSA-encryption-scheme" />
+<figcaption aria-hidden="true">plain-RSA-encryption-scheme</figcaption>
+</figure>
+<p>plainRSA不是CPA安全的.事实上任何确定性的公钥加密算法都不会是CPA安全的！此外，我们无法通过RSA
+assumption来证明其安全性...</p>
+<h4 id="padded-rsa">Padded RSA</h4>
+<figure>
+<img src="/image/crypto/Padded-RSA.png" srcset="/img/loading.gif" lazyload alt="Padded-RSA" />
+<figcaption aria-hidden="true">Padded-RSA</figcaption>
+</figure>
+<figure>
+<img src="/image/crypto/PKCS.png" srcset="/img/loading.gif" lazyload alt="PKCS" />
+<figcaption aria-hidden="true">PKCS</figcaption>
+</figure>
 <h2 id="数字签名机制">数字签名机制</h2>
 <p>TBD</p>
 
